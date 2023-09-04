@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Application.Repositories;
-using LibraryAPI.Domain.Entities.BaseEntity;
+using LibraryAPI.Domain.Entities;
 using LibraryAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,20 +16,30 @@ namespace LibraryAPI.Persistence.Repositories
 
         private readonly DbContext _context;
         private readonly IQueryable<T> _table;
-        public ReadRepository(LibraryContext context)
+        public ReadRepository(DbContext context)
         {
             _context = context;
             _table = _context.Set<T>();
         }
  
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null, bool tracking = true)
         {
-            return filter == null ? _table.AsNoTracking() : _table.AsNoTracking().Where(filter);
+            var query = filter == null  ? _table.AsNoTracking() : _table.AsNoTracking().Where(filter);
+            if (!tracking)
+            {
+              query =  query.AsNoTracking();
+            }
+            return query;
         }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter, bool tracking = true)
         {
-            return await _table.AsNoTrackingWithIdentityResolution().SingleOrDefaultAsync(filter);
+            var query = _table;
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return await query.SingleOrDefaultAsync(filter);
         }
     }
 }

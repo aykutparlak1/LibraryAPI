@@ -42,10 +42,16 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsReturn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -71,6 +77,12 @@ namespace LibraryAPI.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
@@ -94,6 +106,9 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -104,6 +119,9 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.Property<int>("PublisherId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -122,6 +140,12 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("BookId", "AuthorId");
 
@@ -142,6 +166,12 @@ namespace LibraryAPI.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -155,8 +185,14 @@ namespace LibraryAPI.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PublisherName")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -171,6 +207,9 @@ namespace LibraryAPI.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsSub")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -180,6 +219,9 @@ namespace LibraryAPI.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("SubStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatingTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -201,6 +243,9 @@ namespace LibraryAPI.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("HireDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -217,6 +262,9 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -238,6 +286,9 @@ namespace LibraryAPI.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -276,6 +327,9 @@ namespace LibraryAPI.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .IsRequired()

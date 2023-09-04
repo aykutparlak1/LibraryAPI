@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Domain", "LibraryAPI.Domain\LibraryAPI.Domain.csproj", "{C661B56D-AD2F-4965-9596-D576F135EEA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Domain", "LibraryAPI.Domain\LibraryAPI.Domain.csproj", "{C661B56D-AD2F-4965-9596-D576F135EEA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Application", "LibraryAPI.Application\LibraryAPI.Application.csproj", "{75FDCC04-A4CA-4735-9DE6-57A561360143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Application", "LibraryAPI.Application\LibraryAPI.Application.csproj", "{75FDCC04-A4CA-4735-9DE6-57A561360143}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Infrastructure", "LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{EA8DD820-525D-4466-81F9-A67E1B96AA0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Infrastructure", "LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{EA8DD820-525D-4466-81F9-A67E1B96AA0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Persistence", "LibraryAPI.Persistence\LibraryAPI.Persistence.csproj", "{D0523621-6EBF-4C59-B4AA-C837EC0BDA2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Persistence", "LibraryAPI.Persistence\LibraryAPI.Persistence.csproj", "{D0523621-6EBF-4C59-B4AA-C837EC0BDA2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.WebAPI", "LibraryAPI.WebAPI\LibraryAPI.WebAPI.csproj", "{487613C5-8CB5-427F-8C2A-84D3395F0A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.WebAPI", "LibraryAPI.WebAPI\LibraryAPI.WebAPI.csproj", "{487613C5-8CB5-427F-8C2A-84D3395F0A86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Core", "LibraryAPI.Core\LibraryAPI.Core.csproj", "{EC244212-A7BF-4350-938F-D9238EDADD67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{487613C5-8CB5-427F-8C2A-84D3395F0A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{487613C5-8CB5-427F-8C2A-84D3395F0A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{487613C5-8CB5-427F-8C2A-84D3395F0A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC244212-A7BF-4350-938F-D9238EDADD67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC244212-A7BF-4350-938F-D9238EDADD67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC244212-A7BF-4350-938F-D9238EDADD67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC244212-A7BF-4350-938F-D9238EDADD67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

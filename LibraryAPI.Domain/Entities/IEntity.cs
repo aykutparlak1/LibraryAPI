@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Domain.Entities.BaseEntity
+namespace LibraryAPI.Domain.Entities
 {
     public interface IEntity
     {
+        DateTime CreatedTime { get; set; }
+        DateTime UpdatingTime { get; set; }
     }
 }

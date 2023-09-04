@@ -1,5 +1,4 @@
-﻿using LibraryAPI.Domain.Entities.BaseEntity;
-using LibraryAPI.Domain.Entities.BookEntites;
+﻿using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Domain.Entities.UserEntities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Domain.Entities.BarrowEntites
 {
-    public class BarrowedBook : IEntity
+    public class BarrowedBook : BaseEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

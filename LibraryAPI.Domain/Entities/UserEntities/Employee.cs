@@ -1,10 +1,7 @@
 ﻿
-
-using LibraryAPI.Domain.Entities.BaseEntity;
-
 namespace LibraryAPI.Domain.Entities.UserEntities
 {
-    public class Employee : IEntity
+    public class Employee : BaseEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

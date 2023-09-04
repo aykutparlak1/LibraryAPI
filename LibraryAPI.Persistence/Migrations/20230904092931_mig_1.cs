@@ -17,7 +17,9 @@ namespace LibraryAPI.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +32,9 @@ namespace LibraryAPI.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +47,9 @@ namespace LibraryAPI.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PublisherName = table.Column<int>(type: "int", nullable: false)
+                    PublisherName = table.Column<int>(type: "int", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +73,9 @@ namespace LibraryAPI.Persistence.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserType = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,7 +93,9 @@ namespace LibraryAPI.Persistence.Migrations
                     PublisherId = table.Column<int>(type: "int", nullable: false),
                     BookName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfPages = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Shelf Number")
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Shelf Number"),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,7 +123,9 @@ namespace LibraryAPI.Persistence.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     SubStartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     SubEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsSub = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                    IsSub = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,7 +148,9 @@ namespace LibraryAPI.Persistence.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     LeaveTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,7 +173,9 @@ namespace LibraryAPI.Persistence.Migrations
                     BookId = table.Column<int>(type: "int", nullable: false),
                     BarrowStartDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     BarrowEndDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Enter the end date."),
-                    IsReturn = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                    IsReturn = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -183,7 +199,9 @@ namespace LibraryAPI.Persistence.Migrations
                 columns: table => new
                 {
                     BookId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

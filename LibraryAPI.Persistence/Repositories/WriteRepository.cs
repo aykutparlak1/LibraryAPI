@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Application.Repositories;
-using LibraryAPI.Domain.Entities.BaseEntity;
+using LibraryAPI.Domain.Entities;
 using LibraryAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -16,7 +16,7 @@ namespace LibraryAPI.Persistence.Repositories
 
         private readonly DbContext _context;
         private readonly DbSet<T> _table;
-        public WriteRepository(LibraryContext context)
+        public WriteRepository(DbContext context)
         {
             _context = context;
             _table = _context.Set<T>();

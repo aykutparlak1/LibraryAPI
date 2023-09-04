@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Domain.Entities.BaseEntity;
+﻿
+using LibraryAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Repositories
 {
-    public interface IWriteRepository<T> : IRepository<T> where T : class, IEntity, new()
+    public interface IWriteRepository<T> : IRepository<T> where T : class, IEntity , new()
     {
 
         Task<bool> AddAsync(T entity);

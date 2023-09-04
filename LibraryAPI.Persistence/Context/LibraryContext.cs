@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Domain.Entities.BarrowEntites;
+﻿using LibraryAPI.Domain.Entities;
+using LibraryAPI.Domain.Entities.BarrowEntites;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Domain.Entities.UserEntities;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +23,23 @@ namespace LibraryAPI.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
 
-            //modelBuilder.ApplyConfiguration(new AuthorConfiguration());
-            //modelBuilder.ApplyConfiguration(new BarrowedBookConfiguration());
-            //modelBuilder.ApplyConfiguration(new BookAuthorConfiguration());
-            //modelBuilder.ApplyConfiguration(new BookConfiguration());
-            //modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-            //modelBuilder.ApplyConfiguration(new CustomerConfiguration());
-            //modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
-            //modelBuilder.ApplyConfiguration(new PublisherConfiguration());
-            //modelBuilder.ApplyConfiguration(new UserConfiguration());
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
 
+           var datas= ChangeTracker.Entries<IEntity>();
+
+            foreach (var data in datas)
+            {
+                _ = data.State switch
+                {
+                    EntityState.Added => data.Entity.CreatedTime = DateTime.UtcNow,
+                    EntityState.Modified => data.Entity.UpdatingTime = DateTime.UtcNow
+                };
+
+            }
+            return base.SaveChangesAsync(cancellationToken);
         }
 
     }

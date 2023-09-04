@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Domain.Entities.BaseEntity;
+﻿
+using LibraryAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Repositories
 {
-    public interface IReadRepository<T> : IRepository<T> where T : class,IEntity, new()
+    public interface IReadRepository<T> : IRepository<T> where T : class , IEntity , new()
     {
-        IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null);
-        Task<T> GetAsync(Expression<Func<T, bool>> filter);
+        IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null , bool tracking = true);
+        Task<T> GetAsync(Expression<Func<T, bool>> filter, bool tracking = true) ;
     }
 }
