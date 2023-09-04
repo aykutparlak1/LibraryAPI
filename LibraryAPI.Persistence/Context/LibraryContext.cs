@@ -32,7 +32,7 @@ namespace LibraryAPI.Persistence.Context
 
             foreach (var data in datas)
             {
-                _ = data.State switch
+                _ = data.State switch  //  switch statement return type yok o yüzden veri tutmmamıza gerek yok direkt olarak atama yapıyor _ ile veri olmaıgını belirtiyoruz.
                 {
                     EntityState.Added => data.Entity.CreatedTime = DateTime.UtcNow,
                     EntityState.Modified => data.Entity.UpdatingTime = DateTime.UtcNow
