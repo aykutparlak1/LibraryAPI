@@ -1,3 +1,4 @@
+using LibraryAPI.Application.DependencyResolvers;
 using LibraryAPI.Core.Extensions;
 using LibraryAPI.Core.Utilities.IoC;
 using LibraryAPI.Persistence.Context;
@@ -18,7 +19,7 @@ namespace LibraryAPI.WebAPI
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1"))
 
                 );
-            builder.Services.AddDependencyResolvers(new ICoreModule[] { new PersistenceServiceRegistrations() });
+            builder.Services.AddDependencyResolvers(new ICoreModule[] { new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,10 +36,10 @@ namespace LibraryAPI.WebAPI
                 app.UseSwaggerUI();
             }
 
+            app.UseHttpsRedirection();
             //app.UseCors();
             //yukarda belirlediðimiz cors politikasý cagýrýyoruz.
 
-            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
