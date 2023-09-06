@@ -10,6 +10,7 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor
 {
     public class CreateAuthorCommandRequest : IRequest<CreatedAuthorDto>
     {
-        public string AuthorName { get; set; }
+        public string AuthorFirstName { get; set; }
+        public string AuthorLastName { get; set; }
     }
 }

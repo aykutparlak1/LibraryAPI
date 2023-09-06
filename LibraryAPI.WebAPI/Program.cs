@@ -1,4 +1,5 @@
 using LibraryAPI.Application.DependencyResolvers;
+using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Extensions;
 using LibraryAPI.Core.Utilities.IoC;
 using LibraryAPI.Persistence.Context;
@@ -28,21 +29,19 @@ namespace LibraryAPI.WebAPI
 
            // builder.Services.AddCors(options=>options.AddDefaultPolicy(policy=>policy.WithOrigins("domain1","domain2").AllowAnyHeader().AllowAnyMethod())); Herkes eriþebilirr app.UseCors middlewareýný caðýrarak eriþip etkinleþtirmemiz gerekiyor.
             var app = builder.Build();
-
+            app.ConfigureCustomExceptionMiddleware();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             app.UseHttpsRedirection();
             //app.UseCors();
             //yukarda belirlediðimiz cors politikasý cagýrýyoruz.
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

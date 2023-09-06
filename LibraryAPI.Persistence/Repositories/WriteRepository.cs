@@ -21,34 +21,32 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
-        public async Task<T> AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
-            EntityEntry<T> entityEntry = await _table.AddAsync(entity);
+            await _table.AddAsync(entity);
             await SaveAsync();
-            return entityEntry.Entity;
-
         }
 
-        public async Task<bool> AddRangeAsync(List<T> entities)
+        public async Task AddRangeAsync(List<T> entities)
         {
             await _table.AddRangeAsync(entities);
-            return true;
+            await SaveAsync();
         }
 
-        public bool Remove(T entity)
+        public async Task Remove(T entity)
         {
-            EntityEntry<T> entityEntry = _table.Remove(entity);
-            return entityEntry.State == EntityState.Deleted;
+             _table.Remove(entity);
+            await SaveAsync() ;
         }
-        public bool RemoveRange(List<T> entites)
+        public async Task RemoveRange(List<T> entites)
         {
              _table.RemoveRange(entites);
-            return true;
+            await SaveAsync() ;
         }
-        public  bool Update(T entity)
+        public  async Task Update(T entity)
         {
-           EntityEntry<T> entityEntry = _table.Update(entity);
-            return entityEntry.State == EntityState.Modified;
+            _table.Update(entity);
+            await SaveAsync();
         }
 
 

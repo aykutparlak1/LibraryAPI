@@ -1,4 +1,7 @@
-﻿using LibraryAPI.Core.Utilities.IoC;
+﻿using FluentValidation;
+using LibraryAPI.Core.ApplicationPipelines.Validation;
+using LibraryAPI.Core.Utilities.IoC;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,6 +18,10 @@ namespace LibraryAPI.Application.DependencyResolvers
         {
             serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
             serviceCollection.AddMediatR(cfg =>cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+            serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
         }
     }
 }

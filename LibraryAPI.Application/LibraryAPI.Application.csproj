@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
 
@@ -18,9 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AuthorFeatures\Models\" />
-    <Folder Include="Features\AuthorFeatures\Queries\" />
-    <Folder Include="Features\AuthorFeatures\Rules\" />
     <Folder Include="Features\BarrowFeatures\" />
     <Folder Include="Features\BookFeatures\" />
     <Folder Include="Features\CategoryFeatures\" />
