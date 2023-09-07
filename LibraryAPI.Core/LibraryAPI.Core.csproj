@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Aspects\Autofac\" />
+    <Folder Include="Utilities\Security\" />
   </ItemGroup>
 
 </Project>

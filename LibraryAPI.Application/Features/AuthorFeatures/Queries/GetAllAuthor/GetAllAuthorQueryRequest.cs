@@ -1,5 +1,4 @@
 ﻿using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
-using LibraryAPI.Application.Features.AuthorFeatures.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
 {
-    public class GetAllAuthorQueryRequest :IRequest<ObtainedAuthorListModel>
+    public class GetAllAuthorQueryRequest :IRequest<ICollection<ObtainedAuthorDto>>
     {
     }
 }

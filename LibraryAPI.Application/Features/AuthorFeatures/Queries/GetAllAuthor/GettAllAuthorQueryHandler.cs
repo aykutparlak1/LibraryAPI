@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
-using LibraryAPI.Application.Features.AuthorFeatures.Models;
+
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Domain.Entities.BookEntites;
 using MediatR;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
 {
-    public class GettAllAuthorQueryHandler : IRequestHandler<GetAllAuthorQueryRequest, ObtainedAuthorListModel>
+    public class GettAllAuthorQueryHandler : IRequestHandler<GetAllAuthorQueryRequest, ICollection<ObtainedAuthorDto>>
     {
 
         IAuthorReadRepository _authorReadRepository;
@@ -23,10 +23,10 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
             _authorReadRepository = authorReadRepository;
             _mapper = mapper;
         }
-        public async Task<ObtainedAuthorListModel> Handle(GetAllAuthorQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ICollection<ObtainedAuthorDto>> Handle(GetAllAuthorQueryRequest request, CancellationToken cancellationToken)
         {
-           IList<Author> authors =  await _authorReadRepository.GetAll(null,false).ToListAsync();
-            ObtainedAuthorListModel model = _mapper.Map<ObtainedAuthorListModel>(authors);
+            ICollection<Author> authors =  await _authorReadRepository.GetAll(null,false).ToListAsync();
+            ICollection<ObtainedAuthorDto> model = _mapper.Map<ICollection<ObtainedAuthorDto>>(authors);
             return model;
         }
     }

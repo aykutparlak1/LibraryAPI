@@ -16,10 +16,11 @@ namespace LibraryAPI.Application.DependencyResolvers
     {
         public void Load(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
-            serviceCollection.AddMediatR(cfg =>cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            var asm = Assembly.GetExecutingAssembly();
+            serviceCollection.AddAutoMapper(asm);
+            serviceCollection.AddMediatR(cfg =>cfg.RegisterServicesFromAssembly(asm));
 
-            serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            serviceCollection.AddValidatorsFromAssembly(asm);
 
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
         }

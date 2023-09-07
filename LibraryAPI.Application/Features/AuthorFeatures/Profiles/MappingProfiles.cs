@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
+using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
+using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
-using LibraryAPI.Application.Features.AuthorFeatures.Models;
+
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor;
+using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT;
 using LibraryAPI.Domain.Entities.BookEntites;
 using System;
 using System.Collections.Generic;
@@ -19,11 +22,15 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Profiles
             CreateMap<Author,CreatedAuthorDto>().ReverseMap();
             CreateMap<Author,CreateAuthorCommandRequest>().ReverseMap();
 
-            CreateMap<Author,ObtainedAuthorListDto>().ReverseMap();
-            CreateMap<IList<Author>,ObtainedAuthorListModel>().ReverseMap();
+            CreateMap<Author, ObtainedAuthorDto>().ReverseMap();
+
+            
+
+            CreateMap<Author, UpdateAuthorDto>().ReverseMap();
+            CreateMap<Author, UpdateAuthorCommandRequest>().ReverseMap();
 
 
-
+            CreateMap<Author, DeleteAuthorCommandRequest>().ReverseMap();
         }
     }
 }

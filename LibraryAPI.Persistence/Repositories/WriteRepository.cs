@@ -1,13 +1,6 @@
 ﻿using LibraryAPI.Application.Repositories;
 using LibraryAPI.Domain.Entities;
-using LibraryAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Persistence.Repositories
 {
@@ -38,6 +31,15 @@ namespace LibraryAPI.Persistence.Repositories
              _table.Remove(entity);
             await SaveAsync() ;
         }
+
+
+        //public async Task Remove(int id)
+        //{
+            //WE NEED ADD ID TO BASEENTİTY FOR EVERY ENTİTY
+        //    var res = _table.Where(c=>c.Id==id);
+        //    await Remove(res)
+        //}
+
         public async Task RemoveRange(List<T> entites)
         {
              _table.RemoveRange(entites);
