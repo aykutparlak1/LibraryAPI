@@ -1,7 +1,9 @@
 using LibraryAPI.Application.DependencyResolvers;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Core.DependencyResolvers;
 using LibraryAPI.Core.Extensions;
 using LibraryAPI.Core.Utilities.IoC;
+using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Persistence.Context;
 using LibraryAPI.Persistence.DependencyResolvers;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +22,10 @@ namespace LibraryAPI.WebAPI
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1"))
 
                 );
-            builder.Services.AddDependencyResolvers(new ICoreModule[] { new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
+            builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
+
+            var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -18,6 +18,10 @@ namespace LibraryAPI.Persistence.Context
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<User> Users { get; set; }
+
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public LibraryContext(DbContextOptions<LibraryContext> options):base(options){  }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

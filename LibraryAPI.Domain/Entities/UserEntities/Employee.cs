@@ -8,7 +8,7 @@ namespace LibraryAPI.Domain.Entities.UserEntities
         public string? Title { get; set; }
         public DateTime HireDate { get; set; }
         public DateTime? LeaveTime { get; set; }
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
         public User? User { get; set; }
     }
 }

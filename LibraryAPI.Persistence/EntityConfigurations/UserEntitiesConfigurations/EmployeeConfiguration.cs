@@ -14,7 +14,7 @@ namespace LibraryAPI.Persistence.EntityConfigurations.UserEntitiesConfigurations
             builder.Property(p => p.Title).IsRequired();
             builder.Property(p => p.HireDate).IsRequired().HasDefaultValueSql("GETDATE()");
             builder.Property(p => p.LeaveTime).IsRequired(false);
-            builder.Property(p => p.IsActive).IsRequired().HasDefaultValue(1);
+            builder.Property(p => p.IsActive).IsRequired().HasDefaultValue(true);
         }
     }
 }

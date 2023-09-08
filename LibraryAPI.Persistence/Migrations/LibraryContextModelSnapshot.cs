@@ -281,6 +281,29 @@ namespace LibraryAPI.Persistence.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.OperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationClaims");
+                });
+
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -312,13 +335,13 @@ namespace LibraryAPI.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(500)");
 
-                    b.Property<string>("PasswordSalt")
+                    b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(500)");
 
                     b.Property<int?>("PhoneNumber")
                         .HasMaxLength(12)
@@ -347,6 +370,27 @@ namespace LibraryAPI.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.UserOperationClaim", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OperationClaimId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatingTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "OperationClaimId");
+
+                    b.HasIndex("OperationClaimId");
+
+                    b.ToTable("UserOperationClaims");
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BarrowEntites.BarrowedBook", b =>
@@ -428,6 +472,25 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.UserOperationClaim", b =>
+                {
+                    b.HasOne("LibraryAPI.Domain.Entities.UserEntities.OperationClaim", "OperationClaim")
+                        .WithMany("Users")
+                        .HasForeignKey("OperationClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryAPI.Domain.Entities.UserEntities.User", "User")
+                        .WithMany("OperationClaims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OperationClaim");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BookEntites.Author", b =>
                 {
                     b.Navigation("Books");
@@ -450,6 +513,11 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Navigation("Books");
                 });
 
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.OperationClaim", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.User", b =>
                 {
                     b.Navigation("BarrowedBooks");
@@ -457,6 +525,8 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Employee");
+
+                    b.Navigation("OperationClaims");
                 });
 #pragma warning restore 612, 618
         }

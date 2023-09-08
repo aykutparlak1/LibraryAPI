@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LibraryAPI.Application.Features.AuthorFeatures.Rules;
 using LibraryAPI.Core.ApplicationPipelines.Validation;
 using LibraryAPI.Core.Utilities.IoC;
 using MediatR;
@@ -21,6 +22,7 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddMediatR(cfg =>cfg.RegisterServicesFromAssembly(asm));
 
             serviceCollection.AddValidatorsFromAssembly(asm);
+            serviceCollection.AddScoped<AuthorBusinessRules>();
 
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
         }

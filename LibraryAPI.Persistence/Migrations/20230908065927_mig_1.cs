@@ -17,7 +17,8 @@ namespace LibraryAPI.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -39,6 +40,21 @@ namespace LibraryAPI.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OperationClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationClaims", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,8 +86,8 @@ namespace LibraryAPI.Persistence.Migrations
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<int>(type: "int", maxLength: 12, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary", nullable: false),
                     UserType = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -157,6 +173,32 @@ namespace LibraryAPI.Persistence.Migrations
                     table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Employees_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOperationClaims",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    OperationClaimId = table.Column<int>(type: "int", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatingTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOperationClaims", x => new { x.UserId, x.OperationClaimId });
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_OperationClaims_OperationClaimId",
+                        column: x => x.OperationClaimId,
+                        principalTable: "OperationClaims",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -257,6 +299,11 @@ namespace LibraryAPI.Persistence.Migrations
                 table: "Employees",
                 column: "UserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaims_OperationClaimId",
+                table: "UserOperationClaims",
+                column: "OperationClaimId");
         }
 
         /// <inheritdoc />
@@ -275,10 +322,16 @@ namespace LibraryAPI.Persistence.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
+                name: "UserOperationClaims");
+
+            migrationBuilder.DropTable(
                 name: "Authors");
 
             migrationBuilder.DropTable(
                 name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "OperationClaims");
 
             migrationBuilder.DropTable(
                 name: "Users");
