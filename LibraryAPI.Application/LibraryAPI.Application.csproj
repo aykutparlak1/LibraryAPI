@@ -17,14 +17,4 @@
     <ProjectReference Include="..\LibraryAPI.Domain\LibraryAPI.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\BarrowFeatures\" />
-    <Folder Include="Features\BookFeatures\" />
-    <Folder Include="Features\CategoryFeatures\" />
-    <Folder Include="Features\CustomerFeatures\" />
-    <Folder Include="Features\EmployeeFeatures\" />
-    <Folder Include="Features\PublisherFeatures\" />
-    <Folder Include="Features\UserFeatures\" />
-  </ItemGroup>
-
 </Project>

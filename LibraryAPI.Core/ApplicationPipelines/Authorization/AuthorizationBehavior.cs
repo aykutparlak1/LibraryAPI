@@ -24,59 +24,16 @@ namespace LibraryAPI.Core.ApplicationPipelines.Authorization
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             List<string>? roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
-            await Console.Out.WriteLineAsync(request.Roles[1]);
+            foreach (var role in request.Roles)
+            {
+                if (!roleClaims.Contains(role))
+                {
+                    throw new AuthorizationException("Yetkisiz işlem");
+                }
+            }
+        TResponse response = await next();
 
-            TResponse response = await next();
-
-            return response;
-
-
-
-
-
-
-
-
-            //         private string[] _roles;
-            //    private IHttpContextAccessor _httpContextAccessor;
-            //    public SecuredOperation(string roles)
-            //    {
-            //        _roles = roles.Split(',');
-            //        _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
-
-            //    }
-
-            //    protected override void OnBefore(IInvocation invocation)
-            //    {
-            //        var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
-            //        foreach (var role in _roles)
-            //        {
-            //            if (roleClaims.Contains(role))
-            //            {
-            //                return;
-            //            }
-            //        }
-            //        throw new Exception(Messages.AuthorizationDenied);
-            //    }
-            //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return response;
         }
     }
 }

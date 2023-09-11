@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraryAPI.Application.Features.AuthorFeatures.Rules;
+using LibraryAPI.Core.ApplicationPipelines.Authorization;
 using LibraryAPI.Core.ApplicationPipelines.Validation;
 using LibraryAPI.Core.Utilities.IoC;
 using MediatR;
@@ -25,6 +26,7 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddScoped<AuthorBusinessRules>();
 
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
         }
     }
 }
