@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
+using LibraryAPI.Application.Dtos;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Domain.Entities.BookEntites;
 using MediatR;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor
 {
-    public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommandRequest, UpdateAuthorDto>
+    public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommandRequest, CommandAuthorDto>
     {
         private readonly IAuthorWriteRepository _authorWriteRepository;
         private readonly IMapper _mapper;
@@ -22,11 +22,11 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor
             _mapper = mapper;
         }
 
-        public async Task<UpdateAuthorDto> Handle(UpdateAuthorCommandRequest request, CancellationToken cancellationToken)
+        public async Task<CommandAuthorDto> Handle(UpdateAuthorCommandRequest request, CancellationToken cancellationToken)
         {
             Author mapAuthor = _mapper.Map<Author>(request);
             await _authorWriteRepository.Update(mapAuthor);
-            UpdateAuthorDto updtAuthor = _mapper.Map<UpdateAuthorDto>(mapAuthor);
+            CommandAuthorDto updtAuthor = _mapper.Map<CommandAuthorDto>(mapAuthor);
             return updtAuthor;
         }
     }

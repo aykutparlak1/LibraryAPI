@@ -1,11 +1,6 @@
 ﻿using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LibraryAPI.Application.Features.AuthorFeatures.Rules
+namespace LibraryAPI.Application.Rules
 {
     public class AuthorBusinessRules
     {
@@ -15,7 +10,5 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Rules
         {
             _authorReadRepository = authorReadRepository;
         }
-
-
     }
 }

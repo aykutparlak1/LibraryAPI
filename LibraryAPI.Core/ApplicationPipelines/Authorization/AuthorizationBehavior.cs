@@ -28,7 +28,7 @@ namespace LibraryAPI.Core.ApplicationPipelines.Authorization
             {
                 if (!roleClaims.Contains(role))
                 {
-                    throw new AuthorizationException("Yetkisiz işlem");
+                    throw new AuthorizationException("Yetkiniz yok.");
                 }
             }
         TResponse response = await next();

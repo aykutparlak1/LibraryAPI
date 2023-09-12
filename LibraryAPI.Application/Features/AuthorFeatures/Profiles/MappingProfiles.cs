@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using LibraryAPI.Application.Dtos;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
-using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
 
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT;
@@ -19,7 +19,7 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Profiles
     {
        public MappingProfiles()
         {
-            CreateMap<Author,CreatedAuthorDto>().ReverseMap();
+            CreateMap<Author,CommandAuthorDto>().ReverseMap();
             CreateMap<Author,CreateAuthorCommandRequest>().ReverseMap();
 
             CreateMap<Author, ObtainedAuthorDto>().ReverseMap();

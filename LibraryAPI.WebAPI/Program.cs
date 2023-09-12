@@ -3,10 +3,13 @@ using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.DependencyResolvers;
 using LibraryAPI.Core.Extensions;
 using LibraryAPI.Core.Utilities.IoC;
+using LibraryAPI.Core.Utilities.Security.Encryption;
 using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Persistence.Context;
 using LibraryAPI.Persistence.DependencyResolvers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LibraryAPI.WebAPI
 {
@@ -25,6 +28,20 @@ namespace LibraryAPI.WebAPI
             builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
 
             var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                    };
+                });
 
 
             builder.Services.AddControllers();

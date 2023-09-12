@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
+using LibraryAPI.Application.Dtos;
 
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Domain.Entities.BookEntites;

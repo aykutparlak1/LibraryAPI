@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
-using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
+using LibraryAPI.Application.Dtos;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Domain.Entities.BookEntites;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor
 {
-    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommandRequest, CreatedAuthorDto>
+    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommandRequest, CommandAuthorDto>
     {
 
         private readonly IAuthorWriteRepository _authorWriteRepository;
@@ -21,12 +16,12 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor
             _authorWriteRepository = authorWriteRepository;
             _mapper = mapper;
         }
-        async Task<CreatedAuthorDto> IRequestHandler<CreateAuthorCommandRequest, CreatedAuthorDto>.Handle(CreateAuthorCommandRequest request, CancellationToken cancellationToken)
+        async Task<CommandAuthorDto> IRequestHandler<CreateAuthorCommandRequest, CommandAuthorDto>.Handle(CreateAuthorCommandRequest request, CancellationToken cancellationToken)
         {
 
             Author mappedAuthor=_mapper.Map<Author>(request);
             await _authorWriteRepository.AddAsync(mappedAuthor);
-            CreatedAuthorDto createdAuthorDto = _mapper.Map<CreatedAuthorDto>(mappedAuthor);
+            CommandAuthorDto createdAuthorDto = _mapper.Map<CommandAuthorDto>(mappedAuthor);
             return createdAuthorDto;
         }
     }

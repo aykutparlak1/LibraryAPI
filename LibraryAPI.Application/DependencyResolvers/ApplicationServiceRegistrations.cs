@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LibraryAPI.Application.Features.AuthorFeatures.Rules;
+using LibraryAPI.Application.Rules;
 using LibraryAPI.Core.ApplicationPipelines.Authorization;
 using LibraryAPI.Core.ApplicationPipelines.Validation;
 using LibraryAPI.Core.Utilities.IoC;

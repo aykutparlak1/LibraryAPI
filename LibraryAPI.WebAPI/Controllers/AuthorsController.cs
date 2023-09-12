@@ -1,14 +1,10 @@
-﻿using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
+﻿using LibraryAPI.Application.Dtos;
+using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
-using LibraryAPI.Application.Features.AuthorFeatures.Dtos;
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace LibraryAPI.WebAPI.Controllers
 {
@@ -20,7 +16,7 @@ namespace LibraryAPI.WebAPI.Controllers
         [HttpPost("AddAuthors")]
         public async Task<IActionResult> CreateAuthor([FromForm] CreateAuthorCommandRequest createAuthorCommandRequest)
         {
-            CreatedAuthorDto r = await Mediator.Send(createAuthorCommandRequest);
+            CommandAuthorDto r = await Mediator.Send(createAuthorCommandRequest);
             return Ok(r);
         }
         [HttpGet("GetAll")]
