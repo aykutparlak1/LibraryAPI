@@ -8,5 +8,9 @@ namespace LibraryAPI.Application.Dtos.UserDtos
 {
     public interface CreatedUserDto
     {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+
+        public string Email { get; set; }
     }
 }

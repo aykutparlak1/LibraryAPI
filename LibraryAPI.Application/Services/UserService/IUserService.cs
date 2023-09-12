@@ -9,6 +9,6 @@ namespace LibraryAPI.Application.Services.UserService
 {
     public interface IUserService
     {
-        Task<CreatedUserDto> CreateUserAsync();
+        Task<CreatedUserDto> CreateUserAsync(CreateUserDto model);
     }
 }

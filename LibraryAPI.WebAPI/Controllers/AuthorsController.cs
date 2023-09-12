@@ -42,7 +42,7 @@ namespace LibraryAPI.WebAPI.Controllers
         [HttpPost("UpdateAuthor")]
         public async Task<IActionResult> UpdateAuthor([FromForm] UpdateAuthorCommandRequest updateAuthorDto)
         {
-            UpdateAuthorDto r = await Mediator.Send(updateAuthorDto);
+            CommandAuthorDto r = await Mediator.Send(updateAuthorDto);
             return Ok(r);
         }
 
