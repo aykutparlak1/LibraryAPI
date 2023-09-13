@@ -1,4 +1,4 @@
-﻿namespace LibraryAPI.Application.Dtos
+﻿namespace LibraryAPI.Application.Dtos.AuthorDtos
 {
     public class ObtainedAuthorDto
     {

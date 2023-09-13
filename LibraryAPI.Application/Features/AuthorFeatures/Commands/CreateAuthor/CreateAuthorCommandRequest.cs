@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Application.Dtos;
+﻿using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Core.ApplicationPipelines.Authorization;
 using MediatR;
 

@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Application.Dtos;
+﻿using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;

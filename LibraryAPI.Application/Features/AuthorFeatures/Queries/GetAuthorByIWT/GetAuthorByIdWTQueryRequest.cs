@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Application.Dtos;
+﻿using LibraryAPI.Application.Dtos.AuthorDtos;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT

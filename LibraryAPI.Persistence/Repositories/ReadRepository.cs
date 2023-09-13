@@ -21,7 +21,6 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
- 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null, bool tracking = true)
         {
             var query = filter == null  ? _table.AsNoTracking() : _table.AsNoTracking().Where(filter);

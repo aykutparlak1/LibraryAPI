@@ -35,8 +35,8 @@ namespace LibraryAPI.Persistence.Repositories
 
         //public async Task Remove(int id)
         //{
-            //WE NEED ADD ID TO BASEENTİTY FOR EVERY ENTİTY
-        //    var res = _table.Where(c=>c.Id==id);
+        //    WE NEED ADD ID TO BASEENTİTY FOR EVERY ENTİTY
+        //    var res = _table.Where(c => c.Id == id);
         //    await Remove(res)
         //}
 

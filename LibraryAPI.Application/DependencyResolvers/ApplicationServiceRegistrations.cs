@@ -24,6 +24,7 @@ namespace LibraryAPI.Application.DependencyResolvers
 
             serviceCollection.AddValidatorsFromAssembly(asm);
             serviceCollection.AddScoped<AuthorBusinessRules>();
+            serviceCollection.AddScoped<UserBusinessRules>();
 
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
