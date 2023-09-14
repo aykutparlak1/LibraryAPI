@@ -14,13 +14,15 @@ using LibraryAPI.Persistence.Repositories.BookRepositories.CategoryRepositories;
 using LibraryAPI.Persistence.Repositories.BookRepositories.PublisherRepositories;
 using LibraryAPI.Persistence.Repositories.UserRepositories.CustomerRepositories;
 using LibraryAPI.Persistence.Repositories.UserRepositories.EmployeeRepositories;
-using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepositories;
+using LibraryAPI.Persistence.Repositories.UserRepositories.ClaimRepositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepositories;
+using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRepositories;
 
 namespace LibraryAPI.Persistence.DependencyResolvers
 {
@@ -56,6 +58,10 @@ namespace LibraryAPI.Persistence.DependencyResolvers
 
             serviceCollection.AddScoped<IUserReadRepository, UserReadRepository>();
             serviceCollection.AddScoped<IUserWriteRepository, UserWriteRepository>();
+            serviceCollection.AddScoped<IUserOperationClaimReadRepository, UserOperationClaimReadRepository>();
+            serviceCollection.AddScoped<IUserOperationClaimWriteRepository, UserOperationClaimWriteRepository>();
+            //serviceCollection.AddScoped<I, UserOperationClaimWriteRepository>();
+
             #endregion
         }
     }

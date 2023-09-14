@@ -1,4 +1,6 @@
-﻿using LibraryAPI.Application.Dtos.AuthorDtos;
+﻿using LibraryAPI.Application.Dtos.AuthDtos;
+using LibraryAPI.Application.Dtos.AuthorDtos;
+using LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
@@ -27,7 +29,12 @@ namespace LibraryAPI.WebAPI.Controllers
             return Ok(await Mediator.Send(qry));
         }
 
-
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromForm]RegisterUserCommanRequest registerUserCommanRequest)
+        {
+            RegisteredUserDto r = await Mediator.Send(registerUserCommanRequest);
+            return Ok(r);
+        }
         [HttpGet("GetAuthorByIdWT")]
         public async Task<IActionResult> GetAuthorByIdWT(int  id)
         {

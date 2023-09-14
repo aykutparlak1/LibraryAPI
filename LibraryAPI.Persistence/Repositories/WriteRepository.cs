@@ -14,10 +14,11 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await _table.AddAsync(entity);
             await SaveAsync();
+            return entity;
         }
 
         public async Task AddRangeAsync(List<T> entities)

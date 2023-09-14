@@ -25,6 +25,7 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Profiles
             CreateMap<Author, ObtainedAuthorDto>().ReverseMap();
             CreateMap<Author, UpdateAuthorCommandRequest>().ReverseMap();
 
+            //CreateMap<>
 
             CreateMap<Author, DeleteAuthorCommandRequest>().ReverseMap();
         }

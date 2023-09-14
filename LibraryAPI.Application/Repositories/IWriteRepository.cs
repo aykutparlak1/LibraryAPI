@@ -11,7 +11,7 @@ namespace LibraryAPI.Application.Repositories
     public interface IWriteRepository<T> : IRepository<T> where T : class, IEntity , new()
     {
 
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
         Task AddRangeAsync(List<T> entities);
         Task Remove(T entity);
         Task RemoveRange(List<T> entites);

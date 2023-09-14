@@ -1,13 +1,8 @@
 ﻿using LibraryAPI.Application.Repositories;
 using LibraryAPI.Domain.Entities;
-using LibraryAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Persistence.Repositories
 {
@@ -21,22 +16,40 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null, bool tracking = true)
+        public  IQueryable<T> GetAll(Expression<Func<T, bool>>? filter = null, 
+                                    Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                    bool tracking = false)
         {
-            var query = filter == null  ? _table.AsNoTracking() : _table.AsNoTracking().Where(filter);
+            var query = filter == null  ? _table : _table.Where(filter);
             if (!tracking)
             {
               query =  query.AsNoTracking();
             }
+            if (include != null)
+            {
+                query = include(query);
+            }
+            if ( orderBy !=null)
+            {
+                return  orderBy(query);
+            }
             return query;
+            
         }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> filter, bool tracking = true)
+        public async Task<T> GetAsync(Expression<Func<T, bool>>? filter ,
+                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                    bool tracking = false)
         {
             var query = _table;
             if (!tracking)
             {
                 query = query.AsNoTracking();
+            }
+            if (include != null)
+            {
+                query = include(query);
             }
             return await query.SingleOrDefaultAsync(filter);
         }

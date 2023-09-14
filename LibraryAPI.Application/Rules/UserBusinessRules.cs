@@ -23,17 +23,17 @@ namespace LibraryAPI.Application.Rules
         }
         public async Task UserEmailAlreadyExist(string email)
         {
-            var result = await _userReadRepository.GetAsync(x=>x.Email == email, false);
+            var result = await _userReadRepository.GetAsync(x=>x.Email == email);
             if (result != null) throw new BusinessException("User email already exist");
         }
         public async Task UserIdentityNumberAlreadyExist(long indentityNumber)
         {
-            var result = await _userReadRepository.GetAsync(x=>x.IdentityNumber == indentityNumber, false);
+            var result = await _userReadRepository.GetAsync(x=>x.IdentityNumber == indentityNumber);
             if (result != null) throw new BusinessException("User identity number already exist");
         }
         public async Task UserShouldExist(int userId)
         {
-            var result = await _userReadRepository.GetAsync(x=>x.Id==userId,false);
+            var result = await _userReadRepository.GetAsync(x=>x.Id==userId);
             if (result == null) throw new BusinessException("User not found.");
         }
     }

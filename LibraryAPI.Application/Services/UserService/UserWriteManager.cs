@@ -22,23 +22,25 @@ namespace LibraryAPI.Application.Services.UserService
             _userWriteRepository = userWriteRepository;
             _userBusinessRules = userBusinessRules;
         }
-        public async Task CreateUserAsync(CreateUserDto model)
+        public async Task<User> CreateUserAsync(CreateUserDto model)
         {
             await _userBusinessRules.UserEmailAlreadyExist(model.Email);
             await _userBusinessRules.UserIdentityNumberAlreadyExist(model.IdentityNumber);
             byte[] passwordHash;
             byte[] passwordSalt;
             HashingHelper.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
-            await _userWriteRepository.AddAsync(new()
+            User user = await _userWriteRepository.AddAsync(new()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Email,
+                IdentityNumber= model.IdentityNumber,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 BirthDate = model.BirthDate,
             });
+            return user;
         }
 
         public async Task DeleteUserAsync(User user)

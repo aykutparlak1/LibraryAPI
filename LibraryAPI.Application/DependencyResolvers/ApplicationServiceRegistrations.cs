@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
 using LibraryAPI.Application.Rules;
+using LibraryAPI.Application.Services.AuthorService;
+using LibraryAPI.Application.Services.AuthService;
+using LibraryAPI.Application.Services.UserService;
 using LibraryAPI.Core.ApplicationPipelines.Authorization;
 using LibraryAPI.Core.ApplicationPipelines.Validation;
 using LibraryAPI.Core.Utilities.IoC;
@@ -25,6 +28,13 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddValidatorsFromAssembly(asm);
             serviceCollection.AddScoped<AuthorBusinessRules>();
             serviceCollection.AddScoped<UserBusinessRules>();
+
+
+            serviceCollection.AddScoped<IUserReadService,UserReadManager>();
+            serviceCollection.AddScoped<IUserWriteService, UserWriteManager>();
+            serviceCollection.AddScoped<IAuthService, AuthManager>();
+            serviceCollection.AddScoped<IAuthorReadService, AuthorReadManager>();
+            serviceCollection.AddScoped<IAuthorWriteService, AuthorWriteManager>();
 
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));

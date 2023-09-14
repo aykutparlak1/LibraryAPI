@@ -17,7 +17,7 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT
         }
         public async Task<ObtainedAuthorDto> Handle(GetAuthorByIdWTQueryRequest request, CancellationToken cancellationToken)
         {
-            Author res = await _authorReadRepository.GetAsync(p => p.Id == request.Id, true);
+            Author res = await _authorReadRepository.GetAsync(p => p.Id == request.Id);
             ObtainedAuthorDto obtainedAuthorDto = _mapper.Map<ObtainedAuthorDto>(res);
             return obtainedAuthorDto;
         }

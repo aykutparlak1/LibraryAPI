@@ -9,9 +9,8 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
 {
     public class GettAllAuthorQueryHandler : IRequestHandler<GetAllAuthorQueryRequest, ICollection<ObtainedAuthorDto>>
     {
-
-        IAuthorReadRepository _authorReadRepository;
-        IMapper _mapper;
+        private readonly IAuthorReadRepository _authorReadRepository;
+        readonly IMapper _mapper;
         public GettAllAuthorQueryHandler(IAuthorReadRepository authorReadRepository, IMapper mapper) 
         {
             _authorReadRepository = authorReadRepository;
@@ -19,7 +18,7 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
         }
         public async Task<ICollection<ObtainedAuthorDto>> Handle(GetAllAuthorQueryRequest request, CancellationToken cancellationToken)
         {
-            ICollection<Author> authors =  await _authorReadRepository.GetAll(null,false).ToListAsync();
+            ICollection<Author> authors =  await _authorReadRepository.GetAll().ToListAsync();
             ICollection<ObtainedAuthorDto> model = _mapper.Map<ICollection<ObtainedAuthorDto>>(authors);
             return model;
         }

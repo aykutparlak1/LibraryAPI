@@ -10,7 +10,7 @@ namespace LibraryAPI.Application.Services.UserService
 {
     public interface IUserWriteService
     {
-        Task CreateUserAsync(CreateUserDto model);
+        Task<User> CreateUserAsync(CreateUserDto model);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(User user);
     }
