@@ -3,17 +3,13 @@ using LibraryAPI.Application.Dtos.AuthDtos;
 using LibraryAPI.Application.Dtos.UserDtos;
 using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.UserService;
+using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Domain.Entities.UserEntities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
 {
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommanRequest, RegisteredUserDto>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommandRequest, RegisteredUserDto>
     {
         private readonly IUserWriteService _userWriteService;
         private readonly IAuthService _authservice;
@@ -24,12 +20,16 @@ namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
             _authservice = authService;
             _mapper = mapper;
         }
-        public async Task<RegisteredUserDto> Handle(RegisterUserCommanRequest request, CancellationToken cancellationToken)
+        public async Task<RegisteredUserDto> Handle(RegisterUserCommandRequest request, CancellationToken cancellationToken)
         {
             CreateUserDto crtUser = _mapper.Map<CreateUserDto>(request);
             User user = await _userWriteService.CreateUserAsync(crtUser);
-            await _authservice.CreateAccesToken(user);
-            throw new NotImplementedException();
+            AccessToken act = await _authservice.CreateAccesToken(user);
+            RegisteredUserDto registeredDto = new()
+            {
+                AccessToken = act,
+            };
+            return registeredDto;
         }
     }
 }

@@ -2,11 +2,6 @@
 using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Domain.Entities.UserEntities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Services.AuthService
 {
@@ -19,13 +14,14 @@ namespace LibraryAPI.Application.Services.AuthService
              _userOperationClaimReadRepository = userOperationClaimReadRepository;
             _tokenHelper = tokenHelper;
         }
-        public Task<AccessToken> CreateAccesToken(User user)
+        public async Task<AccessToken> CreateAccesToken(User user)
         {
-            IList<UserOperationClaim> userOperationClaims = _userOperationClaimReadRepository.GetAll(u=>u.UserId==user.Id, 
-                include:u=>u.Include(u=>u.OperationClaim)
-                ).ToList();
-            //AccessToken accessToken = _tokenHelper.CreateToken(user , userOperationClaims);
-            throw new NotImplementedException();
+            List<OperationClaim> userOperationClaims = _userOperationClaimReadRepository.GetAll(u => u.UserId == user.Id,
+                include: u => u.Include(u => u.OperationClaim)
+                ).Select(u => new OperationClaim
+                { Id = u.OperationClaim.Id, Name = u.OperationClaim.Name }).ToList();            
+            AccessToken accessToken = _tokenHelper.CreateToken(user , userOperationClaims);
+            return accessToken;
         }
     }
 }

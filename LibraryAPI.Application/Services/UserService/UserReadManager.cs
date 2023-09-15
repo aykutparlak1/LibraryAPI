@@ -32,7 +32,7 @@ namespace LibraryAPI.Application.Services.UserService
         public async Task<User> GetUserByEmail(string email)
         {
             var result = await _userReadRepository.GetAsync(x=>x.Email == email);
-            _userBusinessRules.UserShouldExistWhenRequested(result);
+            //_userBusinessRules.UserShouldExistWhenRequested(result);
             return result;
         }
 

@@ -38,8 +38,8 @@ namespace LibraryAPI.Core.CrossCuttingConcerns.Exceptions
 
             if (exception.GetType() == typeof(ValidationException)) return CreateValidationException(context, exception);
             if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
-            if (exception.GetType() == typeof(AuthorizationException))
-                return CreateAuthorizationException(context, exception);
+            if (exception.GetType() == typeof(AuthorizationException)) return CreateAuthorizationException(context, exception);
+            if (exception.GetType() == typeof(AuthenticationException)) return CreateAuthenticationException(context, exception);
             return CreateInternalException(context, exception);
         }
 
@@ -52,6 +52,20 @@ namespace LibraryAPI.Core.CrossCuttingConcerns.Exceptions
                 Status = StatusCodes.Status401Unauthorized,
                 Type = "https://example.com/probs/authorization",
                 Title = "Authorization exception",
+                Detail = exception.Message,
+                Instance = ""
+            }.ToString());
+        }
+
+        private Task CreateAuthenticationException(HttpContext context, Exception exception)
+        {
+            context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Forbidden);
+
+            return context.Response.WriteAsync(new AuthorizationProblemDetails
+            {
+                Status = StatusCodes.Status403Forbidden,
+                Type = "https://example.com/probs/authorization",
+                Title = "Authentication exception",
                 Detail = exception.Message,
                 Instance = ""
             }.ToString());

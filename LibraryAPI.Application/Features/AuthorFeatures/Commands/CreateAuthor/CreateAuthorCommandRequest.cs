@@ -1,10 +1,11 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Core.ApplicationPipelines.Authorization;
+using LibraryAPI.Core.ApplicationPipelines.Validation;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor
 {
-    public class CreateAuthorCommandRequest: IRequest<CommandAuthorDto> , ISecuredRequest // where T : class , IDto, new()
+    public class CreateAuthorCommandRequest: IRequest<CommandAuthorDto>, IValidateRequest, ISecuredRequest  // where T : class , IDto, new()
     {
 
         readonly string roles;

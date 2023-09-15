@@ -8,6 +8,5 @@ namespace LibraryAPI.Application.Services.UserService
         Task<User> GetUserByUserName(string userName);
         Task<User> GetUserByEmail(string email);
         Task<User> GetUserByIdentityNumber(long identityNumber);
-
     }
 }

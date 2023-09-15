@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Dtos.AuthorDtos;
+using LibraryAPI.Application.Dtos.UserDtos;
+using LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
@@ -13,19 +15,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Application.Features.AuthorFeatures.Profiles
+namespace LibraryAPI.Application.Profiles
 {
     public class MappingProfiles : Profile
     {
-       public MappingProfiles()
+        public MappingProfiles()
         {
-            CreateMap<Author,CommandAuthorDto>().ReverseMap();
-            CreateMap<Author,CreateAuthorCommandRequest>().ReverseMap();
+            CreateMap<Author, CommandAuthorDto>().ReverseMap();
+            CreateMap<Author, CreateAuthorCommandRequest>().ReverseMap();
 
             CreateMap<Author, ObtainedAuthorDto>().ReverseMap();
             CreateMap<Author, UpdateAuthorCommandRequest>().ReverseMap();
 
-            //CreateMap<>
+            CreateMap<CreateUserDto, RegisterUserCommandRequest>().ReverseMap();
+
 
             CreateMap<Author, DeleteAuthorCommandRequest>().ReverseMap();
         }

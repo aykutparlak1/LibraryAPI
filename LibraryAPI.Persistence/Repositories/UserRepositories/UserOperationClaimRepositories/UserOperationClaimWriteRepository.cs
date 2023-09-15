@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepositories;
 using LibraryAPI.Domain.Entities.UserEntities;
+using LibraryAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClai
 {
     public class UserOperationClaimWriteRepository : WriteRepository<UserOperationClaim>, IUserOperationClaimWriteRepository
     {
-        public UserOperationClaimWriteRepository(DbContext context) : base(context)
+        public UserOperationClaimWriteRepository(LibraryContext context) : base(context)
         {
         }
     }

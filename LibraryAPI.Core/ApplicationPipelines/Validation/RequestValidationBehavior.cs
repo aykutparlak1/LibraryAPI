@@ -10,7 +10,7 @@ using MediatR;
 namespace LibraryAPI.Core.ApplicationPipelines.Validation
 {
     public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : IRequest<TResponse> , IValidateRequest
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

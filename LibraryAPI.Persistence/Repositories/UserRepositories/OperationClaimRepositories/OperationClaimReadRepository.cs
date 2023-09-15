@@ -1,6 +1,7 @@
 ﻿using LibraryAPI.Application.Repositories;
 using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepositories;
 using LibraryAPI.Domain.Entities.UserEntities;
+using LibraryAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRep
 {
     public class OperationClaimReadRepository : ReadRepository<OperationClaim>, IOperationClaimReadRepository
     {
-        public OperationClaimReadRepository(DbContext context) : base(context)
+        public OperationClaimReadRepository(LibraryContext context) : base(context)
         {
         }
     }

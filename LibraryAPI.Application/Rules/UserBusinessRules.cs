@@ -26,9 +26,9 @@ namespace LibraryAPI.Application.Rules
             var result = await _userReadRepository.GetAsync(x=>x.Email == email);
             if (result != null) throw new BusinessException("User email already exist");
         }
-        public async Task UserIdentityNumberAlreadyExist(long indentityNumber)
+        public async Task UserIdentityNumberAlreadyExist(long identityNumber)
         {
-            var result = await _userReadRepository.GetAsync(x=>x.IdentityNumber == indentityNumber);
+            var result = await _userReadRepository.GetAsync(x=>x.IdentityNumber == identityNumber);
             if (result != null) throw new BusinessException("User identity number already exist");
         }
         public async Task UserShouldExist(int userId)

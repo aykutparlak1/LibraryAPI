@@ -24,9 +24,9 @@ namespace LibraryAPI.Core.ApplicationPipelines.Authorization
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             List<string>? roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
-            foreach (var role in request.Roles)
+            foreach (var role in roleClaims)
             {
-                if (!roleClaims.Contains(role))
+                if (!request.Roles.Contains(role))
                 {
                     throw new AuthorizationException("Yetkiniz yok.");
                 }

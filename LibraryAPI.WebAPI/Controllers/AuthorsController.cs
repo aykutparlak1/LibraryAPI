@@ -29,12 +29,6 @@ namespace LibraryAPI.WebAPI.Controllers
             return Ok(await Mediator.Send(qry));
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm]RegisterUserCommanRequest registerUserCommanRequest)
-        {
-            RegisteredUserDto r = await Mediator.Send(registerUserCommanRequest);
-            return Ok(r);
-        }
         [HttpGet("GetAuthorByIdWT")]
         public async Task<IActionResult> GetAuthorByIdWT(int  id)
         {
@@ -43,16 +37,12 @@ namespace LibraryAPI.WebAPI.Controllers
             return Ok(qry);
         }
 
-
-
-
         [HttpPost("UpdateAuthor")]
         public async Task<IActionResult> UpdateAuthor([FromForm] UpdateAuthorCommandRequest updateAuthorDto)
         {
             CommandAuthorDto r = await Mediator.Send(updateAuthorDto);
             return Ok(r);
         }
-
 
         [HttpPost("RemoveAuthor")]
         public async Task<IActionResult> RemoveAuthor([FromForm] int id)

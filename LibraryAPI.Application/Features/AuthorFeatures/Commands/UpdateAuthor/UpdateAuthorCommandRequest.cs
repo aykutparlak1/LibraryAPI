@@ -1,4 +1,5 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
+using LibraryAPI.Core.ApplicationPipelines.Validation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor
 {
-    public class UpdateAuthorCommandRequest : IRequest<CommandAuthorDto>
+    public class UpdateAuthorCommandRequest : IRequest<CommandAuthorDto> , IValidateRequest
     {
         public int Id { get; set; }
 

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Persistence.Repositories.UserRepositories.ClaimRepositories
+namespace LibraryAPI.Persistence.Repositories.UserRepositories.UserRepositories
 {
     public class UserWriteRepository : WriteRepository<User>, IUserWriteRepository
     {
