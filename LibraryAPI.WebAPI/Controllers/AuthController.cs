@@ -1,9 +1,6 @@
 ﻿using LibraryAPI.Application.Dtos.AuthDtos;
-using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Application.Features.AuthFeatures.Commands.LoginUser;
 using LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser;
-using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.WebAPI.Controllers

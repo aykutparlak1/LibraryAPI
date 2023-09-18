@@ -1,11 +1,6 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
-using LibraryAPI.Core.ApplicationPipelines.Validation;
+using LibraryAPI.Application.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor
 {

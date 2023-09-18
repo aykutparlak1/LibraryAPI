@@ -1,5 +1,5 @@
-﻿using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Domain.Entities.BookEntites;
 
 namespace LibraryAPI.Application.Rules

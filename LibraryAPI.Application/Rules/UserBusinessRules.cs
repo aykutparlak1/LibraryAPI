@@ -1,11 +1,6 @@
-﻿using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
-using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
 using LibraryAPI.Domain.Entities.UserEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Rules
 {

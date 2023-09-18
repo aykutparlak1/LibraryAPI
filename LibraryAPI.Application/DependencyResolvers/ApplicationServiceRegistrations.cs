@@ -1,19 +1,12 @@
-﻿using FluentValidation;
+﻿using Core.Utilities.IoC;
+using FluentValidation;
 using LibraryAPI.Application.Rules;
 using LibraryAPI.Application.Services.AuthorService;
 using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.UserService;
-using LibraryAPI.Core.ApplicationPipelines.Authorization;
-using LibraryAPI.Core.ApplicationPipelines.Validation;
-using LibraryAPI.Core.Utilities.IoC;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.DependencyResolvers
 {
@@ -35,9 +28,6 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddScoped<IAuthService, AuthManager>();
             serviceCollection.AddScoped<IAuthorReadService, AuthorReadManager>();
             serviceCollection.AddScoped<IAuthorWriteService, AuthorWriteManager>();
-
-            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
         }
     }
 }

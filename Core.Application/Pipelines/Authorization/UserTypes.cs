@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Core.ApplicationPipelines.Validation
+namespace Core.Application.Pipelines.Authorization
 {
-    public interface IValidateRequest
+    public enum UserTypes
     {
+        User,
+        Employee,
+        Manager
     }
 }

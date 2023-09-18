@@ -1,10 +1,10 @@
-﻿using LibraryAPI.Application.Dtos.AuthDtos;
+﻿using Core.Utilities.Security.Hashing;
+using Core.Utilities.Security.JWT;
+using LibraryAPI.Application.Dtos.AuthDtos;
 using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.UserService;
-using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Core.Utilities.Security.Hashing;
-using LibraryAPI.Core.Utilities.Security.JWT;
 using MediatR;
+using System.Security.Authentication;
 
 namespace LibraryAPI.Application.Features.AuthFeatures.Commands.LoginUser
 {

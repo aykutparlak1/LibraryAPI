@@ -1,6 +1,4 @@
-﻿using LibraryAPI.Application.Dtos.AuthDtos;
-using LibraryAPI.Application.Dtos.AuthorDtos;
-using LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser;
+﻿using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;

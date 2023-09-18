@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Core.ApplicationPipelines.Validation;
+﻿using LibraryAPI.Application.Interfaces;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor

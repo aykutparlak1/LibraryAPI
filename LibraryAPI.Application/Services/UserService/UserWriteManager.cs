@@ -1,14 +1,8 @@
-﻿using LibraryAPI.Application.Dtos.UserDtos;
+﻿using Core.Utilities.Security.Hashing;
+using LibraryAPI.Application.Dtos.UserDtos;
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
 using LibraryAPI.Application.Rules;
-using LibraryAPI.Core.Utilities.Security.Hashing;
 using LibraryAPI.Domain.Entities.UserEntities;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Services.UserService
 {

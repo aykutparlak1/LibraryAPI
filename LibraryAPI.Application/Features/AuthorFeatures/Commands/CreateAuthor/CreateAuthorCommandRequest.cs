@@ -1,6 +1,5 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
-using LibraryAPI.Core.ApplicationPipelines.Authorization;
-using LibraryAPI.Core.ApplicationPipelines.Validation;
+using LibraryAPI.Application.Interfaces;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor

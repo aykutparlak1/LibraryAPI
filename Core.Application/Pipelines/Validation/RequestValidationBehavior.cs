@@ -1,13 +1,9 @@
-﻿using FluentValidation.Results;
-using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using LibraryAPI.Application.Interfaces;
 using MediatR;
 
-namespace LibraryAPI.Core.ApplicationPipelines.Validation
+namespace Core.Pipelines.Validation
 {
     public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse> , IValidateRequest

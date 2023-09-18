@@ -1,10 +1,5 @@
-﻿using LibraryAPI.Application.Interfaces;
-using LibraryAPI.Core.Utilities.Security.JWT;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Utilities.Security.JWT;
+using LibraryAPI.Application.Interfaces;
 
 namespace LibraryAPI.Application.Dtos.AuthDtos
 {

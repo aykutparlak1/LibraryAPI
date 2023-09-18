@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Application.Dtos.AuthDtos;
-using LibraryAPI.Core.ApplicationPipelines.Validation;
+using LibraryAPI.Application.Interfaces;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser

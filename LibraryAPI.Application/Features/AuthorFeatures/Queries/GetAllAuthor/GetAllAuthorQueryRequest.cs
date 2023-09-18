@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
-using LibraryAPI.Core.ApplicationPipelines.Authorization;
+using LibraryAPI.Application.Interfaces;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor

@@ -6,7 +6,6 @@ using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepositories
 using LibraryAPI.Application.Repositories.UserRepositories.CustomerRepositories;
 using LibraryAPI.Application.Repositories.UserRepositories.EmployeeRepositories;
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
-using LibraryAPI.Core.Utilities.IoC;
 using LibraryAPI.Persistence.Repositories.BarrowRepositories;
 using LibraryAPI.Persistence.Repositories.BookRepositories.AuthorRepositories;
 using LibraryAPI.Persistence.Repositories.BookRepositories.BookRepositories;
@@ -20,6 +19,7 @@ using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRep
 using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepositories;
 using LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRepositories;
 using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepositories;
+using Core.Utilities.IoC;
 
 namespace LibraryAPI.Persistence.DependencyResolvers
 {

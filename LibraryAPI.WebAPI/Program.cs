@@ -1,10 +1,9 @@
+using Core.Application.DependencyResolvers;
+using Core.Utilities.Extensions;
+using Core.Utilities.IoC;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
 using LibraryAPI.Application.DependencyResolvers;
-using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Core.DependencyResolvers;
-using LibraryAPI.Core.Extensions;
-using LibraryAPI.Core.Utilities.IoC;
-using LibraryAPI.Core.Utilities.Security.Encryption;
-using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Persistence.Context;
 using LibraryAPI.Persistence.DependencyResolvers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,7 +24,7 @@ namespace LibraryAPI.WebAPI
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1"))
 
                 );
-            builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
+            builder.Services.AddDependencyResolvers(new ICoreModule[] {new CoreServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
 
             var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

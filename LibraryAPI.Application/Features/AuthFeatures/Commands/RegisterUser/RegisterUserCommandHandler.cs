@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Core.Utilities.Security.JWT;
 using LibraryAPI.Application.Dtos.AuthDtos;
 using LibraryAPI.Application.Dtos.UserDtos;
 using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.UserService;
-using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Domain.Entities.UserEntities;
 using MediatR;
 
