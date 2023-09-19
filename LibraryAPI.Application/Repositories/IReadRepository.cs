@@ -16,8 +16,12 @@ namespace LibraryAPI.Application.Repositories
                                     Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
                                     bool tracking = false);
-        Task<T> GetAsync(Expression<Func<T, bool>>? filter = null,
+        Task<T> GetAsync(Expression<Func<T, bool>>? filter ,
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                    bool tracking = false) ;
+                                    bool tracking = false);
+
+        IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter ,
+                            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                            bool tracking = false);
     }
 }

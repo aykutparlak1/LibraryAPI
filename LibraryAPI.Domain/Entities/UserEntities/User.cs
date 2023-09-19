@@ -25,7 +25,7 @@ namespace LibraryAPI.Domain.Entities.UserEntities
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public bool UserType { get; set; } // default olarak customer olarak kayıt olcak // false is customer
+        public string UserType { get; set; } // default olarak customer olarak kayıt olcak // false is customer
         public bool? Status { get; set; } // default 1
         public Customer? Customer { get; set; }
         public Employee? Employee { get; set; }

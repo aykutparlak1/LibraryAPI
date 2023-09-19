@@ -1,4 +1,5 @@
 using Core.Application.DependencyResolvers;
+using Core.Utilities.DependencyResolvers;
 using Core.Utilities.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
@@ -24,8 +25,8 @@ namespace LibraryAPI.WebAPI
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1"))
 
                 );
-            builder.Services.AddDependencyResolvers(new ICoreModule[] {new CoreServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
-
+            builder.Services.AddDependencyResolvers(new ICoreModule[] {new CoreApplicationServiceRegistrations(),new CoreUtilitiesServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
+            builder.Services.AddHttpContextAccessor();
             var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

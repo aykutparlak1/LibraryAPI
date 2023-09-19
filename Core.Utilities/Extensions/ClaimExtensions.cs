@@ -21,9 +21,9 @@ namespace Core.Utilities.Extensions
         }
 
 
-        public static void AddRoles(this ICollection<Claim> claims, string[] roles)
+        public static void AddRoles(this ICollection<Claim> claims, string userType)
         {
-            roles.ToList().ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role)));
+             claims.Add(new Claim(ClaimTypes.Role, userType));
         }
     }
 }

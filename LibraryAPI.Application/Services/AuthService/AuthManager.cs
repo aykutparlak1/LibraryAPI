@@ -16,7 +16,7 @@ namespace LibraryAPI.Application.Services.AuthService
         }
         public async Task<AccessToken> CreateAccesToken(User user)
         {
-            var res = _userOperationClaimReadRepository.GetAsync(x=>x.);
+            //var res = _userOperationClaimReadRepository.GetAsync(x=>x.);
             AccessToken accessToken = _tokenHelper.CreateToken(user);
             return accessToken;
         }

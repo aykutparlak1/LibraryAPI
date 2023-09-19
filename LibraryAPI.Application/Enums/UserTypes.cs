@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Application.Pipelines.Authorization
+namespace LibraryAPI.Application.Enums
 {
     public enum UserTypes
     {
-        User,
+        User = 0,
         Employee,
         Manager
     }

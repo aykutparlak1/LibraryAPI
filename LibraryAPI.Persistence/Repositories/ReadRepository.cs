@@ -53,5 +53,19 @@ namespace LibraryAPI.Persistence.Repositories
             }
             return await query.SingleOrDefaultAsync(filter);
         }
+
+        public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool tracking = false)
+        {
+            var query = _table.Where(filter);
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            if (include != null)
+            {
+                query = include(query);
+            }
+            return query;
+        }
     }
 }
