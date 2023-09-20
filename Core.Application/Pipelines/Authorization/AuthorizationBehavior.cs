@@ -35,15 +35,6 @@ namespace Core.Pipelines.Authorization
                 {
                     throw new AuthorizationException("Yetkiniz yok.");
                 }
-                //List<OperationClaim> userOperationClaims = _userOperationClaimReadRepository.GetAll(u => u.UserId == UId,include: u => u.Include(u => u.OperationClaim))
-                //    .Select(u => new OperationClaim { Id = u.OperationClaim.Id, Name = u.OperationClaim.Name }).ToList();
-                //foreach (var role in userOperationClaims)
-                //{
-                //    if (!request.Roles.Contains(role.Name))
-                //    {
-                //        throw new AuthorizationException("Yetkiniz yok.");
-                //    }
-                //}
             }
         TResponse response = await next();
         return response;

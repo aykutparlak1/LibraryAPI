@@ -14,14 +14,14 @@ namespace LibraryAPI.Application.Repositories
     {
         IQueryable<T> GetAll(Expression<Func<T, bool>>? filter = null,
                                     Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null
+                                    );
+        Task<T> GetAsync(Expression<Func<T, bool>>? filter,
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                    bool tracking = false);
-        Task<T> GetAsync(Expression<Func<T, bool>>? filter ,
-                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                    bool tracking = false);
+                                    bool AsNotrackingWithIdentityResolution = false);
 
-        IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter ,
-                            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                            bool tracking = false);
+        IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter,
+                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                    bool AsNotrackingWithIdentityResolution = false);
     }
 }

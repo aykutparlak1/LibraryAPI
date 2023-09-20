@@ -22,7 +22,7 @@ namespace LibraryAPI.WebAPI
 
             // Configure connection string
             builder.Services.AddDbContext<LibraryContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1"))
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1")) //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution)
 
                 );
             builder.Services.AddDependencyResolvers(new ICoreModule[] {new CoreApplicationServiceRegistrations(),new CoreUtilitiesServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});

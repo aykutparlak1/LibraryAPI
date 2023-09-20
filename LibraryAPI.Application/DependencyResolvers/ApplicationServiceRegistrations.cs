@@ -19,6 +19,8 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddMediatR(cfg =>cfg.RegisterServicesFromAssembly(asm));
 
             serviceCollection.AddValidatorsFromAssembly(asm);
+
+
             serviceCollection.AddScoped<AuthorBusinessRules>();
             serviceCollection.AddScoped<UserBusinessRules>();
 

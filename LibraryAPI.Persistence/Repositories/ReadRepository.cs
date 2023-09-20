@@ -18,14 +18,9 @@ namespace LibraryAPI.Persistence.Repositories
         }
         public  IQueryable<T> GetAll(Expression<Func<T, bool>>? filter = null, 
                                     Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                    bool tracking = false)
+                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
         {
             var query = filter == null  ? _table : _table.Where(filter);
-            if (!tracking)
-            {
-              query =  query.AsNoTracking();
-            }
             if (include != null)
             {
                 query = include(query);
@@ -40,12 +35,12 @@ namespace LibraryAPI.Persistence.Repositories
 
         public async Task<T> GetAsync(Expression<Func<T, bool>>? filter ,
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                    bool tracking = false)
+                                    bool AsNotrackingWithIdentityResolution = false)
         {
             var query = _table;
-            if (!tracking)
+            if (AsNotrackingWithIdentityResolution)
             {
-                query = query.AsNoTracking();
+                query = query.AsNoTrackingWithIdentityResolution();
             }
             if (include != null)
             {
@@ -54,12 +49,12 @@ namespace LibraryAPI.Persistence.Repositories
             return await query.SingleOrDefaultAsync(filter);
         }
 
-        public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool tracking = false)
+        public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,  bool AsNotrackingWithIdentityResolution = false)
         {
             var query = _table.Where(filter);
-            if (!tracking)
+            if (AsNotrackingWithIdentityResolution)
             {
-                query = query.AsNoTracking();
+                query = query.AsNoTrackingWithIdentityResolution();
             }
             if (include != null)
             {

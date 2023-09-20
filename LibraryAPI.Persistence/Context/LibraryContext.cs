@@ -22,7 +22,9 @@ namespace LibraryAPI.Persistence.Context
         public DbSet<OperationClaim> OperationClaims { get; set; }
 
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-        public LibraryContext(DbContextOptions<LibraryContext> options):base(options){  }
+        public LibraryContext(DbContextOptions<LibraryContext> options):base(options)
+        { 
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
