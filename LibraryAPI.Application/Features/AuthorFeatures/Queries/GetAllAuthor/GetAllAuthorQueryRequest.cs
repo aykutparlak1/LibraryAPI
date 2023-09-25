@@ -1,18 +1,23 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
-using LibraryAPI.Application.Enums;
 using LibraryAPI.Application.Interfaces;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
 {
-    public class GetAllAuthorQueryRequest : IRequest<ICollection<ObtainedAuthorDto>>, ISecuredRequest
+    public class GetAllAuthorQueryRequest : IRequest<ICollection<ObtainedAuthorDto>>, ISecuredRequest, ICachableRequest
     {
         readonly string roles;
         public GetAllAuthorQueryRequest()
         {
-            roles = $"GettAllAuthor,{(int)UserTypes.User},{(int)UserTypes.Employee},{(int)UserTypes.Manager}";
+            roles = $"GettAllAuthor";
         }
         //= "GettAllAuthor,Admin";
-        public string[] Roles => roles.Split(',');
+        public string Roles => roles;
+
+        public string CacheKey => throw new NotImplementedException();
+
+        public TimeSpan? SlidingExpiration => throw new NotImplementedException();
+
+        public int Duration => throw new NotImplementedException();
     }
 }

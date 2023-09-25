@@ -19,11 +19,5 @@ namespace Core.Utilities.Extensions
         {
             claims.Add(new Claim(ClaimTypes.NameIdentifier, nameIdentifier));
         }
-
-
-        public static void AddRoles(this ICollection<Claim> claims, string userType)
-        {
-             claims.Add(new Claim(ClaimTypes.Role, userType));
-        }
     }
 }

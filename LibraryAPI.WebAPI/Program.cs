@@ -42,7 +42,7 @@ namespace LibraryAPI.WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-
+            builder.Services.AddStackExchangeRedisCache(opt=>opt.Configuration=builder.Configuration.GetConnectionString("Redis"));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
