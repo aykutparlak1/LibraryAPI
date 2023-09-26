@@ -1,4 +1,5 @@
-﻿using Core.Pipelines.Authorization;
+﻿using Core.Application.Pipelines.Caching;
+using Core.Pipelines.Authorization;
 using Core.Pipelines.Validation;
 using Core.Utilities.IoC;
 using MediatR;
@@ -19,6 +20,7 @@ namespace Core.Application.DependencyResolvers
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
+            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
         }
     }
 }

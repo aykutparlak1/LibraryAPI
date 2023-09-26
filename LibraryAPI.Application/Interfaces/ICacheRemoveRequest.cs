@@ -8,6 +8,7 @@ namespace LibraryAPI.Application.Interfaces
 {
     public interface ICacheRemoveRequest
     {
+       string CacheGroup { get; } 
        string CacheKey { get; }
     }
 }

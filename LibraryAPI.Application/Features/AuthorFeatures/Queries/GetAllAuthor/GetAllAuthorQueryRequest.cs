@@ -6,18 +6,21 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
 {
     public class GetAllAuthorQueryRequest : IRequest<ICollection<ObtainedAuthorDto>>, ISecuredRequest, ICachableRequest
     {
-        readonly string roles;
+        readonly string role;
+        readonly string key;
+        readonly string cacheGroup;
         public GetAllAuthorQueryRequest()
         {
-            roles = $"GettAllAuthor";
+            role = "GettAllAuthor";
+            key = "GetAllAuthorQuery";
+            cacheGroup = "AuthorQuery";
         }
         //= "GettAllAuthor,Admin";
-        public string Roles => roles;
+        public string Roles => role;
+        public string CacheKey => key;
+        public string CacheGroup => cacheGroup;
 
-        public string CacheKey => throw new NotImplementedException();
 
-        public TimeSpan? SlidingExpiration => throw new NotImplementedException();
-
-        public int Duration => throw new NotImplementedException();
+        public TimeSpan? SlidingExpiration => null;
     }
 }

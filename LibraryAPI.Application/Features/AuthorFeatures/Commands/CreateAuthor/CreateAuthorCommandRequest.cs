@@ -1,19 +1,20 @@
 ﻿using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Application.Interfaces;
 using MediatR;
+using System.Data;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor
 {
     public class CreateAuthorCommandRequest: IRequest<CommandAuthorDto>, IValidateRequest, ISecuredRequest  // where T : class , IDto, new()
     {
 
-        readonly string roles;
+        readonly string role;
         public CreateAuthorCommandRequest()
         {
-            roles = "CreateAuthor,Admin";
+            role = "CreateAuthor";
         }
 
-        public string[] Roles => roles.Split(',');
+        public string Roles => role;
 
         //public T Dto { get; set; }
         public string AuthorFirstName { get; set; }

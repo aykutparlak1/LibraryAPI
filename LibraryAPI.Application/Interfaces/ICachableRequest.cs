@@ -2,7 +2,8 @@
 {
     public interface ICachableRequest
     {
+        string CacheGroup { get; }
         string CacheKey { get; }
-        int  Duration{ get; }
+        TimeSpan? SlidingExpiration { get; }
     }
 }

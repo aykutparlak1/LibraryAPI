@@ -1,7 +1,6 @@
-﻿using Core.CrossCuttingConcerns.Caching;
+﻿using Core.Utilities.Caching;
 using LibraryAPI.Application.Interfaces;
 using MediatR;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 
 namespace Core.Application.Pipelines.Caching
@@ -9,19 +8,28 @@ namespace Core.Application.Pipelines.Caching
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>, ICachableRequest
     {
-
-        private readonly IDistributedCache _cache;
-        private readonly CacheSettings _cacheSettings;
-
-        public CachingBehavior(IDistributedCache cache, IConfiguration configuration)
+        private readonly ICacheService _cacheService;
+        public CachingBehavior(ICacheService cacheService)
         {
-            _cache = cache;
-            _cacheSettings = configuration.GetSection("CacheSettings").Get<CacheSettings>() ?? throw new InvalidOperationException();
+            _cacheService = cacheService;
         }
-
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            TResponse response;
+            var result = await _cacheService.GetAsync<TResponse>(request.CacheKey, cancellationToken);
+            if(result != null)
+            {
+                response = result;
+            }
+            else
+            {
+                response = (TResponse?)await _cacheService.Add(request.CacheKey, next, request.SlidingExpiration, cancellationToken);
+            }
+            if(request.CacheGroup != null)
+            {
+                _ = _cacheService.AddCacheKeyToGroup(request.CacheKey, request.CacheGroup, request.SlidingExpiration, cancellationToken);
+            }
+            return response;
         }
     }
 }
