@@ -37,7 +37,7 @@ namespace LibraryAPI.Persistence.Repositories
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
                                     bool AsNotrackingWithIdentityResolution = false)
         {
-            var query = _table;
+            var query = _table.AsQueryable();
             if (AsNotrackingWithIdentityResolution)
             {
                 query = query.AsNoTrackingWithIdentityResolution();
@@ -46,7 +46,7 @@ namespace LibraryAPI.Persistence.Repositories
             {
                 query = include(query);
             }
-            return await query.SingleOrDefaultAsync(filter);
+            return await query.FirstOrDefaultAsync(filter);
         }
 
         public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,  bool AsNotrackingWithIdentityResolution = false)

@@ -8,9 +8,11 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor
     public class DeleteAuthorCommandHandler : IRequestHandler<DeleteAuthorCommandRequest>
     {
         private readonly IAuthorWriteRepository _authorWriteRepository;
+        private readonly IAuthorReadRepository _authorReadRepository;
         private readonly IMapper _mapper;
-        public DeleteAuthorCommandHandler(IAuthorWriteRepository authorWriteRepository, IMapper mapper)
+        public DeleteAuthorCommandHandler(IAuthorWriteRepository authorWriteRepository,IAuthorReadRepository authorReadRepository ,IMapper mapper)
         {
+            _authorReadRepository = authorReadRepository;
             _authorWriteRepository = authorWriteRepository; 
             _mapper = mapper;
         }
@@ -18,8 +20,8 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor
 
         public async Task Handle(DeleteAuthorCommandRequest request, CancellationToken cancellationToken)
         {
-
-            Author deltAuthor = _mapper.Map<Author>(request);
+            var res = _authorReadRepository.GetAsync(x => x.Id == request.Id);
+            Author deltAuthor = _mapper.Map<Author>(res.Result);
             await _authorWriteRepository.Remove(deltAuthor);
         }
     }

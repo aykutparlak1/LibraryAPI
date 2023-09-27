@@ -21,6 +21,7 @@ namespace Core.Application.DependencyResolvers
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
             serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingRemoveBehavior<,>));
         }
     }
 }

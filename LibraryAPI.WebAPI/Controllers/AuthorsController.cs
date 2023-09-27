@@ -44,10 +44,9 @@ namespace LibraryAPI.WebAPI.Controllers
         }
 
         [HttpPost("RemoveAuthor")]
-        public async Task<IActionResult> RemoveAuthor([FromForm] int id)
+        public async Task<IActionResult> RemoveAuthor(DeleteAuthorCommandRequest deleteAuthorCommandRequest)
         {
-            var qrrt = new DeleteAuthorCommandRequest(id);
-             await Mediator.Send(qrrt);
+             await Mediator.Send(deleteAuthorCommandRequest);
             return Ok("Deleted");
         }
     }

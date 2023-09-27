@@ -16,18 +16,17 @@ namespace Core.Application.Pipelines.Caching
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             TResponse response;
-            var result = await _cacheService.GetAsync<TResponse>(request.CacheKey, cancellationToken);
+            TResponse result = await _cacheService.GetAsync<TResponse>(request.CacheKey, cancellationToken);
             if(result != null)
             {
                 response = result;
             }
             else
             {
-                response = (TResponse?)await _cacheService.Add(request.CacheKey, next, request.SlidingExpiration, cancellationToken);
-            }
-            if(request.CacheGroup != null)
-            {
-                _ = _cacheService.AddCacheKeyToGroup(request.CacheKey, request.CacheGroup, request.SlidingExpiration, cancellationToken);
+                response = await next();
+                response = (TResponse?)await _cacheService.Add(key: request.CacheKey, value: response, duration: request.SlidingExpiration, cancellationToken: cancellationToken);
+                await _cacheService.AddCacheKeyToGroup(request.CacheKey, request.CacheGroup, request.SlidingExpiration, cancellationToken);
+        
             }
             return response;
         }

@@ -3,13 +3,11 @@ using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor
 {
-    public class DeleteAuthorCommandRequest : IRequest , IValidateRequest
+    public class DeleteAuthorCommandRequest : IRequest , IValidateRequest , ICacheRemoveRequest
     {
         public int Id { get; set; }
 
-        public DeleteAuthorCommandRequest(int id) 
-        {
-            Id = id;
-        }
+        public string CacheGroup => "AuthorQuery";
+
     }
 }
