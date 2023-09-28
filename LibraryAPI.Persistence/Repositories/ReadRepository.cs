@@ -21,6 +21,7 @@ namespace LibraryAPI.Persistence.Repositories
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
         {
             var query = filter == null  ? _table : _table.Where(filter);
+            query.AsNoTracking();
             if (include != null)
             {
                 query = include(query);

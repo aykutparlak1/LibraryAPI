@@ -7,8 +7,10 @@ using Core.Utilities.Security.JWT;
 using LibraryAPI.Application.DependencyResolvers;
 using LibraryAPI.Persistence.Context;
 using LibraryAPI.Persistence.DependencyResolvers;
+using LibraryAPI.Persistence.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LibraryAPI.WebAPI
@@ -18,12 +20,12 @@ namespace LibraryAPI.WebAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            
 
             // Configure connection string
-            builder.Services.AddDbContext<LibraryContext>(
+            builder.Services.AddDbContextPool<LibraryContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1")) //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution)
-
+                
                 );
             builder.Services.AddDependencyResolvers(new ICoreModule[] {new CoreApplicationServiceRegistrations(),new CoreUtilitiesServiceRegistrations(), new PersistenceServiceRegistrations() ,new ApplicationServiceRegistrations()});
             builder.Services.AddHttpContextAccessor();
@@ -64,9 +66,11 @@ namespace LibraryAPI.WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.MapControllers();
 
+
+
+            app.MigrationDatabase();
             app.Run();
         }
     }

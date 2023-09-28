@@ -24,7 +24,7 @@ namespace Core.Application.Pipelines.Transaction
             catch (Exception)
             {
                 transactionScope.Dispose();
-                throw;
+                throw new Exception("İşlem Başarısız.");
             }
             return response;
         }

@@ -11,11 +11,12 @@ namespace LibraryAPI.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class AuthorsController : BaseController
     {
 
         [HttpPost("AddAuthors")]
-        public async Task<IActionResult> CreateAuthor([FromForm] CreateAuthorCommandRequest createAuthorCommandRequest)
+        public async Task<IActionResult> CreateAuthor(CreateAuthorCommandRequest createAuthorCommandRequest)
         {
             CommandAuthorDto r = await Mediator.Send(createAuthorCommandRequest);
             return Ok(r);

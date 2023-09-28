@@ -23,6 +23,7 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor
             var res = _authorReadRepository.GetAsync(x => x.Id == request.Id);
             Author deltAuthor = _mapper.Map<Author>(res.Result);
             await _authorWriteRepository.Remove(deltAuthor);
+            await _authorWriteRepository.SaveAsync();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace LibraryAPI.Domain.Entities
         public DateTime CreatedTime { get; set; }
 
         public DateTime UpdatingTime { get; set; }
+        public byte[]? RowVersion { get; set; }
     }
 }

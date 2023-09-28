@@ -35,11 +35,12 @@ namespace LibraryAPI.Persistence.Context
         {
 
            var datas= ChangeTracker.Entries<IEntity>();
-
+            
             foreach (var data in datas)
             {
                 _ = data.State switch  //  switch statement return type yok o yüzden veri tutmmamıza gerek yok direkt olarak  yapıyor _ ile veri olmaıgını belirtiyoruz.
                 {
+                   
                     EntityState.Added => data.Entity.CreatedTime = DateTime.UtcNow,
                     EntityState.Modified => data.Entity.UpdatingTime = DateTime.UtcNow,
                     _ => DateTime.UtcNow

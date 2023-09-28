@@ -34,7 +34,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
             if (exception.GetType() == typeof(ValidationException)) return CreateValidationException(context, exception);
             if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
             if (exception.GetType() == typeof(AuthorizationException)) return CreateAuthorizationException(context, exception);
-            if (exception.GetType() == typeof(AuthenticationException)) return CreateAuthenticationException(context, exception);
+            if (exception.GetType() == typeof(InternalException)) return CreateInternalException(context, exception);
             return CreateInternalException(context, exception);
         }
 

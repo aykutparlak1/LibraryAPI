@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Application.Repositories;
+﻿using Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Application.Repositories;
 using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,20 +18,17 @@ namespace LibraryAPI.Persistence.Repositories
         public async Task<T> AddAsync(T entity)
         {
             await _table.AddAsync(entity);
-            await SaveAsync();
             return entity;
         }
 
         public async Task AddRangeAsync(List<T> entities)
         {
             await _table.AddRangeAsync(entities);
-            await SaveAsync();
         }
 
         public async Task Remove(T entity)
         {
              _table.Remove(entity);
-            await SaveAsync() ;
         }
 
 
@@ -44,18 +42,33 @@ namespace LibraryAPI.Persistence.Repositories
         public async Task RemoveRange(List<T> entites)
         {
              _table.RemoveRange(entites);
-            await SaveAsync() ;
         }
         public  async Task Update(T entity)
         {
             _table.Update(entity);
-            await SaveAsync();
         }
 
 
         public async Task<int> SaveAsync()
         {
-            return await _context.SaveChangesAsync();
+            
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new InternalException("Data has been changed or deleted");
+            }
+            catch (DbUpdateException)
+            {
+                throw new InternalException("Data is being used");
+            }
+            catch (Exception)
+            {
+                throw new InternalException("Unexpected Error");
+            }
+
         }
 
 

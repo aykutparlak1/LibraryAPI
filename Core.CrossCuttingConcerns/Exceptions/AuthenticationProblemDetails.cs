@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Core.CrossCuttingConcerns.Exceptions
 {
-    public class AuthenticationProblemDetails : ProblemDetails
+    public class InternalProblemDetails : ProblemDetails
     {
         public override string ToString() => JsonConvert.SerializeObject(this);
     }
