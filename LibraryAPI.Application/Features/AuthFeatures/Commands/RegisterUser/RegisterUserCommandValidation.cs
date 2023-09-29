@@ -11,7 +11,7 @@ namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
             RuleFor(p => p.Email).NotEmpty().WithMessage("Email boş bırakılamaz");
             RuleFor(p => p.IdentityNumber).NotEmpty().WithMessage("Tc kimlik numarası Boş bırakılamaz");
             RuleFor(p => p.BirthDate).NotEmpty().WithMessage("Doğum tarihi boş bırakılamaz");
-            RuleFor(p => p.Password).NotEmpty().WithMessage("Şifre boş bırakılamaz").MaximumLength(5).WithMessage("Minimum 5 karakter uzunlugunda");
+            RuleFor(p => p.Password).NotEmpty().WithMessage("Şifre boş bırakılamaz").MinimumLength(5).WithMessage("Minimum 5 karakter uzunlugunda");
         }
     }
 }

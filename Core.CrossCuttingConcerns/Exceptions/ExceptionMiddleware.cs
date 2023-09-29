@@ -3,6 +3,7 @@ using FluentValidation;
 using Core.CrossCuttingConcerns.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Core.CrossCuttingConcerns.Exceptions
 {
@@ -30,12 +31,13 @@ namespace Core.CrossCuttingConcerns.Exceptions
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
+            
 
             if (exception.GetType() == typeof(ValidationException)) return CreateValidationException(context, exception);
             if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
             if (exception.GetType() == typeof(AuthorizationException)) return CreateAuthorizationException(context, exception);
             if (exception.GetType() == typeof(InternalException)) return CreateInternalException(context, exception);
-            return CreateInternalException(context, exception);
+            return CreateInternalException(context, exception);     
         }
 
         private Task CreateAuthorizationException(HttpContext context, Exception exception)
@@ -47,20 +49,6 @@ namespace Core.CrossCuttingConcerns.Exceptions
                 Status = StatusCodes.Status401Unauthorized,
                 Type = "https://example.com/probs/authorization",
                 Title = "Authorization exception",
-                Detail = exception.Message,
-                Instance = ""
-            }.ToString());
-        }
-
-        private Task CreateAuthenticationException(HttpContext context, Exception exception)
-        {
-            context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Forbidden);
-
-            return context.Response.WriteAsync(new AuthorizationProblemDetails
-            {
-                Status = StatusCodes.Status403Forbidden,
-                Type = "https://example.com/probs/authorization",
-                Title = "Authentication exception",
                 Detail = exception.Message,
                 Instance = ""
             }.ToString());

@@ -4,6 +4,7 @@ using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor
 {
+
     public class GetAllAuthorQueryRequest : IRequest<ICollection<ObtainedAuthorDto>>, ISecuredRequest//, ICachableRequest
     {
         //= "GettAllAuthor,Admin";

@@ -4,7 +4,6 @@ using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.WebAPI.Controllers

@@ -4,6 +4,7 @@ using MediatR;
 
 namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
 {
+
     public class RegisterUserCommandRequest : IRequest<RegisteredUserDto>, IValidateRequest
     {
         public string FirstName { get; set; }

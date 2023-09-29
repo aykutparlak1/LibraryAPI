@@ -10,7 +10,6 @@ using LibraryAPI.Persistence.DependencyResolvers;
 using LibraryAPI.Persistence.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LibraryAPI.WebAPI
@@ -20,10 +19,11 @@ namespace LibraryAPI.WebAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
 
             // Configure connection string
-            builder.Services.AddDbContextPool<LibraryContext>(
+            // AddDbContextPool baðlantý havuzu olustuuruyor her seferinde yeniden olusturmak yerine baglantý havuzundan hýzlý bir þekilde kullanýyor
+            builder.Services.AddDbContext<LibraryContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1")) //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution)
                 
                 );
@@ -53,7 +53,7 @@ namespace LibraryAPI.WebAPI
 
            // builder.Services.AddCors(options=>options.AddDefaultPolicy(policy=>policy.WithOrigins("domain1","domain2").AllowAnyHeader().AllowAnyMethod())); Herkes eriþebilirr app.UseCors middlewareýný caðýrarak eriþip etkinleþtirmemiz gerekiyor.
             var app = builder.Build();
-            app.ConfigureCustomExceptionMiddleware();
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -63,9 +63,9 @@ namespace LibraryAPI.WebAPI
             app.UseHttpsRedirection();
             //app.UseCors();
             //yukarda belirlediðimiz cors politikasý cagýrýyoruz.
-
             app.UseAuthentication();
             app.UseAuthorization();
+            app.ConfigureCustomExceptionMiddleware();
             app.MapControllers();
 
 

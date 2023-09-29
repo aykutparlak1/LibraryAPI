@@ -1,12 +1,14 @@
 ﻿using LibraryAPI.Application.Dtos.AuthDtos;
 using LibraryAPI.Application.Features.AuthFeatures.Commands.LoginUser;
 using LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : BaseController
     {
         [HttpPost("login")]

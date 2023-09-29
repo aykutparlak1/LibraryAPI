@@ -15,8 +15,15 @@ namespace LibraryAPI.Application.DependencyResolvers
         public void Load(IServiceCollection serviceCollection)
         {
             var asm = Assembly.GetExecutingAssembly();
+            
             serviceCollection.AddAutoMapper(asm);
-            serviceCollection.AddMediatR(cfg =>cfg.RegisterServicesFromAssembly(asm));
+            serviceCollection.AddMediatR (cfg => 
+            {
+                cfg.MediatorImplementationType= typeof(Mediator);
+                cfg.Lifetime = ServiceLifetime.Scoped;
+                cfg.RegisterServicesFromAssembly(asm);              
+                
+            });
 
             serviceCollection.AddValidatorsFromAssembly(asm);
 
