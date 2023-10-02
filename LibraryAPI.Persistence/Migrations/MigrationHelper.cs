@@ -20,7 +20,7 @@ namespace LibraryAPI.Persistence.Migrations
                     catch (Exception)
                     {
 
-                        throw new Exception("Veritabanı güncellenemedi.");
+                        throw new Exception("The database can not be updated.");
                     }
                 }
                   

@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using FluentValidation;
-using Core.CrossCuttingConcerns.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Core.CrossCuttingConcerns.Exceptions
 {

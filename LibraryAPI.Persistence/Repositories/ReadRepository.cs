@@ -16,22 +16,33 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
-        public  IQueryable<T> GetAll(Expression<Func<T, bool>>? filter = null, 
-                                    Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-                                    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
+
+        public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter=null,  bool AsNotrackingWithIdentityResolution = false)
         {
-            var query = filter == null  ? _table : _table.Where(filter);
-            query.AsNoTracking();
-            if (include != null)
+            var query = filter == null ? _table : _table.Where(filter);
+            if (AsNotrackingWithIdentityResolution)
             {
-                query = include(query);
+                query = query.AsNoTrackingWithIdentityResolution();
             }
+            return query;
+        }
+        public IQueryable<T> IncludeQuery(IQueryable<T> query,
+                                   ICollection< Func<IQueryable<T>, IIncludableQueryable<T, object>>?> include) 
+        {
+            foreach (var item in include) 
+            {
+                query = item(query);
+            }
+            return query;
+        }
+        public  IQueryable<T> OrderedQuery(IQueryable<T> query,
+                                    Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
+        {
             if ( orderBy !=null)
             {
                 return  orderBy(query);
             }
             return query;
-            
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>>? filter ,
@@ -50,18 +61,6 @@ namespace LibraryAPI.Persistence.Repositories
             return await query.FirstOrDefaultAsync(filter);
         }
 
-        public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,  bool AsNotrackingWithIdentityResolution = false)
-        {
-            var query = _table.Where(filter);
-            if (AsNotrackingWithIdentityResolution)
-            {
-                query = query.AsNoTrackingWithIdentityResolution();
-            }
-            if (include != null)
-            {
-                query = include(query);
-            }
-            return query;
-        }
+        
     }
 }

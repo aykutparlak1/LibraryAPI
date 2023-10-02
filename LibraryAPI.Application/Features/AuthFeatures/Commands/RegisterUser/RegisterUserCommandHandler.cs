@@ -2,6 +2,7 @@
 using Core.Utilities.Security.JWT;
 using LibraryAPI.Application.Dtos.AuthDtos;
 using LibraryAPI.Application.Dtos.UserDtos;
+using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
 using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.UserService;
 using LibraryAPI.Domain.Entities.UserEntities;
@@ -14,8 +15,10 @@ namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
         private readonly IUserWriteService _userWriteService;
         private readonly IAuthService _authservice;
         private readonly IMapper _mapper;
-        public RegisterUserCommandHandler(IUserWriteService userWriteService,IAuthService authService, IMapper mapper)
+        private readonly IUserWriteRepository _userWriteRepository;
+        public RegisterUserCommandHandler(IUserWriteService userWriteService, IUserWriteRepository userWriteRepository, IAuthService authService, IMapper mapper)
         {
+            _userWriteRepository = userWriteRepository;
             _userWriteService = userWriteService;
             _authservice = authService;
             _mapper = mapper;
@@ -23,8 +26,10 @@ namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
         public async Task<RegisteredUserDto> Handle(RegisterUserCommandRequest request, CancellationToken cancellationToken)
         {
             CreateUserDto crtUser = _mapper.Map<CreateUserDto>(request);
-            User user = await _userWriteService.CreateUserAsync(crtUser);
-            AccessToken act = await _authservice.CreateAccesToken(user);
+            User user = _userWriteService.CreateUser(crtUser);
+            await _userWriteRepository.AddAsync(user);
+            await _userWriteRepository.SaveAsync();
+            AccessToken act =  _authservice.CreateAccesToken(user);
             RegisteredUserDto registeredDto = new()
             {
                 AccessToken = act,

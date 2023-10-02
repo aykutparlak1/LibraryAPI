@@ -24,7 +24,7 @@ namespace LibraryAPI.Application.Services.UserService
         }
         public async Task<List<User>> GetAllUser()
         {
-            var result = await _userReadRepository.GetAll().ToListAsync();
+            var result = await _userReadRepository.GetQuery().ToListAsync();
             _userBusinessRules.UserShouldExistWhenRequested(result[0]);
             return result;
         }

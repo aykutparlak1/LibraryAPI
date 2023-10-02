@@ -5,15 +5,9 @@ using LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.DeleteAuthor;
 using LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor;
-
-using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAllAuthor;
-using LibraryAPI.Application.Features.AuthorFeatures.Queries.GetAuthorByIWT;
+using LibraryAPI.Application.Features.UserFeatures.Queries.GetAllUserQuerry;
 using LibraryAPI.Domain.Entities.BookEntites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LibraryAPI.Domain.Entities.UserEntities;
 
 namespace LibraryAPI.Application.Profiles
 {
@@ -31,6 +25,8 @@ namespace LibraryAPI.Application.Profiles
 
 
             CreateMap<Author, DeleteAuthorCommandRequest>().ReverseMap();
+            CreateMap<User, GetAllUserQuerryRequest>().ReverseMap();
+            CreateMap<User , ReadUserDto>().ReverseMap();
         }
     }
 }

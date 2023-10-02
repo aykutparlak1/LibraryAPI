@@ -5,6 +5,6 @@ namespace LibraryAPI.Application.Services.AuthService
 {
     public interface IAuthService
     {
-        public Task<AccessToken> CreateAccesToken(User user);
+        public AccessToken CreateAccesToken(User user);
     }
 }

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\LibraryAPI.Domain\LibraryAPI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\AuthorFeatures\Queries\" />
+  </ItemGroup>
+
 </Project>

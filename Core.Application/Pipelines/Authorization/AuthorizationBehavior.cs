@@ -23,13 +23,13 @@ namespace Core.Pipelines.Authorization
         }
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            int UId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.ClaimId());
-                var usroprclms = _userOperationClaimReadRepository.GetQuery(x => x.UserId == UId ,include: u => u.Include(u => u.OperationClaim))
-                    .Select(u => new OperationClaim {Name = u.OperationClaim.Name }).AnyAsync(x=>x.Name == request.Roles);
-                if (!usroprclms.Result)
-                {
-                    throw new AuthorizationException("Yetkiniz yok.");
-                }
+            //int UId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.ClaimId());
+            //    var usroprclms = _userOperationClaimReadRepository.GetQuery(x => x.UserId == UId ,include: u => u.Include(u => u.OperationClaim))
+            //        .Select(u => new OperationClaim {Name = u.OperationClaim.Name }).AnyAsync(x=>x.Name == request.Roles);
+            //    if (!usroprclms.Result)
+            //    {
+            //        throw new AuthorizationException("Yetkiniz yok.");
+            //    }
         TResponse response = await next();
         return response;
         }

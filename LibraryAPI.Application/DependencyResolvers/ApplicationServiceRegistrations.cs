@@ -1,7 +1,6 @@
 ﻿using Core.Utilities.IoC;
 using FluentValidation;
 using LibraryAPI.Application.Rules;
-using LibraryAPI.Application.Services.AuthorService;
 using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.UserService;
 using MediatR;
@@ -35,8 +34,6 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddScoped<IUserReadService,UserReadManager>();
             serviceCollection.AddScoped<IUserWriteService, UserWriteManager>();
             serviceCollection.AddScoped<IAuthService, AuthManager>();
-            serviceCollection.AddScoped<IAuthorReadService, AuthorReadManager>();
-            serviceCollection.AddScoped<IAuthorWriteService, AuthorWriteManager>();
         }
     }
 }
