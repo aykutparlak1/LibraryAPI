@@ -1,6 +1,4 @@
-﻿using LibraryAPI.Application.Dtos.AuthDtos;
-using LibraryAPI.Application.Features.AuthFeatures.Commands.LoginUser;
-using LibraryAPI.Application.Features.UserFeatures.Queries.GetAllUserQuerry;
+﻿using LibraryAPI.Application.Features.UserFeatures.Queries.GetAllUserQuerry;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
