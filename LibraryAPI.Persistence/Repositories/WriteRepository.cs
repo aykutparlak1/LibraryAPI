@@ -15,15 +15,15 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
-        public async Task<T> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity, CancellationToken cancellation)
         {
-            await _table.AddAsync(entity);
+            await _table.AddAsync(entity, cancellation);
             return entity;
         }
 
-        public async Task AddRangeAsync(List<T> entities)
+        public async Task AddRangeAsync(List<T> entities, CancellationToken cancellation)
         {
-            await _table.AddRangeAsync(entities);
+            await _table.AddRangeAsync(entities, cancellation);
         }
 
         public async Task Remove(T entity)
@@ -49,12 +49,12 @@ namespace LibraryAPI.Persistence.Repositories
         }
 
 
-        public async Task<int> SaveAsync()
+        public async Task<int> SaveAsync(CancellationToken cancellation)
         {
             
             try
             {
-                return await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync(cancellation);
             }
             catch (DbUpdateConcurrencyException)
             {

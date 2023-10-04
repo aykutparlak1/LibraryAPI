@@ -6,10 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     [AllowAnonymous]
-    public class AuthController : BaseController
+    public sealed class AuthController : BaseController
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)

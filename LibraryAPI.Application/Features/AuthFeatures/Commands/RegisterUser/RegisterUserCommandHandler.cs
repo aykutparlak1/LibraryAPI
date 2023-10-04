@@ -15,21 +15,22 @@ namespace LibraryAPI.Application.Features.AuthFeatures.Commands.RegisterUser
         private readonly IUserWriteService _userWriteService;
         private readonly IAuthService _authservice;
         private readonly IMapper _mapper;
-        private readonly IUserWriteRepository _userWriteRepository;
-        public RegisterUserCommandHandler(IUserWriteService userWriteService, IUserWriteRepository userWriteRepository, IAuthService authService, IMapper mapper)
+
+
+
+
+        public RegisterUserCommandHandler(IUserWriteService userWriteService, IAuthService authService, IMapper mapper)
         {
-            _userWriteRepository = userWriteRepository;
+
             _userWriteService = userWriteService;
             _authservice = authService;
             _mapper = mapper;
         }
         public async Task<RegisteredUserDto> Handle(RegisterUserCommandRequest request, CancellationToken cancellationToken)
         {
-            CreateUserDto crtUser = _mapper.Map<CreateUserDto>(request);
-            User user = _userWriteService.CreateUser(crtUser);
-            await _userWriteRepository.AddAsync(user);
-            await _userWriteRepository.SaveAsync();
-            AccessToken act =  _authservice.CreateAccesToken(user);
+            CreateUserDto user = _mapper.Map<CreateUserDto>(request);
+            User addedUser =  await _userWriteService.CreateUser(user , cancellationToken);
+            AccessToken act =  _authservice.CreateAccesToken(addedUser);
             RegisteredUserDto registeredDto = new()
             {
                 AccessToken = act,

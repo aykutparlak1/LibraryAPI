@@ -1,15 +1,14 @@
 ﻿using LibraryAPI.Application.Dtos.UserDtos;
 using LibraryAPI.Domain.Entities.UserEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Services.UserService
 {
     public interface IUserWriteService
     {
-        User CreateUser(CreateUserDto model);
+
+        Task<User> CreateUser(CreateUserDto user, CancellationToken cancellation);
+        Task<User> UpdateUser(User user, CancellationToken cancellationToken);
+        Task<User> RemoveUser(User user, CancellationToken cancellationToken);
+        Task<List<User>> RemoveUserRange(List<User> users, CancellationToken cancellationToken);
     }
 }

@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     [AllowAnonymous]
-    public class UserController : BaseController
+    public sealed class UserController : BaseController
     {
         [HttpGet("getAllUser")]
 

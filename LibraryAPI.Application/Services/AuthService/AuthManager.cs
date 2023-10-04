@@ -1,7 +1,5 @@
 ﻿using Core.Utilities.Security.JWT;
-using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepositories;
 using LibraryAPI.Domain.Entities.UserEntities;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.AuthService
 {

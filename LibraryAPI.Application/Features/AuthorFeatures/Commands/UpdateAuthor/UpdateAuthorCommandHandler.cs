@@ -3,11 +3,6 @@ using LibraryAPI.Application.Dtos.AuthorDtos;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Domain.Entities.BookEntites;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.UpdateAuthor
 {

@@ -20,8 +20,8 @@ namespace LibraryAPI.Application.Features.AuthorFeatures.Commands.CreateAuthor
         {
 
             Author mappedAuthor=_mapper.Map<Author>(request);
-            await _authorWriteRepository.AddAsync(mappedAuthor);
-            await _authorWriteRepository.SaveAsync();
+            await _authorWriteRepository.AddAsync(mappedAuthor,cancellationToken);
+            await _authorWriteRepository.SaveAsync(cancellationToken);
             CommandAuthorDto createdAuthorDto = _mapper.Map<CommandAuthorDto>(mappedAuthor);
             return createdAuthorDto;
         }

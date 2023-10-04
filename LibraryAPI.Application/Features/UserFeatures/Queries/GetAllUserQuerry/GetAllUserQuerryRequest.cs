@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LibraryAPI.Application.Features.UserFeatures.Queries.GetAllUserQuerry
 {
-    public class GetAllUserQuerryRequest: IRequest<ReadUserDto>
+    public class GetAllUserQuerryRequest: IRequest<List<ReadUserDto>>
     {
     }
 }
