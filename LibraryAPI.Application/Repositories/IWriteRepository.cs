@@ -7,8 +7,8 @@ namespace LibraryAPI.Application.Repositories
     {
 
         Task<T> AddAsync(T entity, CancellationToken cancellation);
-        Task AddRangeAsync(List<T> entities , CancellationToken cancellation);
-        Task Remove(T entity);
+        void AddRangeAsync(List<T> entities , CancellationToken cancellation);
+        void Remove(T entity);
         Task RemoveRange(List<T> entites);
         Task Update(T entity);
         Task<int> SaveAsync(CancellationToken cancellation);

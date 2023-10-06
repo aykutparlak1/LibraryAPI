@@ -1,9 +1,9 @@
-﻿using Core.Utilities.IoC;
-using FluentValidation;
+﻿using FluentValidation;
 using LibraryAPI.Application.Rules;
 using LibraryAPI.Application.Services.AuthService;
-using LibraryAPI.Application.Services.UserService;
-using MediatR;
+using LibraryAPI.Application.Services.ReadServices.UserReadService;
+using LibraryAPI.Application.Services.WriteServices.UserWriteService;
+using LibraryAPI.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,25 +11,17 @@ namespace LibraryAPI.Application.DependencyResolvers
 {
     public class ApplicationServiceRegistrations : ICoreModule
     {
-        public void Load(IServiceCollection serviceCollection)
+        public void Load(IServiceCollection serviceCollection )
         {
             var asm = Assembly.GetExecutingAssembly();
-            
             serviceCollection.AddAutoMapper(asm);
-            serviceCollection.AddMediatR (cfg => 
-            {
-                cfg.MediatorImplementationType= typeof(Mediator);
-                cfg.Lifetime = ServiceLifetime.Scoped;
-                cfg.RegisterServicesFromAssembly(asm);              
-                
-            });
 
             serviceCollection.AddValidatorsFromAssembly(asm);
 
-
+            
             serviceCollection.AddScoped<AuthorBusinessRules>();
             serviceCollection.AddScoped<UserBusinessRules>();
-
+            
 
             serviceCollection.AddScoped<IUserReadService,UserReadManager>();
             serviceCollection.AddScoped<IUserWriteService, UserWriteManager>();

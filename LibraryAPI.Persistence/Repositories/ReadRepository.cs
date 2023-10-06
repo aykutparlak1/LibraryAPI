@@ -18,7 +18,7 @@ namespace LibraryAPI.Persistence.Repositories
         }
 
         public IQueryable<T?> GetQuery(Expression<Func<T, bool>>? filter=null,  bool AsNotrackingWithIdentityResolution = false,
-            ICollection<Func<IQueryable<T>, IIncludableQueryable<T, object>>> include = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null
             )
         {
@@ -29,10 +29,9 @@ namespace LibraryAPI.Persistence.Repositories
             }
             if (include != null)
             {
-                foreach (var item in include)
-                {
-                    query = item(query);
-                }
+
+                    query = include(query);
+
             }
             if (orderBy != null)
             {
@@ -49,12 +48,8 @@ namespace LibraryAPI.Persistence.Repositories
         {
             return await _table.AnyAsync(expression);
         }
-        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, bool AsNotracking = false)
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            if (AsNotracking)
-            {
-                return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(predicate);
-            }
             return await _context.Set<T>().FirstOrDefaultAsync(predicate);
         }
 

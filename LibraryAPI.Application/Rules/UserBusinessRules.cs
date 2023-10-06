@@ -1,5 +1,5 @@
-﻿using Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
+﻿using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
+using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities.UserEntities;
 
 namespace LibraryAPI.Application.Rules

@@ -1,4 +1,4 @@
-﻿using Core.Utilities.Security.JWT;
+﻿using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Domain.Entities.UserEntities;
 
 namespace LibraryAPI.Application.Services.AuthService

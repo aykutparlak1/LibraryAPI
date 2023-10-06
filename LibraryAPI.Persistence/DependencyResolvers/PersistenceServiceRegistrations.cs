@@ -19,7 +19,7 @@ using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRep
 using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepositories;
 using LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRepositories;
 using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepositories;
-using Core.Utilities.IoC;
+using LibraryAPI.Core.Utilities.IoC;
 
 namespace LibraryAPI.Persistence.DependencyResolvers
 {

@@ -1,5 +1,5 @@
-﻿using Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Application.Repositories;
+﻿using LibraryAPI.Application.Repositories;
+using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,12 +21,12 @@ namespace LibraryAPI.Persistence.Repositories
             return entity;
         }
 
-        public async Task AddRangeAsync(List<T> entities, CancellationToken cancellation)
+        public void AddRangeAsync(List<T> entities, CancellationToken cancellation)
         {
-            await _table.AddRangeAsync(entities, cancellation);
+           _table.AddRangeAsync(entities, cancellation);
         }
 
-        public async Task Remove(T entity)
+        public void Remove(T entity)
         {
              _table.Remove(entity);
         }

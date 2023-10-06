@@ -1,5 +1,4 @@
-﻿
-using LibraryAPI.Domain.Entities.UserEntities;
+﻿using LibraryAPI.Domain.Entities.UserEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

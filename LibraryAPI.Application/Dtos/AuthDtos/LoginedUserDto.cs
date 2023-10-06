@@ -1,5 +1,5 @@
-﻿using Core.Utilities.Security.JWT;
-using LibraryAPI.Application.Interfaces;
+﻿using LibraryAPI.Application.Interfaces;
+using LibraryAPI.Core.Utilities.Security.JWT;
 
 namespace LibraryAPI.Application.Dtos.AuthDtos
 {
