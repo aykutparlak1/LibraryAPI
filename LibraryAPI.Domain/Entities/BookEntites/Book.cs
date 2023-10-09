@@ -14,7 +14,6 @@ namespace LibraryAPI.Domain.Entities.BookEntites
             Authors = new HashSet<BookAuthor>();
         }
         public int Id { get; set; }
-        public int AuthorId { get; set; }
         public int CategoryId { get; set; }
         public int PublisherId { get; set; }
         public string BookName { get; set; }

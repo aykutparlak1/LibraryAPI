@@ -14,7 +14,7 @@ namespace LibraryAPI.Domain.Entities.BookEntites
             Books = new HashSet<Book>();
         }
         public int Id { get; set; }
-        public int PublisherName { get; set; }
+        public string PublisherName { get; set; }
         public ICollection<Book> Books { get; set; }
     }
 }

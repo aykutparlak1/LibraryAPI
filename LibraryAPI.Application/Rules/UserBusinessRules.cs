@@ -12,10 +12,6 @@ namespace LibraryAPI.Application.Rules
              _userReadRepository = userReadRepository;
         }
 
-        public void UserShouldExistWhenRequested(User user)
-        {
-            if (user == null) throw new BusinessException("User not found.");
-        }
         public async Task UserEmailAlreadyExist(string email)
         {
             var result = await _userReadRepository.GetAsync(x=>x.Email == email);

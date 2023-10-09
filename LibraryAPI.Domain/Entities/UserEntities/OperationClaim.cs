@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LibraryAPI.Domain.Entities.UserEntities
+﻿namespace LibraryAPI.Domain.Entities.UserEntities
 {
     public class OperationClaim : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
         public ICollection<UserOperationClaim> Users { get; set; }
     }
 }

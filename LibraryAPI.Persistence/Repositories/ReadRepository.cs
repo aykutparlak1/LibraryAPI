@@ -14,35 +14,33 @@ namespace LibraryAPI.Persistence.Repositories
         public ReadRepository(DbContext context)
         {
             _context = context;
-            _table = _context.Set<T>().AsNoTracking();
+            _table = _context.Set<T>();
         }
-
-        public IQueryable<T?> GetQuery(Expression<Func<T, bool>>? filter=null,  bool AsNotrackingWithIdentityResolution = false,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null
-            )
+        //Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+        public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            params string[] includes)
         {
             var query = _table;
-            if (AsNotrackingWithIdentityResolution)
-            {
-                query = query.AsNoTrackingWithIdentityResolution();
-            }
-            if (include != null)
-            {
 
-                    query = include(query);
-
+            if (filter != null)
+            {
+                query = query.Where(filter);
             }
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
             if (orderBy != null)
             {
                 return orderBy(query);
             }
-            if(filter != null)
-            {
-                query.Where(filter);
-            }
+
             return query;
         }
+
 
         public async Task<bool> IsExist(Expression<Func<T, bool>> expression)
         {

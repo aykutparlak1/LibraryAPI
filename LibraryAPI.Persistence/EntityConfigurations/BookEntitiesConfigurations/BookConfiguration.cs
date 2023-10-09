@@ -10,8 +10,6 @@ namespace LibraryAPI.Persistence.EntityConfigurations.BookEntitiesConfigurations
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.Property(p => p.AuthorId).IsRequired();
             builder.Property(p => p.CategoryId).IsRequired();
             builder.Property(p => p.PublisherId).IsRequired();
             builder.Property(p => p.NumberOfPages).IsRequired();

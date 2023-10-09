@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Application.Dtos.UserDtos;
+﻿using AutoMapper;
+using LibraryAPI.Application.Dtos.Resources.UserResorces;
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
 using LibraryAPI.Application.Rules;
 using LibraryAPI.Core.Utilities.Security.Hashing;
@@ -12,19 +13,18 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteService
         private readonly UserBusinessRules _userBusinessRules;
         public UserWriteManager(IUserWriteRepository userWriteRepository, UserBusinessRules userBusinessRules)
         {
+
             _userWriteRepository = userWriteRepository;
             _userBusinessRules = userBusinessRules;
         }
 
 
 
-        public async Task<User> CreateUser(CreateUserDto model, CancellationToken cancellation)
+        public async Task<User> CreateUser(CreateUserDto model)
         {
             await _userBusinessRules.UserIdentityNumberAlreadyExist(model.IdentityNumber);
             await _userBusinessRules.UserEmailAlreadyExist(model.Email);
-            byte[] passwordHash;
-            byte[] passwordSalt;
-            HashingHelper.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
+            HashingHelper.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
             User user = new()
             {
                 FirstName = model.FirstName,
@@ -36,39 +36,25 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteService
                 PasswordSalt = passwordSalt,
                 BirthDate = model.BirthDate,
             };
-
-            await _userWriteRepository.AddAsync(user, cancellation);
-            await _userWriteRepository.SaveAsync(cancellation);
+            await _userWriteRepository.AddAsync(user);
+            await _userWriteRepository.SaveAsync();
             return user;
         }
 
-        public async Task<User> RemoveUser(User user, CancellationToken cancellationToken)
+        public async Task<User> RemoveUser(User user)
         {
             await _userBusinessRules.UserShouldExist(user.Id);
             _userWriteRepository.Remove(user);
-            await _userWriteRepository.SaveAsync(cancellationToken);
+            await _userWriteRepository.SaveAsync();
             return user;
         }
 
-        public async Task<List<User>> RemoveUserRange(List<User> users, CancellationToken cancellationToken)
-        {
-            foreach (var user in users)
-            {
-               await _userBusinessRules.UserShouldExist(user.Id);
-            }
-            await _userWriteRepository.RemoveRange(users);
-            await _userWriteRepository.SaveAsync(cancellationToken);
-            return users;
-        }
-
-        public async Task<User> UpdateUser(User user, CancellationToken cancellationToken)
+        public async Task<User> UpdateUser(User user)
         {
             await _userBusinessRules.UserShouldExist(user.Id);
             await _userWriteRepository.Update(user);
-            await _userWriteRepository.SaveAsync(cancellationToken);
+            await _userWriteRepository.SaveAsync();
             return user;
         }
-
-
     }
 }

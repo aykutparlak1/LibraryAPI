@@ -10,6 +10,7 @@ using LibraryAPI.Persistence.Context;
 using LibraryAPI.Persistence.DependencyResolvers;
 using LibraryAPI.Persistence.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -95,13 +96,14 @@ namespace LibraryAPI.WebAPI
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                //app.ConfigureCustomExceptionMiddleware();
             }
             app.UseHttpsRedirection();
             //app.UseCors();
             //Servicede belirlediðimiz cors politikasý cagýrýyoruz.
             app.UseAuthentication();
             app.UseAuthorization();
-            app.ConfigureCustomExceptionMiddleware();
+            
             app.MapControllers();
 
 
