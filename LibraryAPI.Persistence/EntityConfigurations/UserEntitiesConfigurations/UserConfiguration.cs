@@ -24,7 +24,7 @@ namespace LibraryAPI.Persistence.EntityConfigurations.UserEntitiesConfigurations
             builder.Property(p => p.Email).IsRequired();
             builder.Property(p => p.PasswordHash).IsRequired().HasColumnType("varbinary(500)");
             builder.Property(p => p.PasswordSalt).IsRequired().HasColumnType("varbinary(500)");
-            builder.Property(p => p.UserType).IsRequired().HasDefaultValue(0).HasMaxLength(5);
+            builder.Property(p => p.UserType).IsRequired().HasDefaultValue(0);
             builder.Property(p => p.Status).IsRequired().HasDefaultValue(true);
 
 

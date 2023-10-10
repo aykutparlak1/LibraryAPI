@@ -11,20 +11,17 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
     public class AuthorReadManager : IAuthorReadService
     {
         private readonly IAuthorReadRepository _authorReadRepository;
-
-        private readonly AuthorBusinessRules _authorBusinessRules;
-        public AuthorReadManager(IAuthorReadRepository authorReadRepository ,AuthorBusinessRules authorBusinessRules)
+        private readonly IMapper _mapper;
+        public AuthorReadManager(IAuthorReadRepository authorReadRepository , IMapper mapper)
         {
-            _authorBusinessRules = authorBusinessRules;
-
+            _mapper=mapper;
             _authorReadRepository = authorReadRepository;
         }
         public async Task<List<ResponseAuthorDto>> GetAll()
         {
-            var authors = await _authorReadRepository.GetQuery().Select(x=> new ResponseAuthorDto { 
-                AuthorName = x.AuthorName            
-            }).ToListAsync();
-            return authors;
+            var authors = await _authorReadRepository.GetQuery().ToListAsync();
+            List<ResponseAuthorDto> responseAuthorDto = _mapper.Map<List<ResponseAuthorDto>>(authors);
+            return responseAuthorDto;
         }
 
         public async Task<Author> GetByIdAsync(int id)

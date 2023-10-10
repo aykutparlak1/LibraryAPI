@@ -1,7 +1,9 @@
-﻿using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
+﻿using AutoMapper;
+using LibraryAPI.Application.Dtos.Views.UserViews;
+using LibraryAPI.Application.Enums.NavigationEnums;
+using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
 using LibraryAPI.Application.Rules;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Domain.Entities.UserEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.ReadServices.UserReadService
@@ -10,44 +12,70 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
     {
         private readonly IUserReadRepository _userReadRepository;
         private readonly UserBusinessRules _userBusinessRules;
+        private readonly IMapper _mapper;
 
-        public UserReadManager(IUserReadRepository userReadRepository, UserBusinessRules userBusinessRules)
+        public UserReadManager(IUserReadRepository userReadRepository, UserBusinessRules userBusinessRules, IMapper mapper)
         {
+            _mapper = mapper;
             _userReadRepository = userReadRepository;
             _userBusinessRules = userBusinessRules;
         }
-        public async Task<List<User>> GetAllUser()
+        public async Task<List<ResponseAllUserDto>> GetAllUser()
         {
             var result = await _userReadRepository.GetQuery().ToListAsync();
-            return result ?? throw new BusinessException("User not found.");
+            List<ResponseAllUserDto> responseAllUserDto = _mapper.Map<List<ResponseAllUserDto>>(result);
+            if (result == null) throw new BusinessException("Users not found.");
+            return responseAllUserDto;
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<List<ResponseAllUserWhereCustomerDto>> GetAllUserWhereCustomer()
+        {
+            string[] relations = { UserNavigations.Customer };
+            var res = await _userReadRepository.GetQuery(includes: relations).ToListAsync();
+            if (res == null) throw new BusinessException("Employe not found.");
+            List<ResponseAllUserWhereCustomerDto> responseUserWhereCustomer = _mapper.Map<List<ResponseAllUserWhereCustomerDto>>(res);
+            return responseUserWhereCustomer;
+        }
+
+        public async Task<List<ResponseAllUserWhereEmployeDto>> GetAllUserWhereEmployee()
+        {
+            string[] relations = {UserNavigations.Employee };
+            var res = await _userReadRepository.GetQuery(includes: relations).ToListAsync();
+            if (res == null) throw new BusinessException("Employe not found.");
+            List<ResponseAllUserWhereEmployeDto> responseUserWhereEmploye = _mapper.Map<List<ResponseAllUserWhereEmployeDto>>(res);
+            return responseUserWhereEmploye;
+        }
+
+        public async Task<ResponseAllUserDto> GetUserByEmail(string email)
         {
             var result = await _userReadRepository.GetAsync(x => x.Email == email);
             if (result == null) throw new BusinessException("User not found.");
-            return result;
+            ResponseAllUserDto responseAllUserDto = _mapper.Map<ResponseAllUserDto>(result);
+            return responseAllUserDto;
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<ResponseAllUserDto> GetUserById(int id)
         {
             var result = await _userReadRepository.GetAsync(x => x.Id == id);
             if (result == null) throw new BusinessException("User not found.");
-            return result;
+            ResponseAllUserDto responseAllUserDto = _mapper.Map<ResponseAllUserDto>(result);
+            return responseAllUserDto;
         }
 
-        public async Task<User> GetUserByIdentityNumber(long identityNumber)
+        public async Task<ResponseAllUserDto> GetUserByIdentityNumber(long identityNumber)
         {
             var result = await _userReadRepository.GetAsync(x => x.IdentityNumber == identityNumber);
             if (result == null) throw new BusinessException("User not found.");
-            return result;
+            ResponseAllUserDto responseAllUserDto = _mapper.Map<ResponseAllUserDto>(result);
+            return responseAllUserDto;
         }
 
-        public async Task<User> GetUserByUserName(string userName)
+        public async Task<ResponseAllUserDto> GetUserByUserName(string userName)
         {
             var result = await _userReadRepository.GetAsync(x => x.UserName == userName);
             if (result == null) throw new BusinessException("User not found.");
-            return result;
+            ResponseAllUserDto responseAllUserDto = _mapper.Map<ResponseAllUserDto>(result);
+            return responseAllUserDto;
         }
     }
 }

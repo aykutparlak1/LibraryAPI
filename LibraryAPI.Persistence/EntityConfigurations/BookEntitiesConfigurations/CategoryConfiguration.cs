@@ -12,10 +12,7 @@ namespace LibraryAPI.Persistence.EntityConfigurations.BookEntitiesConfigurations
             builder.HasKey(x => x.Id);
 
             builder.Property(p => p.CategoryName).IsRequired();
-
-            builder.HasOne(p => p.Book)
-                .WithOne(p => p.Category)
-                .HasForeignKey<Book>(p => p.CategoryId);
+            builder.HasMany(p => p.Books).WithOne(p => p.Category).HasForeignKey(p => p.CategoryId);
         }
     }
 }

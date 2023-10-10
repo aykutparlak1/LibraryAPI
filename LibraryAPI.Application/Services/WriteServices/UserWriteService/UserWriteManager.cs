@@ -11,9 +11,10 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteService
     {
         private readonly IUserWriteRepository _userWriteRepository;
         private readonly UserBusinessRules _userBusinessRules;
-        public UserWriteManager(IUserWriteRepository userWriteRepository, UserBusinessRules userBusinessRules)
+        private readonly IMapper _mapper;
+        public UserWriteManager(IMapper mapper,IUserWriteRepository userWriteRepository, UserBusinessRules userBusinessRules)
         {
-
+            _mapper = mapper;
             _userWriteRepository = userWriteRepository;
             _userBusinessRules = userBusinessRules;
         }
@@ -25,17 +26,9 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteService
             await _userBusinessRules.UserIdentityNumberAlreadyExist(model.IdentityNumber);
             await _userBusinessRules.UserEmailAlreadyExist(model.Email);
             HashingHelper.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            User user = new()
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
-                IdentityNumber = model.IdentityNumber,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                BirthDate = model.BirthDate,
-            };
+            User user = _mapper.Map<User>(model);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
             await _userWriteRepository.AddAsync(user);
             await _userWriteRepository.SaveAsync();
             return user;

@@ -1,12 +1,15 @@
-﻿using LibraryAPI.Domain.Entities.UserEntities;
+﻿using LibraryAPI.Application.Dtos.Views.UserViews;
 namespace LibraryAPI.Application.Services.ReadServices.UserReadService
 {
     public interface IUserReadService
     {
-        Task<List<User>> GetAllUser();
-        Task<User> GetUserById(int id);
-        Task<User> GetUserByUserName(string userName);
-        Task<User> GetUserByEmail(string email);
-        Task<User> GetUserByIdentityNumber(long identityNumber);
+        Task<List<ResponseAllUserDto>> GetAllUser();
+        Task<ResponseAllUserDto> GetUserById(int id);  
+        Task<ResponseAllUserDto> GetUserByUserName(string userName);
+        Task<ResponseAllUserDto> GetUserByEmail(string email);
+        Task<ResponseAllUserDto> GetUserByIdentityNumber(long identityNumber);
+        Task<List<ResponseAllUserWhereEmployeDto>> GetAllUserWhereEmployee();
+        Task<List<ResponseAllUserWhereCustomerDto>> GetAllUserWhereCustomer();
+        
     }
 }

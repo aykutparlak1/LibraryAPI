@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraryAPI.Application.Rules;
+using LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService;
 using LibraryAPI.Application.Services.ReadServices.BookReadService;
 using LibraryAPI.Application.Services.ReadServices.UserReadService;
 using LibraryAPI.Application.Services.WriteServices.UserWriteService;
@@ -14,7 +15,7 @@ namespace LibraryAPI.Application.DependencyResolvers
         public void Load(IServiceCollection serviceCollection )
         {
             var asm = Assembly.GetExecutingAssembly();
-
+            serviceCollection.AddAutoMapper(asm);
             serviceCollection.AddValidatorsFromAssembly(asm);
 
             
@@ -24,6 +25,9 @@ namespace LibraryAPI.Application.DependencyResolvers
 
             serviceCollection.AddScoped<IUserReadService,UserReadManager>();
             serviceCollection.AddScoped<IBookReadService,BookReadManager>();
+            serviceCollection.AddScoped<IBarrowedBookReadService,BarrowedBookReadManager>();
+
+
 
             serviceCollection.AddScoped<IUserOperationClaimWriteService, UserOperationClaimWriteManager>();
         }

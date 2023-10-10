@@ -1,4 +1,4 @@
-﻿namespace LibraryAPI.Application.Services.Enums.NavigationEnums
+﻿namespace LibraryAPI.Application.Enums.NavigationEnums
 {
     public class UserNavigations
     {

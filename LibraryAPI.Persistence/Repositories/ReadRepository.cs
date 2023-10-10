@@ -31,6 +31,7 @@ namespace LibraryAPI.Persistence.Repositories
             foreach (var include in includes)
             {
                 query = query.Include(include);
+                
             }
 
             if (orderBy != null)
