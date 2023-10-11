@@ -2,6 +2,8 @@
 using LibraryAPI.Application.Rules;
 using LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService;
 using LibraryAPI.Application.Services.ReadServices.BookReadService;
+using LibraryAPI.Application.Services.ReadServices.CustomerReadService;
+using LibraryAPI.Application.Services.ReadServices.EmployeeReadService;
 using LibraryAPI.Application.Services.ReadServices.UserReadService;
 using LibraryAPI.Application.Services.WriteServices.UserWriteService;
 using LibraryAPI.Core.Utilities.IoC;
@@ -26,8 +28,8 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddScoped<IUserReadService,UserReadManager>();
             serviceCollection.AddScoped<IBookReadService,BookReadManager>();
             serviceCollection.AddScoped<IBarrowedBookReadService,BarrowedBookReadManager>();
-
-
+            serviceCollection.AddScoped<ICustomerReadService,CustomerReadManager>();
+            serviceCollection.AddScoped<IEmployeeReadService, EmployeeReadManager>();
 
             serviceCollection.AddScoped<IUserOperationClaimWriteService, UserOperationClaimWriteManager>();
         }

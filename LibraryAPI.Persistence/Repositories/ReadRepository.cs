@@ -27,18 +27,14 @@ namespace LibraryAPI.Persistence.Repositories
             {
                 query = query.Where(filter);
             }
-
             foreach (var include in includes)
             {
                 query = query.Include(include);
-                
             }
-
             if (orderBy != null)
             {
                 return orderBy(query);
             }
-
             return query;
         }
 

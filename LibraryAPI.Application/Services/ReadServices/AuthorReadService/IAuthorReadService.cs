@@ -1,5 +1,5 @@
-﻿using LibraryAPI.Application.Dtos.Views.AuthorViews;
-using LibraryAPI.Domain.Entities.BookEntites;
+﻿using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Dtos.Views.AuthorViews;
 
 namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
 {

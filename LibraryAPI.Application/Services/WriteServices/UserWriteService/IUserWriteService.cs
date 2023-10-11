@@ -1,5 +1,5 @@
-﻿using LibraryAPI.Application.Dtos.Resources.UserResorces;
-using LibraryAPI.Domain.Entities.UserEntities;
+﻿using LibraryAPI.Domain.Entities.UserEntities;
+using LibraryAPI.Dtos.Resources.UserResorces;
 
 namespace LibraryAPI.Application.Services.WriteServices.UserWriteService
 {

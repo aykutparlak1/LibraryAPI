@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Application.Dtos.Views.BarrowedBookViews;
+﻿using LibraryAPI.Dtos.Views.BarrowedBookViews;
 
 namespace LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService
 {

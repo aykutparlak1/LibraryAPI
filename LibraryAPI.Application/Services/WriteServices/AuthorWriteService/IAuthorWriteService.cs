@@ -1,5 +1,5 @@
-﻿using LibraryAPI.Application.Dtos.Resources.AuthorResources;
-using LibraryAPI.Domain.Entities.BookEntites;
+﻿using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Dtos.Resources.AuthorResources;
 
 namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteService
 {

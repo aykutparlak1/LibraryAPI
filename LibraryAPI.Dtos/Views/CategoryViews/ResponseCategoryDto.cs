@@ -1,4 +1,4 @@
-﻿namespace LibraryAPI.Application.Dtos.Views.CategoryViews
+﻿namespace LibraryAPI.Dtos.Views.CategoryViews
 {
     public class ResponseCategoryDto
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Application.Dtos.Views.PublisherViews
+namespace LibraryAPI.Dtos.Views.PublisherViews
 {
     public class ResponsePublisherDto
     {

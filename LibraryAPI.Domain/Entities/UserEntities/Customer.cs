@@ -7,6 +7,6 @@
         public DateTime? SubStartDate { get; set; }
         public DateTime? SubEndDate { get; set; }
         public bool IsSub { get; set; }
-        public User? User { get; set; }
+        public User User { get; set; }
     }
 }

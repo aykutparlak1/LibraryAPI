@@ -1,12 +1,13 @@
-﻿using LibraryAPI.Application.Dtos.Views.PublisherViews;
+﻿using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Dtos.Views.PublisherViews;
 
 namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
 {
     public interface IPublisherReadService
     {
         Task<List<ResponsePublisherDto>> GetAllPublisher();
-        Task<ResponsePublisherDto> GetPublisherById(int id);
-        Task<ResponsePublisherDto> GetPublisherByName(string name);
+        Task<Publisher> GetPublisherById(int id);
+        Task<Publisher> GetPublisherByName(string name);
 
     }
 }

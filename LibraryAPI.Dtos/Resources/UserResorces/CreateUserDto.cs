@@ -1,4 +1,4 @@
-﻿namespace LibraryAPI.Application.Dtos.Resources.UserResorces
+﻿namespace LibraryAPI.Dtos.Resources.UserResorces
 {
     public class CreateUserDto
     {

@@ -1,4 +1,4 @@
-﻿namespace LibraryAPI.Application.Dtos.Views.AuthorViews
+﻿namespace LibraryAPI.Dtos.Views.AuthorViews
 {
     public class ResponseAuthorDto
     {

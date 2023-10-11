@@ -1,6 +1,6 @@
-﻿namespace LibraryAPI.Application.Dtos.Resources.UserResorces
+﻿namespace LibraryAPI.Dtos.Views.UserViews
 {
-    public class UpdateUserDto
+    public class ResponseUserWhereCustomerDto
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -10,5 +10,10 @@
         public string? PhotoPath { get; set; }
         public int? PhoneNumber { get; set; }
         public string Email { get; set; }
+        public bool? Status { get; set; }
+        public DateTime? SubStartDate { get; set; }
+        public DateTime? SubEndDate { get; set; }
+        public bool IsSub { get; set; }
+
     }
 }

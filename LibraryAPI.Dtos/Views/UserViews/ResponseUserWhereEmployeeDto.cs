@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAPI.Application.Dtos.Views.UserViews
+namespace LibraryAPI.Dtos.Views.UserViews
 {
-    public class ResponseAllUserWhereEmployeDto
+    public class ResponseUserWhereEmployeeDto
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -14,7 +14,6 @@ namespace LibraryAPI.Application.Dtos.Views.UserViews
         public long IdentityNumber { get; set; }
         public DateTime? BirthDate { get; set; }
         public string? PhotoPath { get; set; }
-        public int UserType { get; set; }
         public int? PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool? Status { get; set; }
@@ -22,7 +21,7 @@ namespace LibraryAPI.Application.Dtos.Views.UserViews
 
         public DateTime HireDate { get; set; }
 
-        public DateTime LeaveTime { get; set; }
+        public DateTime? LeaveDate { get; set; }
         public bool IsActive { get; set; }
 
     }

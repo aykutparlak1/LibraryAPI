@@ -15,12 +15,12 @@ namespace LibraryAPI.Core.Aspects.Autofac.Authorize
     {
 
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUserOperationClaimReadService _userOperationClaimReadService;
+        //private readonly IUserOperationClaimReadService _userOperationClaimReadService;
         private readonly string _role;
-        public SecuredOperation(string role, IHttpContextAccessor httpContextAccessor , IUserOperationClaimReadService userOperationClaimReadService)
+        public SecuredOperation(string role, IHttpContextAccessor httpContextAccessor )
         {
             _role = role;
-            _userOperationClaimReadService = userOperationClaimReadService;
+            //_userOperationClaimReadService = userOperationClaimReadService;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -32,7 +32,7 @@ namespace LibraryAPI.Core.Aspects.Autofac.Authorize
                 throw new AuthorizationException("Yetkiniz yok.");
             }
             int UId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.ClaimId());
-            var usroprclms = _userOperationClaimReadService;
+            //var usroprclms = _userOperationClaimReadService;
             //if (!usroprclms.Result)
             //{
             //    throw new AuthorizationException("Yetkiniz yok.");

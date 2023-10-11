@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LibraryAPI.Application.Dtos.Resources.UserResorces;
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
 using LibraryAPI.Application.Rules;
 using LibraryAPI.Core.Utilities.Security.Hashing;
 using LibraryAPI.Domain.Entities.UserEntities;
+using LibraryAPI.Dtos.Resources.UserResorces;
 
 namespace LibraryAPI.Application.Services.WriteServices.UserWriteService
 {

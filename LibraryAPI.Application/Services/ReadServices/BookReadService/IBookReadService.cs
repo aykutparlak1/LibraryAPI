@@ -1,13 +1,13 @@
-﻿using LibraryAPI.Application.Dtos.Views.BookViews;
+﻿using LibraryAPI.Dtos.Views.BookViews;
 
 namespace LibraryAPI.Application.Services.ReadServices.BookReadService
 {
     public interface IBookReadService
     {
-        Task<List<ResponseBook>> GetAll();
-        Task<ResponseBook> GetById(int id);
-        Task<ResponseBook> GetByBookName(string bookName);
-        Task<List<ResponseBook>> GetByAuthor(string authorName);
-        Task<List<ResponseBook>> GetByPublisher(string publisherName);
+        Task<List<ResponseBookDto>> GetAll();
+        Task<ResponseBookDto> GetById(int id);
+        Task<ResponseBookDto> GetByBookName(string bookName);
+        Task<List<ResponseBookDto>> GetByAuthor(string authorName);
+        Task<List<ResponseBookDto>> GetByPublisher(string publisherName);
     }
 }

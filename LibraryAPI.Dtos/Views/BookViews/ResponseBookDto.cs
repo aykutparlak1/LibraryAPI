@@ -1,9 +1,11 @@
-﻿namespace LibraryAPI.Application.Dtos.Views.BookViews
+﻿using LibraryAPI.Dtos.Views.AuthorViews;
+
+namespace LibraryAPI.Dtos.Views.BookViews
 {
-    public class ResponseBook
+    public class ResponseBookDto
     {
         public string BookName { get; set; }
-        public List<string> AuthorName { get; set; }
+        public List<ResponseAuthorDto> Authors { get; set; }
         public string CategoryName { get; set; }
         public string PublisherName { get; set; }
         public int NumberOfPages { get; set; }

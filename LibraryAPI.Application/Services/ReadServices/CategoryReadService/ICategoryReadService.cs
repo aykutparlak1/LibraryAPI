@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Application.Dtos.Views.CategoryViews;
+﻿using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Dtos.Views.CategoryViews;
 
 namespace LibraryAPI.Application.Services.ReadServices.CategoryReadService
 {
@@ -6,7 +7,7 @@ namespace LibraryAPI.Application.Services.ReadServices.CategoryReadService
     {
         Task<List<ResponseCategoryDto>> GetAllCategory();
 
-        Task<ResponseCategoryDto> GetCategoryById(int id);
-        Task<ResponseCategoryDto> GetCategoryByName(string name);
+        Task<Category> GetCategoryById(int id);
+        Task<Category> GetCategoryByName(string name);
     }
 }

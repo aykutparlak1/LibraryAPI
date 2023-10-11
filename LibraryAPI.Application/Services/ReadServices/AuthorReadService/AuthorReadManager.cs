@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using LibraryAPI.Application.Dtos.Views.AuthorViews;
-using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using LibraryAPI.Application.Rules;
+﻿using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Dtos.Views.AuthorViews;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
@@ -11,17 +9,25 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
     public class AuthorReadManager : IAuthorReadService
     {
         private readonly IAuthorReadRepository _authorReadRepository;
-        private readonly IMapper _mapper;
-        public AuthorReadManager(IAuthorReadRepository authorReadRepository , IMapper mapper)
+        public AuthorReadManager(IAuthorReadRepository authorReadRepository)
         {
-            _mapper=mapper;
+
             _authorReadRepository = authorReadRepository;
         }
+
+
+        private static ResponseAuthorDto MapToResponseAuthorDto(Author author)
+        {
+            return new ResponseAuthorDto
+            {
+                AuthorName=author.AuthorName
+            };
+        }
+
         public async Task<List<ResponseAuthorDto>> GetAll()
         {
-            var authors = await _authorReadRepository.GetQuery().ToListAsync();
-            List<ResponseAuthorDto> responseAuthorDto = _mapper.Map<List<ResponseAuthorDto>>(authors);
-            return responseAuthorDto;
+            var authors = await _authorReadRepository.GetQuery().Select(author=> MapToResponseAuthorDto(author)).ToListAsync();
+            return authors;
         }
 
         public async Task<Author> GetByIdAsync(int id)

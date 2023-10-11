@@ -1,6 +1,6 @@
-﻿using LibraryAPI.Domain.Entities.BookEntites;
+﻿using LibraryAPI.Dtos.Views.AuthorViews;
 
-namespace LibraryAPI.Application.Dtos.Views.BarrowedBookViews
+namespace LibraryAPI.Dtos.Views.BarrowedBookViews
 {
     public class ResponseAllBarrowedBooks
     {
@@ -10,7 +10,7 @@ namespace LibraryAPI.Application.Dtos.Views.BarrowedBookViews
         public long IdentityNumber { get; set; }
 
         public string BookName { get; set; }
-        public List<string> AuthorName { get; set; }
+        public List<ResponseAuthorDto> Authors { get; set; }
         public string CategoryName { get; set; }
 
         public string PublisherName { get; set; }
