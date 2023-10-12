@@ -9,8 +9,6 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
         Task<ResponseUserDto> GetUserByUserName(string userName);
         Task<ResponseUserDto> GetUserByEmail(string email);
         Task<ResponseUserDto> GetUserByIdentityNumber(long identityNumber);
-        Task<List<ResponseUserWhereEmployeeDto>> GetAllUserWhereEmployee();
-        Task<List<ResponseUserWhereCustomerDto>> GetAllUserWhereCustomer();
         
     }
 }

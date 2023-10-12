@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
-using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepositories;
+using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepository;
 using LibraryAPI.Application.Services.ReadServices.UserReadService;
-using LibraryAPI.Application.Services.WriteServices.UserWriteService;
+using LibraryAPI.Application.Services.WriteServices.UserWriteServices;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Utilities.Extensions;
 using LibraryAPI.Core.Utilities.Interceptors;

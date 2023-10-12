@@ -32,7 +32,7 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
 
         public async Task<Author> GetByIdAsync(int id)
         {
-            var author = await _authorReadRepository.GetAsync(x=>x.Id == id);
+            var author = await _authorReadRepository.GetQuery(x=>x.Id == id).SingleOrDefaultAsync();
             if (author == null) throw new BusinessException("Author not found.");
             return author;
         }

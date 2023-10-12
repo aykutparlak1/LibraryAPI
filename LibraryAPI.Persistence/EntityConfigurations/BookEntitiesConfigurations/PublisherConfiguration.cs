@@ -12,6 +12,9 @@ namespace LibraryAPI.Persistence.EntityConfigurations.BookEntitiesConfigurations
 
             builder.Property(p => p.PublisherName).IsRequired();
 
+
+
+
         }
     }
 }

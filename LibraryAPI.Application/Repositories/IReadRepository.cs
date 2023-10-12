@@ -8,7 +8,7 @@ namespace LibraryAPI.Application.Repositories
         IQueryable<T?> GetQuery(Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             params string[] includes);
-        Task<T?> GetAsync(Expression<Func<T, bool>>? filter);
+ 
         Task<bool> IsExist(Expression<Func<T, bool>> expression);
     }
 }

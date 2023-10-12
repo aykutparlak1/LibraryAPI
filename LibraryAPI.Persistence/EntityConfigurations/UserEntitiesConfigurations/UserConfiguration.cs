@@ -28,12 +28,8 @@ namespace LibraryAPI.Persistence.EntityConfigurations.UserEntitiesConfigurations
             builder.Property(p => p.Status).IsRequired().HasDefaultValue(true);
 
 
-            builder.HasOne(p => p.Customer)
-                .WithOne(p => p.User)
-                .HasForeignKey<Customer>(f => f.UserId);
-            builder.HasOne(p => p.Employee)
-                .WithOne(p => p.User)
-                .HasForeignKey<Employee>(f => f.UserId);
+
+
         }
     }
 }

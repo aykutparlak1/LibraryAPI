@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepositories;
+﻿using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Views.PublisherViews;

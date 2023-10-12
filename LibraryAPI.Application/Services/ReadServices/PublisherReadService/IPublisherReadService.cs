@@ -8,6 +8,5 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
         Task<List<ResponsePublisherDto>> GetAllPublisher();
         Task<Publisher> GetPublisherById(int id);
         Task<Publisher> GetPublisherByName(string name);
-
     }
 }

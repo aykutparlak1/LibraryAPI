@@ -1,4 +1,4 @@
-﻿using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepositories;
+﻿using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Views.CategoryViews;

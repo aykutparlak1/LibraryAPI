@@ -22,8 +22,6 @@ namespace LibraryAPI.Domain.Entities.UserEntities
         public byte[] PasswordSalt { get; set; }
         public int UserType { get; set; } // default olarak customer olarak kayıt olcak // false is customer
         public bool? Status { get; set; } // default 1
-        public Customer? Customer { get; set; }
-        public Employee? Employee { get; set; }
         public ICollection<BarrowedBook> BarrowedBooks { get; set; }
 
         public ICollection<UserOperationClaim> OperationClaims { get; set; }

@@ -1,25 +1,21 @@
-﻿using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepositories;
+﻿using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepository;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.BookRepositories;
-using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepositories;
-using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepositories;
-using LibraryAPI.Application.Repositories.UserRepositories.CustomerRepositories;
-using LibraryAPI.Application.Repositories.UserRepositories.EmployeeRepositories;
-using LibraryAPI.Application.Repositories.UserRepositories.UserRepositories;
-using LibraryAPI.Persistence.Repositories.BarrowRepositories;
-using LibraryAPI.Persistence.Repositories.BookRepositories.AuthorRepositories;
-using LibraryAPI.Persistence.Repositories.BookRepositories.BookRepositories;
-using LibraryAPI.Persistence.Repositories.BookRepositories.CategoryRepositories;
-using LibraryAPI.Persistence.Repositories.BookRepositories.PublisherRepositories;
-using LibraryAPI.Persistence.Repositories.UserRepositories.CustomerRepositories;
-using LibraryAPI.Persistence.Repositories.UserRepositories.EmployeeRepositories;
+using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
+using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
+using LibraryAPI.Persistence.Repositories.BookRepositories.BookRepository;
+using LibraryAPI.Persistence.Repositories.BookRepositories.CategoryRepository;
 using Microsoft.Extensions.DependencyInjection;
-using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepositories;
-using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRepositories;
-using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepositories;
-using LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRepositories;
-using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepositories;
+using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepository;
+using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepository;
 using LibraryAPI.Core.Utilities.IoC;
+using LibraryAPI.Persistence.Repositories.BarrowRepositories.BarrowedBookReadRepository;
+using LibraryAPI.Persistence.Repositories.BookRepositories.AuthorRepository;
+using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepository;
+using LibraryAPI.Persistence.Repositories.BookRepositories.PublisherRepository;
+using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRepository;
+using LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRepository;
 
 namespace LibraryAPI.Persistence.DependencyResolvers
 {
@@ -47,11 +43,6 @@ namespace LibraryAPI.Persistence.DependencyResolvers
             #endregion
 
             #region User
-            serviceCollection.AddScoped<ICustomerReadRepository,CustomerReadRepository>();
-            serviceCollection.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
-
-            serviceCollection.AddScoped<IEmployeeReadRepository, EmployeeReadRepository>();
-            serviceCollection.AddScoped<IEmployeeWriteRepository, EmployeeWriteRepository>();
 
             serviceCollection.AddScoped<IUserReadRepository, UserReadRepository>();
             serviceCollection.AddScoped<IUserWriteRepository, UserWriteRepository>();

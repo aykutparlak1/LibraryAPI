@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Application.Enums.NavigationEnums;
-using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepositories;
+using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities.BarrowEntites;
 using LibraryAPI.Dtos.Views.AuthorViews;
@@ -21,12 +21,12 @@ namespace LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService
             return new ResponseAllBarrowedBooks
             {
                  BookName=barrowedBook.Book.BookName,
-                 CategoryName=barrowedBook.Book.Category.CategoryName,
+                PublisherName = barrowedBook.Book.Publisher.PublisherName,
+                Authors = barrowedBook.Book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
+                CategoryName =barrowedBook.Book.Category.CategoryName,
                  FirstName=barrowedBook.User.FirstName,
                  LastName=barrowedBook.User.LastName,
                  UserName = barrowedBook.User.UserName,
-                 PublisherName= barrowedBook.Book.Publisher.PublisherName,
-                 Authors= barrowedBook.Book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
                  IdentityNumber= barrowedBook.User.IdentityNumber
             };
         }

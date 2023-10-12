@@ -43,11 +43,6 @@ namespace LibraryAPI.Persistence.Repositories
         {
             return await _table.AnyAsync(expression);
         }
-        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _context.Set<T>().FirstOrDefaultAsync(predicate);
-        }
-
 
     }
 }

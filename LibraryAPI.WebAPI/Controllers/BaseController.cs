@@ -1,7 +1,8 @@
-﻿using LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService;
+﻿using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
+using LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService;
 using LibraryAPI.Application.Services.ReadServices.BookReadService;
-using LibraryAPI.Application.Services.ReadServices.CustomerReadService;
-using LibraryAPI.Application.Services.ReadServices.EmployeeReadService;
+using LibraryAPI.Application.Services.WriteServices.BookWriteServices;
+using LibraryAPI.Dtos.Resources.BookResources;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.WebAPI.Controllers;
@@ -12,13 +13,12 @@ public class BaseController : ControllerBase
 {
     private readonly IBookReadService _bookReadService;
     private readonly IBarrowedBookReadService _barrowedBookReadService;
-    private readonly ICustomerReadService _customerReadService;
-    private readonly IEmployeeReadService _employeeReadService;
+    private readonly IBookWriteService _bookWriteService;
 
-    public BaseController(IBookReadService bookReadService, IBarrowedBookReadService barrowedBookReadService, IEmployeeReadService employeeReadService, ICustomerReadService customerReadService)
+
+    public BaseController(IBookReadService bookReadService, IBarrowedBookReadService barrowedBookReadService, IBookWriteService bookWriteService)
     {
-      _employeeReadService = employeeReadService;
-        _customerReadService = customerReadService;
+        _bookWriteService = bookWriteService;   
         _barrowedBookReadService = barrowedBookReadService;
        _bookReadService = bookReadService;
     }
@@ -40,23 +40,11 @@ public class BaseController : ControllerBase
         var res = await _barrowedBookReadService.GetAllBarrowedBooks();
         return Ok(res);
     }
-    [HttpGet("getallcustomer")]
-    public async Task<IActionResult> GetAllCustomer()
+    [HttpPost("addBook")]
+    public async Task<IActionResult> AddBook(AddBookDto addBookDto)
     {
-        var res = await _customerReadService.GetAllCustomer();
+        var res = await _bookWriteService.AddBook(addBookDto);
         return Ok(res);
     }
-    [HttpGet("getcustomerbyidentitynumber")]
-    public async Task<IActionResult> GetCustomerByIdentityNumber(long identityNumber)
-    {
-        var res = await _customerReadService.GetCustomerByIdentityNumber(identityNumber);
-        return Ok(res);
 
-    }
-        [HttpGet("getallemployee")]
-        public async Task<IActionResult> GetAllEmployee()
-        {
-            var res = await _employeeReadService.GetAllEmployee();
-            return Ok(res);
-        }
-    }
+}

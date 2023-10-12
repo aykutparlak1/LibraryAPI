@@ -214,90 +214,6 @@ namespace LibraryAPI.Persistence.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsSub")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<DateTime?>("SubEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("SubStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("HireDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<DateTime?>("LeaveDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Employees");
-                });
-
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.OperationClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -426,13 +342,13 @@ namespace LibraryAPI.Persistence.Migrations
                     b.HasOne("LibraryAPI.Domain.Entities.BookEntites.Book", "Book")
                         .WithMany("BarrowedBooks")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LibraryAPI.Domain.Entities.UserEntities.User", "User")
                         .WithMany("BarrowedBooks")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -445,13 +361,13 @@ namespace LibraryAPI.Persistence.Migrations
                     b.HasOne("LibraryAPI.Domain.Entities.BookEntites.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LibraryAPI.Domain.Entities.BookEntites.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -476,28 +392,6 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.Customer", b =>
-                {
-                    b.HasOne("LibraryAPI.Domain.Entities.UserEntities.User", "User")
-                        .WithOne("Customer")
-                        .HasForeignKey("LibraryAPI.Domain.Entities.UserEntities.Customer", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.Employee", b =>
-                {
-                    b.HasOne("LibraryAPI.Domain.Entities.UserEntities.User", "User")
-                        .WithOne("Employee")
-                        .HasForeignKey("LibraryAPI.Domain.Entities.UserEntities.Employee", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.UserOperationClaim", b =>
@@ -549,10 +443,6 @@ namespace LibraryAPI.Persistence.Migrations
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.User", b =>
                 {
                     b.Navigation("BarrowedBooks");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Employee");
 
                     b.Navigation("OperationClaims");
                 });

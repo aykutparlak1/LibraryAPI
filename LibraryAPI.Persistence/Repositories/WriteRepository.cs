@@ -18,31 +18,21 @@ namespace LibraryAPI.Persistence.Repositories
         public async Task<T> AddAsync(T entity)
         {
             await _table.AddAsync(entity);
+            await SaveAsync();
             return entity;
         }
 
-        public void AddRangeAsync(List<T> entities)
-        {
-           _table.AddRangeAsync(entities);
-        }
-
-        public void Remove(T entity)
+        public async Task Remove(T entity)
         {
              _table.Remove(entity);
+             await SaveAsync();
         }
 
-
-        //public async Task Remove(int id)
-        //{
-        //    WE NEED ADD ID TO BASEENTİTY FOR EVERY ENTİTY
-        //    var res = _table.Where(c => c.Id == id);
-        //    await Remove(res)
-        //}
-
-
-        public  async Task Update(T entity)
+        public  async Task<T> Update(T entity)
         {
             _table.Update(entity);
+            await SaveAsync();
+            return entity;
         }
 
 
@@ -57,13 +47,13 @@ namespace LibraryAPI.Persistence.Repositories
             {
                 throw new InternalException("Data has been changed or deleted");
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
-                throw new InternalException("Data is being used");
+                throw new InternalException($"Data is being used. Massage:{ex.Message}");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new InternalException("Unexpected Error");
+                throw new InternalException($"Unexpected Error. Massage:{ex.Message}");
             }
 
         }

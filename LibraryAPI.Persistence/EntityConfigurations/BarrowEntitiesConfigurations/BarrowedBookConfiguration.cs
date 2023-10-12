@@ -17,11 +17,13 @@ namespace LibraryAPI.Persistence.EntityConfigurations.BarrowEntitiesConfiguratio
 
             builder.HasOne(p => p.User)
                 .WithMany(p => p.BarrowedBooks)
-                .HasForeignKey(p => p.UserId);
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(p => p.Book)
                 .WithMany(p => p.BarrowedBooks)
-                .HasForeignKey(p => p.BookId);
+                .HasForeignKey(p => p.BookId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

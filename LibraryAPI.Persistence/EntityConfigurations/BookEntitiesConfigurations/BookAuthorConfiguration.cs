@@ -10,8 +10,13 @@ namespace LibraryAPI.Persistence.EntityConfigurations.BookEntitiesConfigurations
         public void Configure(EntityTypeBuilder<BookAuthor> builder)
         {
             builder.HasKey(k => new { k.BookId, k.AuthorId });
-            builder.HasOne(p => p.Book).WithMany(p => p.Authors).HasForeignKey(p => p.BookId);
-            builder.HasOne(p => p.Author).WithMany(p => p.Books).HasForeignKey(p => p.AuthorId);
+            builder.HasOne(p => p.Book)
+                .WithMany(p => p.Authors)
+                .HasForeignKey(p => p.BookId);
+            builder.HasOne(p => p.Author)
+                .WithMany(p => p.Books)
+                .HasForeignKey(p => p.AuthorId);
+
         }
     }
 }

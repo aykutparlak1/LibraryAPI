@@ -1,5 +1,5 @@
 ﻿using LibraryAPI.Application.Enums.NavigationEnums;
-using LibraryAPI.Application.Repositories.BookRepositories.BookRepositories;
+using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Views.AuthorViews;
