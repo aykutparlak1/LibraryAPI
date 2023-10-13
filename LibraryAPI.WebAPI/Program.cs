@@ -10,7 +10,6 @@ using LibraryAPI.Persistence.Context;
 using LibraryAPI.Persistence.DependencyResolvers;
 using LibraryAPI.Persistence.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 

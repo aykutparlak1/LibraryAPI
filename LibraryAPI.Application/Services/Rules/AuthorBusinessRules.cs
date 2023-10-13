@@ -23,9 +23,8 @@ namespace LibraryAPI.Application.Services.Rules
 
         public async Task AuthorAlreadyExits(string authorName)
         {
-            StringHelper.ToLowerAndRemoveSpaces(authorName);
-            bool isExists = await _authorReadRepository.IsExist(x => x.AuthorName.ToLower().Replace(" ", "") == authorName);
-            if (!isExists) throw new BusinessException($"{authorName}: Already Exists");
+            bool isExists = await _authorReadRepository.IsExist(x => x.AuthorName== authorName);
+            if (isExists) throw new BusinessException($"{authorName}: Already Exists");
 
         }
     }

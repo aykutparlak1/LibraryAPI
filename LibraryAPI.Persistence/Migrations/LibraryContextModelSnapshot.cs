@@ -65,7 +65,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BarrowedBooks");
+                    b.ToTable("BarrowedBooks", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BookEntites.Author", b =>
@@ -91,7 +91,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BookEntites.Book", b =>
@@ -135,7 +135,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BookEntites.BookAuthor", b =>
@@ -159,7 +159,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("BookAuthors");
+                    b.ToTable("BookAuthors", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BookEntites.Category", b =>
@@ -185,7 +185,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BookEntites.Publisher", b =>
@@ -211,7 +211,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.OperationClaim", b =>
@@ -237,7 +237,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OperationClaims");
+                    b.ToTable("OperationClaims", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.User", b =>
@@ -310,7 +310,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.UserEntities.UserOperationClaim", b =>
@@ -334,7 +334,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasIndex("OperationClaimId");
 
-                    b.ToTable("UserOperationClaims");
+                    b.ToTable("UserOperationClaims", (string)null);
                 });
 
             modelBuilder.Entity("LibraryAPI.Domain.Entities.BarrowEntites.BarrowedBook", b =>

@@ -19,7 +19,6 @@ namespace LibraryAPI.Persistence.EntityConfigurations.UserEntitiesConfigurations
             builder.Property(p => p.IdentityNumber)
                 .IsRequired().HasMaxLength(11).IsFixedLength();
             builder.Property(p => p.BirthDate).IsRequired();
-            builder.Property(p => p.PhotoPath).IsRequired(false);
             builder.Property(p => p.PhoneNumber).IsRequired(false).HasMaxLength(12);
             builder.Property(p => p.Email).IsRequired();
             builder.Property(p => p.PasswordHash).IsRequired().HasColumnType("varbinary(500)");

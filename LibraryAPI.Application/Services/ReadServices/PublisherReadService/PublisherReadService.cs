@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Views.PublisherViews;
 using Microsoft.EntityFrameworkCore;
@@ -14,20 +15,12 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
             _publisherReadRepository = publisherReadRepository;
         }
 
-
-
-        private static ResponsePublisherDto MapToResponsePublisherDto(Publisher publisher)
-        {
-            return new ResponsePublisherDto
-            {
-               PublisherName=publisher.PublisherName
-            };
-        }
-
-
         public async Task<List<ResponsePublisherDto>> GetAllPublisher()
         {
-            var res = await _publisherReadRepository.GetQuery().Select(publisher=> MapToResponsePublisherDto(publisher)).ToListAsync();
+            var res = await _publisherReadRepository.GetQuery().Select(publisher=> new ResponsePublisherDto
+            {
+                PublisherName = publisher.PublisherName
+            }).ToListAsync();
             if (res == null) throw new BusinessException("Publisher not found");
             return res;
         }
@@ -35,14 +28,12 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
         public async Task<Publisher> GetPublisherById(int id)
         {
             var res = await _publisherReadRepository.GetQuery(x => x.Id == id).SingleOrDefaultAsync();
-            if (res == null) throw new BusinessException("Publisher not found");
             return res;
         }
 
         public async Task<Publisher> GetPublisherByName(string name)
         {
             var res = await _publisherReadRepository.GetQuery(x => x.PublisherName==name).SingleOrDefaultAsync();
-            if (res == null) throw new BusinessException("Publisher not found");
             return res;
         }
     }

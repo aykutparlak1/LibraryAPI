@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Views.AuthorViews;
 using Microsoft.EntityFrameworkCore;
@@ -16,24 +17,25 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
         }
 
 
-        private static ResponseAuthorDto MapToResponseAuthorDto(Author author)
-        {
-            return new ResponseAuthorDto
-            {
-                AuthorName=author.AuthorName
-            };
-        }
 
         public async Task<List<ResponseAuthorDto>> GetAll()
         {
-            var authors = await _authorReadRepository.GetQuery().Select(author=> MapToResponseAuthorDto(author)).ToListAsync();
+            var authors = await _authorReadRepository.GetQuery().Select(author=> new ResponseAuthorDto
+            {
+                AuthorName = author.AuthorName
+            }).ToListAsync();
             return authors;
         }
 
-        public async Task<Author> GetByIdAsync(int id)
+        public async Task<Author> GetAuthorByIdAsync(int id)
         {
             var author = await _authorReadRepository.GetQuery(x=>x.Id == id).SingleOrDefaultAsync();
-            if (author == null) throw new BusinessException("Author not found.");
+            return author;
+        }
+
+        public async Task<Author> GetAuthorByNameAsync(string name)
+        {
+            var author = await _authorReadRepository.GetQuery(x=>x.AuthorName==name).SingleOrDefaultAsync();
             return author;
         }
     }

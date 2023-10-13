@@ -14,14 +14,13 @@ namespace LibraryAPI.Application.Services.Rules
         }
         public async Task PublisherNameIsExists(string name)
         {
-            StringHelper.ToLowerAndRemoveSpaces(name);
-            bool isExists = await _publisherReadRepository.IsExist(x => x.PublisherName.ToLower().Replace(" ", "") == name);
-            if (!isExists) throw new BusinessException($"{name}: Already Exists");
+            bool isExists = await _publisherReadRepository.IsExist(x => x.PublisherName == name);
+            if (isExists) throw new BusinessException($"{name}: Already Exists");
         }
         public async Task PublisherIsNotExists(int id)
         {
             bool fromDb = await _publisherReadRepository.IsExist(x => x.Id == id);
-            if (!fromDb) throw new BusinessException("Publisher IsNot Exists");
+            if (fromDb) throw new BusinessException("Publisher IsNot Exists");
         }
     }
 }

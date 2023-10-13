@@ -11,5 +11,6 @@ namespace LibraryAPI.Application.Repositories
 {
     public interface IRepository<T> where T : class, IEntity , new()
     {
+        DbSet<T> Table { get; }
     }
 }

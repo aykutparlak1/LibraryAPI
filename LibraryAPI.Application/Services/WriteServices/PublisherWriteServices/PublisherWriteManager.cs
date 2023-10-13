@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.PublisherResources;
 
@@ -21,7 +22,7 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
         }
         public async Task<Publisher> AddPublisher(AddPublisherDto addPublisherDto)
         {
-            //addPublisherDto.PublisherName= StringHelper.UppercaseFirstLetterOfEachWordAndOtherLower(addPublisherDto.PublisherName);
+            addPublisherDto.PublisherName=addPublisherDto.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _publisherBusinessRules.PublisherNameIsExists(addPublisherDto.PublisherName);
             Publisher mappedPublisher = _mapper.Map<Publisher>(addPublisherDto);
             var addedPublisher = await _publisherWriteRepository.AddAsync(mappedPublisher);
@@ -36,6 +37,7 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
 
         public async Task<Publisher> UpdatePublisher(Publisher publisher)
         {
+            publisher.PublisherName = publisher.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _publisherBusinessRules.PublisherIsNotExists(publisher.Id);
             await _publisherBusinessRules.PublisherNameIsExists(publisher.PublisherName);
             await _publisherWriteRepository.Update(publisher);

@@ -15,6 +15,9 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
+
+        public DbSet<T> Table => _context.Set<T>();
+
         public async Task<T> AddAsync(T entity)
         {
             await _table.AddAsync(entity);
@@ -26,6 +29,13 @@ namespace LibraryAPI.Persistence.Repositories
         {
              _table.Remove(entity);
              await SaveAsync();
+        }
+
+        public async Task<List<T>> AddRange(List<T> entity)
+        {
+            await _table.AddRangeAsync(entity);
+            await SaveAsync();
+            return entity;
         }
 
         public  async Task<T> Update(T entity)

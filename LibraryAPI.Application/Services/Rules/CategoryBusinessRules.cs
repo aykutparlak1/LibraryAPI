@@ -15,15 +15,14 @@ namespace LibraryAPI.Application.Services.Rules
         
         public async Task IfCategoryAlreadyExists(string categoryName)
         {
-            StringHelper.ToLowerAndRemoveSpaces(categoryName);
-            bool isExists= await _categoryReadRepository.IsExist(x=>x.CategoryName.ToLower().Replace(" ","")==categoryName);
-            if (!isExists) throw new BusinessException($"{categoryName}: Already Exists");
+            bool isExists= await _categoryReadRepository.IsExist(x=>x.CategoryName==categoryName);
+            if (isExists) throw new BusinessException($"{categoryName}: Already Exists");
         }
         
         public async Task IsCategoryExist(Category category)
         {
             bool isExists = await _categoryReadRepository.IsExist(x => x.Id==category.Id);
-            if (!isExists) throw new BusinessException($"{category} \n Category Already Exists");
+            if (isExists) throw new BusinessException($"{category} \n Category Already Exists");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace LibraryAPI.Dtos.Views.UserViews
         public string LastName { get; set; }
         public long IdentityNumber { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string? PhotoPath { get; set; }
+
         public int? PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool? Status { get; set; }

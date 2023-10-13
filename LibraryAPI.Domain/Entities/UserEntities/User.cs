@@ -15,7 +15,6 @@ namespace LibraryAPI.Domain.Entities.UserEntities
         public string LastName { get; set; }
         public long IdentityNumber { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string? PhotoPath { get; set; }
         public int? PhoneNumber { get; set; }
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }

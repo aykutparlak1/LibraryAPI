@@ -24,7 +24,7 @@ namespace LibraryAPI.Application.Services.Rules
         public async Task UserShouldExist(int userId)
         {
             var result = await _userReadRepository.IsExist(x => x.Id == userId);
-            if (!result) throw new BusinessException("User not found.");
+            if (result) throw new BusinessException("User not found.");
         }
     }
 }

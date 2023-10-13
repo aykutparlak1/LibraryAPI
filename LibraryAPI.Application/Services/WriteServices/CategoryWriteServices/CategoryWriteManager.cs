@@ -20,8 +20,8 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
         }
         public async Task<Category> AddCategory(AddCategoryDto addCategoryDto)
         {
+            addCategoryDto.CategoryName =addCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _categoryBusinnesRules.IfCategoryAlreadyExists(addCategoryDto.CategoryName);
-            addCategoryDto.CategoryName = StringHelper.UppercaseFirstLetterOfEachWordAndOtherLower(addCategoryDto.CategoryName);
             Category mappedCategory = _mapper.Map<Category>(addCategoryDto);
             await _categoryWriteRepository.AddAsync(mappedCategory);
             return mappedCategory;
@@ -35,6 +35,7 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
 
         public async Task<Category> UpdateCategory(Category category)
         {
+            category.CategoryName = category.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _categoryBusinnesRules.IsCategoryExist(category);
             await _categoryBusinnesRules.IfCategoryAlreadyExists(category.CategoryName);
             Category updatedCategory = await _categoryWriteRepository.Update(category);

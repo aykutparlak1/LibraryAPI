@@ -16,6 +16,8 @@ using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepository;
 using LibraryAPI.Persistence.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRepository;
 using LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.BookAuthorRepository;
+using LibraryAPI.Persistence.Repositories.BookRepositories.BookAuthorRepository;
 
 namespace LibraryAPI.Persistence.DependencyResolvers
 {
@@ -33,7 +35,9 @@ namespace LibraryAPI.Persistence.DependencyResolvers
             serviceCollection.AddScoped<IAuthorWriteRepository, AuthorWriteRepository>();
 
             serviceCollection.AddScoped<IBookReadRepository, BookReadRepository>();
+            serviceCollection.AddScoped<IBookAuthorReadRepository, BookAuthorReadRepository>();
             serviceCollection.AddScoped<IBookWriteRepository, BookWriteRepository>();
+            serviceCollection.AddScoped<IBookAuthorWriteRepository, BookAuthorWriteRepository>();
 
             serviceCollection.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
             serviceCollection.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
@@ -50,6 +54,7 @@ namespace LibraryAPI.Persistence.DependencyResolvers
             serviceCollection.AddScoped<IUserOperationClaimWriteRepository, UserOperationClaimWriteRepository>();
             serviceCollection.AddScoped<IOperationClaimReadRepository,  OperationClaimReadRepository>();
             serviceCollection.AddScoped<IOperationClaimWriteRepository, OperationClaimWriteRepository>();
+            
 
             #endregion
         }

@@ -14,18 +14,6 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         private readonly string[] relations = { BookNavigations.Authors, BookNavigations.Publisher, BookNavigations.Category };
 
 
-        private static ResponseBookDto MapToResponseBookDto(Book book)
-        {
-            return new ResponseBookDto
-            {
-                BookName = book.BookName,
-                Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
-                CategoryName = book.Category.CategoryName,
-                Location = book.Location,
-                NumberOfPages = book.NumberOfPages,
-                PublisherName = book.Publisher.PublisherName
-            };
-        }
 
 
         public BookReadManager(IBookReadRepository bookReadRepository)
@@ -35,8 +23,15 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         public async Task<List<ResponseBookDto>> GetAll()
         {
             var res = await _bookReadRepository.GetQuery(includes: relations)
-                .Select(book => MapToResponseBookDto(book))
-                .ToListAsync();
+                .Select(book => new ResponseBookDto
+            {
+                BookName = book.BookName,
+                Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
+                CategoryName = book.Category.CategoryName,
+                Location = book.Location,
+                NumberOfPages = book.NumberOfPages,
+                PublisherName = book.Publisher.PublisherName
+            }).ToListAsync();
             if (res == null || res.Count == 0) throw new BusinessException("Books Not Found.");
             return res;
         }
@@ -45,7 +40,15 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         {
             
             var res = await _bookReadRepository.GetQuery(filter: b => b.Authors.Any(a => a.Author.AuthorName == authorName), includes: relations)
-                .Select(book=> MapToResponseBookDto(book))
+                .Select(book=> new ResponseBookDto
+                {
+                    BookName = book.BookName,
+                    Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
+                    CategoryName = book.Category.CategoryName,
+                    Location = book.Location,
+                    NumberOfPages = book.NumberOfPages,
+                    PublisherName = book.Publisher.PublisherName
+                })
                 .ToListAsync();
             if (res==null) throw new BusinessException("Books Not Found.");
             return res;
@@ -55,7 +58,15 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         {
             
             var res = await _bookReadRepository.GetQuery(filter:x=>x.Id==id,includes: relations)
-                .Select(book => MapToResponseBookDto(book))
+                .Select(book => new ResponseBookDto
+                {
+                    BookName = book.BookName,
+                    Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
+                    CategoryName = book.Category.CategoryName,
+                    Location = book.Location,
+                    NumberOfPages = book.NumberOfPages,
+                    PublisherName = book.Publisher.PublisherName
+                })
                 .SingleOrDefaultAsync();
             if (res == null) throw new BusinessException("Book Not Found.");
             return res;
@@ -64,7 +75,15 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         public async Task<ResponseBookDto> GetByBookName(string bookName)
         {
             var res = await _bookReadRepository.GetQuery(filter: x => x.BookName==bookName, includes: relations)
-                .Select(book => MapToResponseBookDto(book))
+                .Select(book => new ResponseBookDto
+                {
+                    BookName = book.BookName,
+                    Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
+                    CategoryName = book.Category.CategoryName,
+                    Location = book.Location,
+                    NumberOfPages = book.NumberOfPages,
+                    PublisherName = book.Publisher.PublisherName
+                })
                 .SingleOrDefaultAsync();
             if (res == null) throw new BusinessException("Book Not Found.");
             return res;
@@ -73,7 +92,15 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         public async Task<List<ResponseBookDto>> GetByPublisher(string publisherName)
         {
             var res = await _bookReadRepository.GetQuery(filter:x=>x.Publisher.PublisherName==publisherName,includes: relations)
-                .Select(book => MapToResponseBookDto(book))
+                .Select(book => new ResponseBookDto
+                {
+                    BookName = book.BookName,
+                    Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
+                    CategoryName = book.Category.CategoryName,
+                    Location = book.Location,
+                    NumberOfPages = book.NumberOfPages,
+                    PublisherName = book.Publisher.PublisherName
+                })
                 .ToListAsync();
             if (res == null || res.Count == 0) throw new BusinessException("Book Not Found.");
             return res;

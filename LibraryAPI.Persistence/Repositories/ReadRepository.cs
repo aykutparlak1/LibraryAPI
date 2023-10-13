@@ -16,6 +16,9 @@ namespace LibraryAPI.Persistence.Repositories
             _context = context;
             _table = _context.Set<T>();
         }
+
+        public DbSet<T> Table => _context.Set<T>();
+
         //Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
         public IQueryable<T> GetQuery(Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,

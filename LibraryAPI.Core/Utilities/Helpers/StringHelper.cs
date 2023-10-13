@@ -17,7 +17,7 @@ namespace LibraryAPI.Core.Utilities.Helpers
             if (string.IsNullOrEmpty(variable)) return false;
             return Regex.IsMatch(variable,@"\d");
         }
-        public static string UppercaseFirstLetterOfEachWordAndOtherLower(string variable)
+        public static string UppercaseFirstLetterOfEachWordAndOtherLower(this string variable)
         {
             if (string.IsNullOrEmpty(variable))
                 return variable;
@@ -34,7 +34,7 @@ namespace LibraryAPI.Core.Utilities.Helpers
                 }
             }
 
-            return string.Join(" ", words);
+            return string.Join(" ", words).Trim();
         }
     }
 }
