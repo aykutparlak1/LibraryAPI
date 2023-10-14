@@ -1,7 +1,10 @@
 ﻿using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Utilities.Helpers;
+using LibraryAPI.Domain.Entities.BookEntites;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.Rules
 {
@@ -12,15 +15,22 @@ namespace LibraryAPI.Application.Services.Rules
         {
             _publisherReadRepository = publisherReadRepository;
         }
-        public async Task PublisherNameIsExists(string name)
+
+        public async Task IfPublisherNotExists(int id)
         {
-            bool isExists = await _publisherReadRepository.IsExist(x => x.PublisherName == name);
-            if (isExists) throw new BusinessException($"{name}: Already Exists");
+            bool isExists = await _publisherReadRepository.IsExist(x => x.Id == id);
+            if (!isExists) throw new BusinessException($"{id}: Not found.");
         }
-        public async Task PublisherIsNotExists(int id)
+
+        public async Task PublisheryAlreadyExits(string publisherName)
         {
-            bool fromDb = await _publisherReadRepository.IsExist(x => x.Id == id);
-            if (fromDb) throw new BusinessException("Publisher IsNot Exists");
+            bool isExists = await _publisherReadRepository.IsExist(x => x.PublisherName == publisherName);
+            if (isExists) throw new BusinessException($"{publisherName}: Already Exists");
+        }
+        public async Task<Publisher> PublisheryAlreadyExitsReturnPublisher(string publisherName)
+        {
+            Publisher isExists = await _publisherReadRepository.GetQuery(x => x.PublisherName == publisherName).SingleOrDefaultAsync();
+            return isExists;
         }
     }
 }

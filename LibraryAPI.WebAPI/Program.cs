@@ -25,7 +25,7 @@ namespace LibraryAPI.WebAPI
             // Configure connection string
             // AddDbContextPool baðlantý havuzu olustuuruyor her seferinde yeniden olusturmak yerine baglantý havuzundan hýzlý bir þekilde kullanýyor
             builder.Services.AddDbContext<LibraryContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString1"))
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString2"))
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 );
 

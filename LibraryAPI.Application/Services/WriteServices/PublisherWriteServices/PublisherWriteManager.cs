@@ -23,7 +23,8 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
         public async Task<Publisher> AddPublisher(AddPublisherDto addPublisherDto)
         {
             addPublisherDto.PublisherName=addPublisherDto.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            await _publisherBusinessRules.PublisherNameIsExists(addPublisherDto.PublisherName);
+            Publisher CheckedPublisher = await _publisherBusinessRules.PublisheryAlreadyExitsReturnPublisher(addPublisherDto.PublisherName);
+            if (CheckedPublisher != null) { return CheckedPublisher; }
             Publisher mappedPublisher = _mapper.Map<Publisher>(addPublisherDto);
             var addedPublisher = await _publisherWriteRepository.AddAsync(mappedPublisher);
             return addedPublisher;
@@ -31,15 +32,15 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
 
         public async Task DeletePublisher(Publisher publisher)
         {
-            await _publisherBusinessRules.PublisherIsNotExists(publisher.Id);
+            await _publisherBusinessRules.IfPublisherNotExists(publisher.Id);
             await _publisherWriteRepository.Remove(publisher);
         }
 
         public async Task<Publisher> UpdatePublisher(Publisher publisher)
         {
             publisher.PublisherName = publisher.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            await _publisherBusinessRules.PublisherIsNotExists(publisher.Id);
-            await _publisherBusinessRules.PublisherNameIsExists(publisher.PublisherName);
+            await _publisherBusinessRules.IfPublisherNotExists(publisher.Id);
+            await _publisherBusinessRules.PublisheryAlreadyExits(publisher.PublisherName);
             await _publisherWriteRepository.Update(publisher);
             return publisher;
         }

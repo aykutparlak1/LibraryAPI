@@ -21,7 +21,8 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
         public async Task<Author> AddAuthor(CreateAuthorDto model)
         {
            model.AuthorName= model.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            await _authorBusinessRules.AuthorAlreadyExits(model.AuthorName);
+            Author cheked = await _authorBusinessRules.AuthorAlreadyExitsReturnAuthor(model.AuthorName);
+            if (cheked != null) { return cheked; }
             Author addAuthor = _mapper.Map<Author>(model);
             Author addedAuthor = await _authorWriteRepository.AddAsync(addAuthor);
             return addedAuthor;

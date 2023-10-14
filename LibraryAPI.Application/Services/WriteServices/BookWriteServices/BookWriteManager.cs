@@ -46,28 +46,16 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
         public async Task AddBook(AddBookDto addBookDto)
         {
             Book book = new();
-           var category = await _categoryReadService.GetCategoryByName(addBookDto.CategoryName);
-            if (category == null)
-            {
-                AddCategoryDto addCategoryDto = new() { CategoryName=addBookDto.CategoryName};
-                var addedCategory = await _categoryWriteService.AddCategory(addCategoryDto);
-                book.CategoryId = addedCategory.Id;
-            }
-            else
-            {
-                book.CategoryId = category.Id;
-            }
-            var publisher = await _publisherReadService.GetPublisherByName(addBookDto.PublisherName);
-            if (publisher == null)
-            {
-                AddPublisherDto addPublisherDto = new() {PublisherName=addBookDto.PublisherName};
-                var addedPublisher = await _publisherWriteService.AddPublisher(addPublisherDto);
-                book.PublisherId = addedPublisher.Id;
-            }
-            else
-            {
-                book.PublisherId = publisher.Id;
-            }
+
+           AddCategoryDto addCategoryDto = new() { CategoryName=addBookDto.CategoryName};
+           var addedCategory = await _categoryWriteService.AddCategory(addCategoryDto);
+           book.CategoryId = addedCategory.Id;
+
+
+            AddPublisherDto addPublisherDto = new() {PublisherName=addBookDto.PublisherName};
+            var addedPublisher = await _publisherWriteService.AddPublisher(addPublisherDto);
+            book.PublisherId = addedPublisher.Id;
+
 
             book.NumberOfPages = addBookDto.NumberOfPages;
             book.Location= addBookDto.Location;
@@ -78,18 +66,9 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
             List<BookAuthor> bookAuthor=new List<BookAuthor>();
             foreach(var item in addBookDto.Authors)
             {
-                var author = await _authorReadService.GetAuthorByNameAsync(item.AuthorName);
-                if (author == null)
-                {
-
-                    CreateAuthorDto createAuthorDto = new() { AuthorName=item.AuthorName };
-                    var addedAuthor = await _authorWriteService.AddAuthor(createAuthorDto);
-                    bookAuthor.Add(new BookAuthor { BookId= addedBook.Id, AuthorId=addedAuthor.Id});
-                }
-                else
-                {
-                    bookAuthor.Add(new BookAuthor { BookId = addedBook.Id, AuthorId = author.Id });
-                }
+               CreateAuthorDto createAuthorDto = new() { AuthorName=item.AuthorName };
+               var addedAuthor = await _authorWriteService.AddAuthor(createAuthorDto);
+               bookAuthor.Add(new BookAuthor { BookId= addedBook.Id, AuthorId=addedAuthor.Id});
             }
             
             await _bookAuthorWriteRepository.Table.AddRangeAsync(bookAuthor);

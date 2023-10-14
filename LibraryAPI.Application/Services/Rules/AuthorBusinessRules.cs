@@ -3,6 +3,7 @@ using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.Rules
 {
@@ -25,7 +26,11 @@ namespace LibraryAPI.Application.Services.Rules
         {
             bool isExists = await _authorReadRepository.IsExist(x => x.AuthorName== authorName);
             if (isExists) throw new BusinessException($"{authorName}: Already Exists");
-
+        }
+        public async Task<Author> AuthorAlreadyExitsReturnAuthor(string authorName)
+        {
+            Author isExists = await _authorReadRepository.GetQuery(x => x.AuthorName == authorName).SingleOrDefaultAsync();
+            return isExists;
         }
     }
 }

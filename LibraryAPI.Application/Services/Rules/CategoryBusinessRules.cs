@@ -1,7 +1,7 @@
 ﻿using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.Rules
 {
@@ -13,16 +13,21 @@ namespace LibraryAPI.Application.Services.Rules
             _categoryReadRepository = categoryReadRepository;
         }
         
-        public async Task IfCategoryAlreadyExists(string categoryName)
+        public async Task IfCategoryNotExists(int id)
         {
-            bool isExists= await _categoryReadRepository.IsExist(x=>x.CategoryName==categoryName);
+            bool isExists= await _categoryReadRepository.IsExist(x=>x.Id==id);
+            if (!isExists) throw new BusinessException($"{id}: Not found.");
+        }
+
+        public async Task CategoryAlreadyExits(string categoryName)
+        {
+            bool isExists = await _categoryReadRepository.IsExist(x => x.CategoryName == categoryName);
             if (isExists) throw new BusinessException($"{categoryName}: Already Exists");
         }
-        
-        public async Task IsCategoryExist(Category category)
+        public async Task<Category> CategoryAlreadyExitsReturnCategory(string categoryName)
         {
-            bool isExists = await _categoryReadRepository.IsExist(x => x.Id==category.Id);
-            if (isExists) throw new BusinessException($"{category} \n Category Already Exists");
+            Category isExists = await _categoryReadRepository.GetQuery(x => x.CategoryName == categoryName).SingleOrDefaultAsync();
+            return isExists;
         }
     }
 }

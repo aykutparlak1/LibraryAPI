@@ -1,23 +1,23 @@
-﻿using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
-using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
-using LibraryAPI.Persistence.Repositories.BookRepositories.BookRepository;
+﻿using LibraryAPI.Persistence.Repositories.BookRepositories.BookRepository;
 using LibraryAPI.Persistence.Repositories.BookRepositories.CategoryRepository;
 using Microsoft.Extensions.DependencyInjection;
-using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepository;
-using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepository;
-using LibraryAPI.Core.Utilities.IoC;
 using LibraryAPI.Persistence.Repositories.BarrowRepositories.BarrowedBookReadRepository;
 using LibraryAPI.Persistence.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Persistence.Repositories.UserRepositories.UserRepository;
 using LibraryAPI.Persistence.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Persistence.Repositories.UserRepositories.UserOperationClaimRepository;
 using LibraryAPI.Persistence.Repositories.UserRepositories.OperationClaimRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.BookAuthorRepository;
 using LibraryAPI.Persistence.Repositories.BookRepositories.BookAuthorRepository;
+using LibraryAPI.Core.Utilities.IoC;
+using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.BookAuthorRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
+using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
+using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepository;
+using LibraryAPI.Application.Repositories.UserRepositories.OperationClaimRepository;
 
 namespace LibraryAPI.Persistence.DependencyResolvers
 {
