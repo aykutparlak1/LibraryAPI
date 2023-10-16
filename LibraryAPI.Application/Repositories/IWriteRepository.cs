@@ -7,9 +7,10 @@ namespace LibraryAPI.Application.Repositories
     {
 
         Task<T> AddAsync(T entity);
-        Task Remove(T entity);
+        T Remove(T entity);
         Task<List<T>> AddRange(List<T> entity);
-        Task<T> Update(T entity);
+        T Update(T entity);
+        List<T> UpdateRange(List<T> entity);
         Task<int> SaveAsync();
     }
 }

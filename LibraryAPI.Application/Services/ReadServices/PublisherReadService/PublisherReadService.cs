@@ -15,13 +15,20 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
             _publisherReadRepository = publisherReadRepository;
         }
 
-        public async Task<List<ResponsePublisherDto>> GetAllPublisher()
+        public async Task<List<Publisher>> GetAllPublisher()
+        {
+            var res = await _publisherReadRepository.GetQuery().ToListAsync();
+            if (res == null || res.Count == 0) throw new BusinessException("Publisher not found");
+            return res;
+        }
+
+        public async Task<List<ResponsePublisherDto>> GetAllPublisherView()
         {
             var res = await _publisherReadRepository.GetQuery().Select(publisher=> new ResponsePublisherDto
             {
                 PublisherName = publisher.PublisherName
             }).ToListAsync();
-            if (res == null) throw new BusinessException("Publisher not found");
+            if (res == null || res.Count == 0) throw new BusinessException("Publisher not found");
             return res;
         }
 
@@ -35,6 +42,11 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
         {
             var res = await _publisherReadRepository.GetQuery(x => x.PublisherName==name).SingleOrDefaultAsync();
             return res;
+        }
+
+        Task<ResponsePublisherDto> IPublisherReadService.GetAllPublisherView()
+        {
+            throw new NotImplementedException();
         }
     }
 }

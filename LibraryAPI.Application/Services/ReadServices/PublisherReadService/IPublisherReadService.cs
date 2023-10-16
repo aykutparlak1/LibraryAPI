@@ -5,8 +5,9 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
 {
     public interface IPublisherReadService
     {
-        Task<List<ResponsePublisherDto>> GetAllPublisher();
+        Task<List<Publisher>> GetAllPublisher();
         Task<Publisher> GetPublisherById(int id);
         Task<Publisher> GetPublisherByName(string name);
+        Task<ResponsePublisherDto> GetAllPublisherView();
     }
 }

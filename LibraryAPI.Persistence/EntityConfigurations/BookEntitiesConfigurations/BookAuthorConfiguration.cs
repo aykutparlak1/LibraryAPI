@@ -12,10 +12,12 @@ namespace LibraryAPI.Persistence.EntityConfigurations.BookEntitiesConfigurations
             builder.HasKey(k => new { k.BookId, k.AuthorId });
             builder.HasOne(p => p.Book)
                 .WithMany(p => p.Authors)
-                .HasForeignKey(p => p.BookId);
+                .HasForeignKey(p => p.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(p => p.Author)
                 .WithMany(p => p.Books)
-                .HasForeignKey(p => p.AuthorId);
+                .HasForeignKey(p => p.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

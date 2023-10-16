@@ -18,12 +18,19 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
 
 
 
-        public async Task<List<ResponseAuthorDto>> GetAll()
+        public async Task<List<ResponseAuthorDto>> GetAllView()
         {
             var authors = await _authorReadRepository.GetQuery().Select(author=> new ResponseAuthorDto
             {
                 AuthorName = author.AuthorName
             }).ToListAsync();
+            if (authors == null || authors.Count == 0) throw new BusinessException("Author not found.");
+            return authors;
+        }
+        public async Task<List<Author>> GetAll()
+        {
+            var authors = await _authorReadRepository.GetQuery().ToListAsync();
+            if (authors == null || authors.Count == 0) throw new BusinessException("Author not found.");
             return authors;
         }
 

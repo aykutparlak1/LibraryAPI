@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
@@ -21,23 +22,26 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
         public async Task<Author> AddAuthor(CreateAuthorDto model)
         {
            model.AuthorName= model.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            Author cheked = await _authorBusinessRules.AuthorAlreadyExitsReturnAuthor(model.AuthorName);
-            if (cheked != null) { return cheked; }
-            Author addAuthor = _mapper.Map<Author>(model);
-            Author addedAuthor = await _authorWriteRepository.AddAsync(addAuthor);
+           await _authorBusinessRules.AuthorAlreadyExits(model.AuthorName);
+ 
+            Author mappedAuthor = _mapper.Map<Author>(model);
+            Author addedAuthor = await _authorWriteRepository.AddAsync(mappedAuthor);
+            await _authorWriteRepository.SaveAsync();
             return addedAuthor;
         }
-        public async Task DeleteAuthor(Author author)
+        public async Task DeleteAuthor(int id)
         {
-            await _authorBusinessRules.AuthorShouldExists(author.Id);
-            await _authorWriteRepository.Remove(author);
+            await _authorBusinessRules.AuthorShouldExists(id);
+            _authorWriteRepository.Remove(author);
+            await _authorWriteRepository.SaveAsync();
         }
         public async Task<Author> UpdateAuthor(Author author)
         {
             author.AuthorName = author.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _authorBusinessRules.AuthorShouldExists(author.Id);
             await _authorBusinessRules.AuthorAlreadyExits(author.AuthorName);
-            await _authorWriteRepository.Update(author);
+            _authorWriteRepository.Update(author);
+            await _authorWriteRepository.SaveAsync();
             return author;
         }
     }

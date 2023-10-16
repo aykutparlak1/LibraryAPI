@@ -30,20 +30,23 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             await _userWriteRepository.AddAsync(user);
+            await _userWriteRepository.SaveAsync();
             return user;
         }
 
         public async Task<User> RemoveUser(User user)
         {
             await _userBusinessRules.UserShouldExist(user.Id);
-            await _userWriteRepository.Remove(user);
-            return user;
+            var res =_userWriteRepository.Remove(user);
+            await _userWriteRepository.SaveAsync();
+            return res;
         }
 
         public async Task<User> UpdateUser(User user)
         {
             await _userBusinessRules.UserShouldExist(user.Id);
-            await _userWriteRepository.Update(user);
+            var res = _userWriteRepository.Update(user);
+            await _userWriteRepository.SaveAsync();
             return user;
         }
     }

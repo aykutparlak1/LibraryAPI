@@ -7,7 +7,8 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
     {
         Task<Author> GetAuthorByIdAsync(int id);
         Task<Author> GetAuthorByNameAsync(string name);
-        Task<List<ResponseAuthorDto>> GetAll();
+        Task<List<ResponseAuthorDto>> GetAllView();
+        Task<List<Author>> GetAll();
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
@@ -21,17 +22,20 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
         public async Task<Category> AddCategory(AddCategoryDto addCategoryDto)
         {
             addCategoryDto.CategoryName =addCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            var checkedCategory = await _categoryBusinnesRules.CategoryAlreadyExitsReturnCategory(addCategoryDto.CategoryName);
-            if (checkedCategory != null) { return checkedCategory; }
+            await _categoryBusinnesRules.CategoryAlreadyExits(addCategoryDto.CategoryName);
+           
             Category mappedCategory = _mapper.Map<Category>(addCategoryDto);
             await _categoryWriteRepository.AddAsync(mappedCategory);
+            await _categoryWriteRepository.SaveAsync();
             return mappedCategory;
         }
 
-        public async Task DeleteCategory(Category category)
+        public async Task<Category> DeleteCategory(Category category)
         {
             await _categoryBusinnesRules.IfCategoryNotExists(category.Id);
-            await _categoryWriteRepository.Remove(category);
+            var result =_categoryWriteRepository.Remove(category);
+            await _categoryWriteRepository.SaveAsync();
+            return result;
         }
 
         public async Task<Category> UpdateCategory(Category category)
@@ -39,8 +43,9 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             category.CategoryName = category.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _categoryBusinnesRules.IfCategoryNotExists(category.Id);
             await _categoryBusinnesRules.CategoryAlreadyExits(category.CategoryName);
-            Category updatedCategory = await _categoryWriteRepository.Update(category);
-            return updatedCategory;
+            var result =_categoryWriteRepository.Update(category);
+            await _categoryWriteRepository.SaveAsync();
+            return result;
         }
     }
 }

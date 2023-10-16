@@ -7,6 +7,6 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
     {
         Task<Category> AddCategory(AddCategoryDto addCategoryDto);
         Task<Category> UpdateCategory(Category category);
-        Task DeleteCategory(Category category);
+        Task<Category> DeleteCategory(Category category);
     }
 }

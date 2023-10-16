@@ -2,6 +2,7 @@
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace LibraryAPI.Persistence.Repositories
 {
@@ -18,31 +19,37 @@ namespace LibraryAPI.Persistence.Repositories
 
         public DbSet<T> Table => _context.Set<T>();
 
-        public async Task<T> AddAsync(T entity)
+        public async Task<bool> AddAsync(T entity)
         {
-            await _table.AddAsync(entity);
-            await SaveAsync();
-            return entity;
+           EntityEntry<T> entityEntry = await _table.AddAsync(entity);
+            return entityEntry.State==EntityState.Added;
         }
 
-        public async Task Remove(T entity)
+        public bool Remove(T entity)
         {
-             _table.Remove(entity);
-             await SaveAsync();
+            EntityEntry<T> entityEntry = _table.Remove(entity);
+            return entityEntry.State == EntityState.Deleted;
         }
-
+        //public async Task<bool> RemoveAsync(string id)
+        //{
+        //    T model = await Table.FirstOrDefaultAsync(data => data== Guid.Parse(id));
+        //    return Remove(model);
+        //}
         public async Task<List<T>> AddRange(List<T> entity)
         {
             await _table.AddRangeAsync(entity);
-            await SaveAsync();
             return entity;
         }
 
-        public  async Task<T> Update(T entity)
+        public T Update(T entity)
         {
-            _table.Update(entity);
-            await SaveAsync();
+           _table.Update(entity);
             return entity;
+        }
+        public List<T> UpdateRange(List<T> entities)
+        {
+            _table.UpdateRange(entities);
+            return entities;
         }
 
 

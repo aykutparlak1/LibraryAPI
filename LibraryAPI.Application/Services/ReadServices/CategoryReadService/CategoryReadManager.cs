@@ -18,18 +18,20 @@ namespace LibraryAPI.Application.Services.ReadServices.CategoryReadService
             _categoryReadRepository = categoryReadRepository;
         }
 
+        public async Task<List<Category>> GetAllCategory()
+        {
+            var res = await _categoryReadRepository.GetQuery().ToListAsync();
+            if (res == null || res.Count == 0) throw new BusinessException("Category not found.");
+            return res;
+        }
 
-
-
-
-
-        public async Task<List<ResponseCategoryDto>> GetAllCategory()
+        public async Task<List<ResponseCategoryDto>> GetAllCategoryView()
         {
             var res = await _categoryReadRepository.GetQuery().Select(category=> new ResponseCategoryDto
             {
                 CategoryName = category.CategoryName
             }).ToListAsync();
-            if (res == null) throw new BusinessException("Category not found.");
+            if ( res == null || res.Count == 0) throw new BusinessException("Category not found.");
             return res;
         }
 

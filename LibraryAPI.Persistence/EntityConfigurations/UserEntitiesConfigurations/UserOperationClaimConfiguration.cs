@@ -9,9 +9,9 @@ namespace LibraryAPI.Persistence.EntityConfigurations.UserEntitiesConfigurations
         public void Configure(EntityTypeBuilder<UserOperationClaim> builder)
         {
             builder.HasKey(k => new { k.UserId, k.OperationClaimId });
-            builder.HasOne(p => p.User).WithMany(p => p.OperationClaims).HasForeignKey(p => p.UserId);
+            builder.HasOne(p => p.User).WithMany(p => p.OperationClaims).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(p => p.OperationClaim).WithMany(p => p.Users).HasForeignKey(p => p.OperationClaimId);
+            builder.HasOne(p => p.OperationClaim).WithMany(p => p.Users).HasForeignKey(p => p.OperationClaimId).OnDelete(DeleteBehavior.Restrict);
 
         }
     }

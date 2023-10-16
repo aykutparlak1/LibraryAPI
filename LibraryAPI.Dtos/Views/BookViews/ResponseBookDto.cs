@@ -4,6 +4,7 @@ namespace LibraryAPI.Dtos.Views.BookViews
 {
     public class ResponseBookDto
     {
+        public int Id { get; set; }
         public string BookName { get; set; }
         public List<ResponseAuthorDto> Authors { get; set; }
         public string CategoryName { get; set; }
