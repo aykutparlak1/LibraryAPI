@@ -27,17 +27,17 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
             await _publisherBusinessRules.PublisheryAlreadyExits(addPublisherDto.PublisherName);
             
             Publisher mappedPublisher = _mapper.Map<Publisher>(addPublisherDto);
-            var addedPublisher = await _publisherWriteRepository.AddAsync(mappedPublisher);
+            var AddedPublisher =  _publisherWriteRepository.Add(mappedPublisher);
             await _publisherWriteRepository.SaveAsync();
-            return addedPublisher;
+            return AddedPublisher;
         }
 
-        public async Task<Publisher> DeletePublisher(Publisher publisher)
+        public async Task<bool> DeletePublisher(Publisher publisher)
         {
             await _publisherBusinessRules.IfPublisherNotExists(publisher.Id);
-            var result =_publisherWriteRepository.Remove(publisher);
+            bool isRemoved =_publisherWriteRepository.Remove(publisher);
             await _publisherWriteRepository.SaveAsync();
-            return result;
+            return isRemoved;
         }
 
         public async Task<Publisher> UpdatePublisher(Publisher publisher)
@@ -45,9 +45,9 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
             publisher.PublisherName = publisher.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _publisherBusinessRules.IfPublisherNotExists(publisher.Id);
             await _publisherBusinessRules.PublisheryAlreadyExits(publisher.PublisherName);
-            var result = _publisherWriteRepository.Update(publisher);
+            var updatedPublisher = _publisherWriteRepository.Update(publisher);
             await _publisherWriteRepository.SaveAsync();
-            return result;
+            return updatedPublisher;
         }
     }
 }

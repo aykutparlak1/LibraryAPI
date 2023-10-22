@@ -8,6 +8,6 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
 
         Task<User> AddUser(CreateUserDto user);
         Task<User> UpdateUser(User user);
-        Task<User> RemoveUser(User user);
+        Task<bool> RemoveUser(User user);
     }
 }

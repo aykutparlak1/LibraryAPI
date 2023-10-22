@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
@@ -25,17 +24,17 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             await _categoryBusinnesRules.CategoryAlreadyExits(addCategoryDto.CategoryName);
            
             Category mappedCategory = _mapper.Map<Category>(addCategoryDto);
-            await _categoryWriteRepository.AddAsync(mappedCategory);
+            var addedCategory =  _categoryWriteRepository.Add(mappedCategory);
             await _categoryWriteRepository.SaveAsync();
-            return mappedCategory;
+            return addedCategory;
         }
 
-        public async Task<Category> DeleteCategory(Category category)
+        public async Task<bool> DeleteCategory(Category category)
         {
             await _categoryBusinnesRules.IfCategoryNotExists(category.Id);
-            var result =_categoryWriteRepository.Remove(category);
+            bool isRemoved =_categoryWriteRepository.Remove(category);
             await _categoryWriteRepository.SaveAsync();
-            return result;
+            return isRemoved;
         }
 
         public async Task<Category> UpdateCategory(Category category)
@@ -43,9 +42,9 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             category.CategoryName = category.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _categoryBusinnesRules.IfCategoryNotExists(category.Id);
             await _categoryBusinnesRules.CategoryAlreadyExits(category.CategoryName);
-            var result =_categoryWriteRepository.Update(category);
+            var updatedCategory =_categoryWriteRepository.Update(category);
             await _categoryWriteRepository.SaveAsync();
-            return result;
+            return updatedCategory;
         }
     }
 }

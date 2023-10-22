@@ -7,6 +7,6 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
     {
         Task<Book> AddBook(AddBookDto addBookDto);
         Task<Book> UpdateBook(UpdateBookDto updateBookDto);
-        Task<Book> DeleteBook(Book book);
+        Task<bool> DeleteBook(Book book);
     }
 }

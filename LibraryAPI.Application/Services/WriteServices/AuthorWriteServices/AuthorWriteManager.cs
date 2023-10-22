@@ -25,24 +25,25 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
            await _authorBusinessRules.AuthorAlreadyExits(model.AuthorName);
  
             Author mappedAuthor = _mapper.Map<Author>(model);
-            Author addedAuthor = await _authorWriteRepository.AddAsync(mappedAuthor);
+            Author addedAuthor = _authorWriteRepository.Add(mappedAuthor);
             await _authorWriteRepository.SaveAsync();
             return addedAuthor;
         }
-        public async Task DeleteAuthor(int id)
+        public async Task<bool> DeleteAuthor(Author author)
         {
-            await _authorBusinessRules.AuthorShouldExists(id);
-            _authorWriteRepository.Remove(author);
+            await _authorBusinessRules.AuthorShouldExists(author.Id);
+            bool isRemoved = _authorWriteRepository.Remove(author);
             await _authorWriteRepository.SaveAsync();
+            return isRemoved;
         }
         public async Task<Author> UpdateAuthor(Author author)
         {
             author.AuthorName = author.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _authorBusinessRules.AuthorShouldExists(author.Id);
             await _authorBusinessRules.AuthorAlreadyExits(author.AuthorName);
-            _authorWriteRepository.Update(author);
+            var updatedAuthor =  _authorWriteRepository.Update(author);
             await _authorWriteRepository.SaveAsync();
-            return author;
+            return updatedAuthor;
         }
     }
 }

@@ -5,8 +5,8 @@ namespace LibraryAPI.Application.Services.WriteServices.BarrowBookServices
 {
     public interface IBarrowBookService
     {
-        Task AddBarrowedBook(BarrowBookDto barrowBookDto);
-        Task UpdateABarrow(BarrowBookDto barrowedBook);
-        Task DeleteBarrowedBook(BarrowedBook barrowedBook);
+        Task<BarrowedBook> AddBarrowedBook(BarrowBookDto barrowBookDto);
+        Task<BarrowedBook> UpdateABarrow(BarrowBookDto barrowedBook);
+        Task<bool> DeleteBarrowedBook(BarrowedBook barrowedBook);
     }
 }

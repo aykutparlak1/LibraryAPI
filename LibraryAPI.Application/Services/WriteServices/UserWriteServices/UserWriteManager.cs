@@ -29,15 +29,15 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             User user = _mapper.Map<User>(model);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            await _userWriteRepository.AddAsync(user);
+            var addedUser = _userWriteRepository.Add(user);
             await _userWriteRepository.SaveAsync();
-            return user;
+            return addedUser;
         }
 
-        public async Task<User> RemoveUser(User user)
+        public async Task<bool> RemoveUser(User user)
         {
             await _userBusinessRules.UserShouldExist(user.Id);
-            var res =_userWriteRepository.Remove(user);
+            bool res =_userWriteRepository.Remove(user);
             await _userWriteRepository.SaveAsync();
             return res;
         }
@@ -45,9 +45,9 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
         public async Task<User> UpdateUser(User user)
         {
             await _userBusinessRules.UserShouldExist(user.Id);
-            var res = _userWriteRepository.Update(user);
+            var updatedUser = _userWriteRepository.Update(user);
             await _userWriteRepository.SaveAsync();
-            return user;
+            return updatedUser;
         }
     }
 }

@@ -7,6 +7,6 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
     {
         Task<Author> AddAuthor(CreateAuthorDto model);
         Task<Author> UpdateAuthor(Author author);
-        Task DeleteAuthor(Author author);
+        Task<bool> DeleteAuthor(Author author);
     }
 }

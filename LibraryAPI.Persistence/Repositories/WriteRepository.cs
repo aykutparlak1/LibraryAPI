@@ -3,6 +3,7 @@ using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.Generic;
 
 namespace LibraryAPI.Persistence.Repositories
 {
@@ -19,10 +20,10 @@ namespace LibraryAPI.Persistence.Repositories
 
         public DbSet<T> Table => _context.Set<T>();
 
-        public async Task<bool> AddAsync(T entity)
+        public  T Add(T entity)
         {
-           EntityEntry<T> entityEntry = await _table.AddAsync(entity);
-            return entityEntry.State==EntityState.Added;
+           EntityEntry<T> addedEntry = _table.Add(entity);
+            return addedEntry.Entity;
         }
 
         public bool Remove(T entity)
@@ -30,26 +31,28 @@ namespace LibraryAPI.Persistence.Repositories
             EntityEntry<T> entityEntry = _table.Remove(entity);
             return entityEntry.State == EntityState.Deleted;
         }
-        //public async Task<bool> RemoveAsync(string id)
-        //{
-        //    T model = await Table.FirstOrDefaultAsync(data => data== Guid.Parse(id));
-        //    return Remove(model);
-        //}
-        public async Task<List<T>> AddRange(List<T> entity)
+        public bool RemoveRange(List<T> entities)
         {
-            await _table.AddRangeAsync(entity);
-            return entity;
+            _table.RemoveRange(entities);
+            return true;
         }
+
+        public  bool AddRange(List<T> entities)
+        {
+            _table.AddRange(entities);
+            return true;
+        }
+
 
         public T Update(T entity)
         {
-           _table.Update(entity);
-            return entity;
+            EntityEntry<T> updatedEntiy =  _table.Update(entity);
+            return updatedEntiy.Entity;
         }
-        public List<T> UpdateRange(List<T> entities)
+        public bool UpdateRange(List<T> entities)
         {
             _table.UpdateRange(entities);
-            return entities;
+            return true;
         }
 
 

@@ -32,14 +32,14 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
         {
          
                 Book mappBook = _mapper.Map<Book>(addBookDto);
-                var addedBook = await _bookWriteRepository.AddAsync(mappBook);
+                var addedBook = _bookWriteRepository.Add(mappBook);
                 List<BookAuthor> bookAuthors = new();
                 foreach (var item in addBookDto.Authors)
                 {
                     bookAuthors.Add(new BookAuthor { BookId = addedBook.Id, AuthorId = item.AuthorId });
                 }
-                await _bookAuthorWriteRepository.AddRange(bookAuthors);
-                await _bookAuthorWriteRepository.SaveAsync();
+               _bookAuthorWriteRepository.AddRange(bookAuthors);
+               await _bookAuthorWriteRepository.SaveAsync();
             return addedBook;
         }
 
@@ -52,16 +52,16 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
             {
                 bookAuthors.Add(new BookAuthor { BookId = mappedBook.Id ,AuthorId=item.AuthorId   });
             }
-             _bookAuthorWriteRepository.UpdateRange(bookAuthors);
+            _bookAuthorWriteRepository.UpdateRange(bookAuthors);
             await _bookAuthorWriteRepository.SaveAsync();
             return result;
         }
-        public async Task<Book> DeleteBook(Book book)
+        public async Task<bool> DeleteBook(Book book)
         {
-            var getBook = _bookBusinessRules.IfBookAlreadyExistsReturnBookElseThrowException(book.Id);
-            var result = _bookWriteRepository.Remove(book);
+           await _bookBusinessRules.IfBookAlreadyExistsReturnBookElseThrowException(book.Id);
+            bool isRemoved = _bookWriteRepository.Remove(book);
             await _bookWriteRepository.SaveAsync();
-            return result;
+            return isRemoved;
         }
 
 

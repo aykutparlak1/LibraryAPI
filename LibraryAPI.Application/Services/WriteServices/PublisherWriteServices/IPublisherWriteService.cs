@@ -7,7 +7,7 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
     {
         Task<Publisher> AddPublisher(AddPublisherDto addPublisherDto);
         Task<Publisher> UpdatePublisher(Publisher publisher);
-        Task<Publisher> DeletePublisher(Publisher publisher);
+        Task<bool> DeletePublisher(Publisher publisher);
 
     }
 }
