@@ -20,17 +20,17 @@ namespace LibraryAPI.Application.Services.Rules
             var res = await _authorReadRepository.IsExist(x => x.Id == Id);
             if (!res) throw new BusinessException("Author not found.");
         }
-
+        public async Task<Author> IfAuthorExistReturnAuthor(int Id)
+        {
+            Author isExists = await _authorReadRepository.GetQuery(x => x.Id == Id).SingleOrDefaultAsync();
+            if (isExists == null) { throw new BusinessException("Author Not Found"); }
+            return isExists;
+        }
 
         public async Task AuthorAlreadyExits(string authorName)
         {
             bool isExists = await _authorReadRepository.IsExist(x => x.AuthorName== authorName);
             if (isExists) throw new BusinessException($"{authorName}: Already Exists");
-        }
-        public async Task<Author> AuthorAlreadyExitsReturnAuthor(string authorName)
-        {
-            Author isExists = await _authorReadRepository.GetQuery(x => x.AuthorName == authorName).SingleOrDefaultAsync();
-            return isExists;
         }
     }
 }

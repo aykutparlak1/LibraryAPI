@@ -1,7 +1,5 @@
 ﻿using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Core.Utilities.Helpers;
-using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Views.PublisherViews;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +13,13 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
             _publisherReadRepository = publisherReadRepository;
         }
 
-        public async Task<List<Publisher>> GetAllPublisher()
+        public async Task<List<ResponsePublisherIdAndNameDto>> GetAllPublisher()
         {
-            var res = await _publisherReadRepository.GetQuery().ToListAsync();
+            var res = await _publisherReadRepository.GetQuery().Select(p=> new ResponsePublisherIdAndNameDto
+            {
+                Id =p.Id,
+                PublisherName=p.PublisherName
+            }).ToListAsync();
             if (res == null || res.Count == 0) throw new BusinessException("Publisher not found");
             return res;
         }
@@ -32,21 +34,26 @@ namespace LibraryAPI.Application.Services.ReadServices.PublisherReadService
             return res;
         }
 
-        public async Task<Publisher> GetPublisherById(int id)
+        public async Task<ResponsePublisherIdAndNameDto> GetPublisherById(int id)
         {
-            var res = await _publisherReadRepository.GetQuery(x => x.Id == id).SingleOrDefaultAsync();
+            var res = await _publisherReadRepository.GetQuery(x => x.Id == id).Select(p => new ResponsePublisherIdAndNameDto
+            {
+                Id = p.Id,
+                PublisherName = p.PublisherName
+            }).SingleOrDefaultAsync();
+            if (res == null) throw new BusinessException("Publisher not found");
             return res;
         }
 
-        public async Task<Publisher> GetPublisherByName(string name)
+        public async Task<ResponsePublisherIdAndNameDto> GetPublisherByName(string name)
         {
-            var res = await _publisherReadRepository.GetQuery(x => x.PublisherName==name).SingleOrDefaultAsync();
+            var res = await _publisherReadRepository.GetQuery(x => x.PublisherName==name).Select(p => new ResponsePublisherIdAndNameDto
+            {
+                Id = p.Id,
+                PublisherName = p.PublisherName
+            }).SingleOrDefaultAsync();
+            if (res == null ) throw new BusinessException("Publisher not found");
             return res;
-        }
-
-        Task<ResponsePublisherDto> IPublisherReadService.GetAllPublisherView()
-        {
-            throw new NotImplementedException();
         }
     }
 }

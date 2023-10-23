@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.AuthorResources;
+using LibraryAPI.Dtos.Views.AuthorViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
 {
@@ -19,7 +19,7 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
             _authorWriteRepository = authorWriteRepository;
             _authorBusinessRules = authorBusinessRules;
         }
-        public async Task<Author> AddAuthor(CreateAuthorDto model)
+        public async Task<ResponseAuthorIdAndNameDto> AddAuthor(AddAuthorDto model)
         {
            model.AuthorName= model.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
            await _authorBusinessRules.AuthorAlreadyExits(model.AuthorName);
@@ -27,23 +27,28 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
             Author mappedAuthor = _mapper.Map<Author>(model);
             Author addedAuthor = _authorWriteRepository.Add(mappedAuthor);
             await _authorWriteRepository.SaveAsync();
-            return addedAuthor;
+            ResponseAuthorIdAndNameDto mappedAddedAuthor = _mapper.Map<ResponseAuthorIdAndNameDto>(addedAuthor);
+            return mappedAddedAuthor;
         }
-        public async Task<bool> DeleteAuthor(Author author)
+        public async Task<bool> DeleteAuthor(int id)
         {
-            await _authorBusinessRules.AuthorShouldExists(author.Id);
-            bool isRemoved = _authorWriteRepository.Remove(author);
+           var result =  await _authorBusinessRules.IfAuthorExistReturnAuthor(id);
+            bool isRemoved = _authorWriteRepository.Remove(result);
             await _authorWriteRepository.SaveAsync();
             return isRemoved;
         }
-        public async Task<Author> UpdateAuthor(Author author)
+        public async Task<ResponseAuthorIdAndNameDto> UpdateAuthor(UpdateAuthorDto updateAuthorDto)
         {
-            author.AuthorName = author.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            await _authorBusinessRules.AuthorShouldExists(author.Id);
-            await _authorBusinessRules.AuthorAlreadyExits(author.AuthorName);
-            var updatedAuthor =  _authorWriteRepository.Update(author);
+            updateAuthorDto.AuthorName = updateAuthorDto.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
+            await _authorBusinessRules.AuthorShouldExists(updateAuthorDto.Id);
+            await _authorBusinessRules.AuthorAlreadyExits(updateAuthorDto.AuthorName);
+            Author mappedAuthor = _mapper.Map<Author>(updateAuthorDto);
+            var updatedAuthor =  _authorWriteRepository.Update(mappedAuthor);
+            
             await _authorWriteRepository.SaveAsync();
-            return updatedAuthor;
+            
+            ResponseAuthorIdAndNameDto mappedUpdatedAuthor = _mapper.Map<ResponseAuthorIdAndNameDto>(updatedAuthor);
+            return mappedUpdatedAuthor;
         }
     }
 }

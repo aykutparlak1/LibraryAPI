@@ -89,13 +89,13 @@ namespace LibraryAPI.WebAPI
             
             
             var app = builder.Build();
-            
+            app.ConfigureCustomExceptionMiddleware();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                //app.ConfigureCustomExceptionMiddleware();
+                
             }
             app.UseHttpsRedirection();
             //app.UseCors();

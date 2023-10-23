@@ -24,9 +24,10 @@ namespace LibraryAPI.Application.Services.Rules
             bool isExists = await _categoryReadRepository.IsExist(x => x.CategoryName == categoryName);
             if (isExists) throw new BusinessException($"{categoryName}: Already Exists");
         }
-        public async Task<Category> CategoryAlreadyExitsReturnCategory(string categoryName)
+        public async Task<Category> IfCategoryExistReturnCategoryOrThrowException(int id)
         {
-            Category isExists = await _categoryReadRepository.GetQuery(x => x.CategoryName == categoryName).SingleOrDefaultAsync();
+            Category isExists = await _categoryReadRepository.GetQuery(x => x.Id == id).SingleOrDefaultAsync();
+            if (isExists == null) { throw new BusinessException("Category Not Found"); }
             return isExists;
         }
     }

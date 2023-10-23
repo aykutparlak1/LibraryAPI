@@ -18,9 +18,13 @@ namespace LibraryAPI.Application.Services.ReadServices.CategoryReadService
             _categoryReadRepository = categoryReadRepository;
         }
 
-        public async Task<List<Category>> GetAllCategory()
+        public async Task<List<ResponseCategoryIdAndNameDto>> GetAllCategory()
         {
-            var res = await _categoryReadRepository.GetQuery().ToListAsync();
+            var res = await _categoryReadRepository.GetQuery().Select(category => new ResponseCategoryIdAndNameDto
+            {
+                Id= category.Id,
+                CategoryName = category.CategoryName
+            }).ToListAsync();
             if (res == null || res.Count == 0) throw new BusinessException("Category not found.");
             return res;
         }
@@ -35,15 +39,25 @@ namespace LibraryAPI.Application.Services.ReadServices.CategoryReadService
             return res;
         }
 
-        public async Task<Category> GetCategoryById(int id)
+        public async Task<ResponseCategoryIdAndNameDto> GetCategoryById(int id)
         {
-            var res = await _categoryReadRepository.GetQuery(x=>x.Id==id).SingleOrDefaultAsync();
+            var res = await _categoryReadRepository.GetQuery(x=>x.Id==id).Select(category => new ResponseCategoryIdAndNameDto
+            {
+                Id = category.Id,
+                CategoryName = category.CategoryName
+            }).SingleOrDefaultAsync();
+            if (res == null ) throw new BusinessException("Category not found.");
             return res;
         }
 
-        public async Task<Category> GetCategoryByName(string name)
+        public async Task<ResponseCategoryIdAndNameDto> GetCategoryByName(string name)
         {
-            var res = await _categoryReadRepository.GetQuery(x => x.CategoryName == name).SingleOrDefaultAsync();
+            var res = await _categoryReadRepository.GetQuery(x => x.CategoryName == name).Select(category => new ResponseCategoryIdAndNameDto
+            {
+                Id = category.Id,
+                CategoryName = category.CategoryName
+            }).SingleOrDefaultAsync();
+            if (res == null) throw new BusinessException("Category not found.");
             return res;
         }
     }

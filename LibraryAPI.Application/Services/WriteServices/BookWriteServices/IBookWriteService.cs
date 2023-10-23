@@ -5,8 +5,8 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
 {
     public interface IBookWriteService
     {
-        Task<Book> AddBook(AddBookDto addBookDto);
-        Task<Book> UpdateBook(UpdateBookDto updateBookDto);
-        Task<bool> DeleteBook(Book book);
+        Task<AddBookDto> AddBook(AddBookDto addBookDto);
+        Task<UpdateBookDto> UpdateBook(UpdateBookDto updateBookDto);
+        Task<bool> DeleteBook(int id);
     }
 }

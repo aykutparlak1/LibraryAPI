@@ -2,7 +2,7 @@
 
 namespace LibraryAPI.Dtos.Views.BarrowedBookViews
 {
-    public class ResponseAllBarrowedBooks
+    public class ResponseAllBarrowedBooksDto
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }

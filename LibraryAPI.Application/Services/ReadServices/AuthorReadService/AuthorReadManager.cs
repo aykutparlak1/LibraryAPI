@@ -2,6 +2,7 @@
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Dtos.Resources.BookResources;
 using LibraryAPI.Dtos.Views.AuthorViews;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,22 +28,36 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
             if (authors == null || authors.Count == 0) throw new BusinessException("Author not found.");
             return authors;
         }
-        public async Task<List<Author>> GetAll()
+        public async Task<List<ResponseAuthorIdAndNameDto>> GetAll()
         {
-            var authors = await _authorReadRepository.GetQuery().ToListAsync();
+            var authors = await _authorReadRepository.GetQuery().Select(a => new ResponseAuthorIdAndNameDto
+            {
+                Id=a.Id,
+                AuthorName = a.AuthorName
+            }).ToListAsync();
             if (authors == null || authors.Count == 0) throw new BusinessException("Author not found.");
             return authors;
         }
 
-        public async Task<Author> GetAuthorByIdAsync(int id)
+        public async Task<ResponseAuthorIdAndNameDto> GetAuthorByIdAsync(int id)
         {
-            var author = await _authorReadRepository.GetQuery(x=>x.Id == id).SingleOrDefaultAsync();
+            var author = await _authorReadRepository.GetQuery(x=>x.Id == id).Select(a => new ResponseAuthorIdAndNameDto
+            {
+                Id = a.Id,
+                AuthorName = a.AuthorName
+            }).SingleOrDefaultAsync();
+            if (author == null ) throw new BusinessException("Author not found.");
             return author;
         }
 
-        public async Task<Author> GetAuthorByNameAsync(string name)
+        public async Task<ResponseAuthorIdAndNameDto> GetAuthorByNameAsync(string name)
         {
-            var author = await _authorReadRepository.GetQuery(x=>x.AuthorName==name).SingleOrDefaultAsync();
+            var author = await _authorReadRepository.GetQuery(x=>x.AuthorName==name).Select(a => new ResponseAuthorIdAndNameDto
+            {
+                Id = a.Id,
+                AuthorName = a.AuthorName
+            }).SingleOrDefaultAsync();
+            if (author == null) throw new BusinessException("Author not found.");
             return author;
         }
     }

@@ -6,7 +6,7 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
     public interface ICategoryWriteService
     {
         Task<Category> AddCategory(AddCategoryDto addCategoryDto);
-        Task<Category> UpdateCategory(Category category);
-        Task<bool> DeleteCategory(Category category);
+        Task<UpdateCategoryDto> UpdateCategory(UpdateCategoryDto updateCategoryDto);
+        Task<bool> DeleteCategory(int id);
     }
 }

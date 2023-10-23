@@ -19,7 +19,7 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
         {
             _bookReadRepository = bookReadRepository;
         }
-        public async Task<List<ResponseBookDto>> GetAll()
+        public async Task<List<ResponseBookDto>> GetAllBook()
         {
             var res = await _bookReadRepository.GetQuery(includes: relations)
                 .Select(book => new ResponseBookDto
@@ -36,10 +36,10 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
             return res;
         }
 
-        public async Task<List<ResponseBookDto>> GetByAuthor(string authorName)
+        public async Task<List<ResponseBookDto>> GetBooksByAuthorId(int authorId)
         {
 
-            var res = await _bookReadRepository.GetQuery(filter: b => b.Authors.Any(a => a.Author.AuthorName == authorName), includes: relations)
+            var res = await _bookReadRepository.GetQuery(filter: b => b.Authors.Any(a => a.Author.Id == authorId), includes: relations)
                 .Select(book => new ResponseBookDto
                 {
                     Id = book.Id,
@@ -55,7 +55,7 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
             return res;
         }
 
-        public async Task<ResponseBookDto> GetById(int id)
+        public async Task<ResponseBookDto> GetBookById(int id)
         {
             
             var res = await _bookReadRepository.GetQuery(filter:x=>x.Id==id,includes: relations)
@@ -74,27 +74,9 @@ namespace LibraryAPI.Application.Services.ReadServices.BookReadService
             return res;
         }
 
-        public async Task<ResponseBookDto> GetByBookName(string bookName)
+        public async Task<List<ResponseBookDto>> GetBooksByPublisherId(int publisherId)
         {
-            var res = await _bookReadRepository.GetQuery(filter: x => x.BookName==bookName, includes: relations)
-                .Select(book => new ResponseBookDto
-                {
-                    Id = book.Id,
-                    BookName = book.BookName,
-                    Authors = book.Authors.Select(author => new ResponseAuthorDto { AuthorName = author.Author.AuthorName }).ToList(),
-                    CategoryName = book.Category.CategoryName,
-                    Location = book.Location,
-                    NumberOfPages = book.NumberOfPages,
-                    PublisherName = book.Publisher.PublisherName
-                })
-                .SingleOrDefaultAsync();
-            if(res == null) throw new BusinessException("Book Not Found.");
-            return res;
-        }
-
-        public async Task<List<ResponseBookDto>> GetByPublisher(string publisherName)
-        {
-            var res = await _bookReadRepository.GetQuery(filter:x=>x.Publisher.PublisherName==publisherName,includes: relations)
+            var res = await _bookReadRepository.GetQuery(filter:x=>x.Publisher.Id== publisherId, includes: relations)
                 .Select(book => new ResponseBookDto
                 {
                     Id = book.Id,

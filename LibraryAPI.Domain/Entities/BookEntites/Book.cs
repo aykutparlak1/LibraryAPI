@@ -12,6 +12,8 @@ namespace LibraryAPI.Domain.Entities.BookEntites
         public Book()
         {
             Authors = new HashSet<BookAuthor>();
+            BarrowedBooks = new HashSet<BarrowedBook>();
+
         }
         public int Id { get; set; }
         public int CategoryId { get; set; }

@@ -7,9 +7,11 @@ using LibraryAPI.Application.Services.ReadServices.PublisherReadService;
 using LibraryAPI.Application.Services.ReadServices.UserReadService;
 using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Application.Services.WriteServices.AuthorWriteServices;
+using LibraryAPI.Application.Services.WriteServices.BarrowBookServices;
 using LibraryAPI.Application.Services.WriteServices.BookWriteServices;
 using LibraryAPI.Application.Services.WriteServices.CategoryWriteServices;
 using LibraryAPI.Application.Services.WriteServices.PublisherWriteServices;
+using LibraryAPI.Application.Services.WriteServices.UserWriteServices;
 using LibraryAPI.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -29,12 +31,15 @@ namespace LibraryAPI.Application.DependencyResolvers
             serviceCollection.AddScoped<UserBusinessRules>();
             serviceCollection.AddScoped<CategoryBusinessRules>();
             serviceCollection.AddScoped<PublisherBusinessRules>();
+            serviceCollection.AddScoped<BarrowBookBusinessRules>();
+            serviceCollection.AddScoped<BookBusinessRules>();
             
 
             serviceCollection.AddScoped<IUserReadService,UserReadManager>();
-            serviceCollection.AddScoped<IBookReadService,BookReadManager>();
+            serviceCollection.AddScoped<IUserWriteService,UserWriteManager>();
 
             serviceCollection.AddScoped<IBarrowedBookReadService,BarrowedBookReadManager>();
+            serviceCollection.AddScoped<IBarrowBookWriteService,BarrowBookWriteManager>();
 
             serviceCollection.AddScoped<ICategoryReadService,CategoryReadManager>();
             serviceCollection.AddScoped<ICategoryWriteService,CategoryWriteManager>();
@@ -47,6 +52,7 @@ namespace LibraryAPI.Application.DependencyResolvers
 
 
             serviceCollection.AddScoped<IBookWriteService, BookWriteManager>();
+            serviceCollection.AddScoped<IBookReadService, BookReadManager>();
             
         }
     }

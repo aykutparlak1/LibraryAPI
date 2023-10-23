@@ -1,8 +1,5 @@
-﻿using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
-using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
+﻿using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
-using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,9 +24,10 @@ namespace LibraryAPI.Application.Services.Rules
             bool isExists = await _publisherReadRepository.IsExist(x => x.PublisherName == publisherName);
             if (isExists) throw new BusinessException($"{publisherName}: Already Exists");
         }
-        public async Task<Publisher> PublisheryAlreadyExitsReturnPublisher(string publisherName)
+        public async Task<Publisher> IfPublisherExistsReturnPublisherOrThrowException(int id)
         {
-            Publisher isExists = await _publisherReadRepository.GetQuery(x => x.PublisherName == publisherName).SingleOrDefaultAsync();
+            Publisher isExists = await _publisherReadRepository.GetQuery(x => x.Id == id).SingleOrDefaultAsync();
+            if(isExists == null) { throw new BusinessException("Publisher Not Found"); }
             return isExists;
         }
     }

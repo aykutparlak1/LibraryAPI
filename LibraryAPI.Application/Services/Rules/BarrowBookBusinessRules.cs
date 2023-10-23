@@ -1,6 +1,9 @@
 ﻿using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepository;
+using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Domain.Entities.BarrowEntites;
+using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Domain.Entities.UserEntities;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,11 +45,19 @@ namespace LibraryAPI.Application.Services.Rules
             var res = await _barrowedBookReadRepository.GetQuery(x => x.BookId == bookId).LastOrDefaultAsync();
             if (!res.IsReturn) throw new BusinessException("Not allowed until book not return from barrow");
         }
-        public void BarrowEndTimeCantBeEqualsOrLessThanBarrowStartDate(DateTime barrowStartDate, DateTime barrowEndDate)
+        public async Task<BarrowedBook> IfBarrowedBookExistReturnAuthorOrThrowException(int Id)
         {
-            int value = DateTime.Compare(barrowStartDate, barrowEndDate);
-            if (value == 0) throw new BusinessException("End date cannot be Equals start date.");
-            if (value == 1) throw new BusinessException("Start date cannot be later than end date.");
+            BarrowedBook isExists = await _barrowedBookReadRepository.GetQuery(x => x.Id == Id).SingleOrDefaultAsync();
+            if (isExists == null) { throw new BusinessException("Barrowed Book Not Found"); }
+            return isExists;
         }
+
+        //Validation
+        //public void BarrowEndTimeCantBeEqualsOrLessThanBarrowStartDate(DateTime barrowStartDate, DateTime barrowEndDate)
+        //{
+        //    int value = DateTime.Compare(barrowStartDate, barrowEndDate);
+        //    if (value == 0) throw new BusinessException("End date cannot be Equals start date.");
+        //    if (value == 1) throw new BusinessException("Start date cannot be later than end date.");
+        //}
     }
 }

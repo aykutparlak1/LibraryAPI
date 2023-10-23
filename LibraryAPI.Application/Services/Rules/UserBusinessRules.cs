@@ -1,5 +1,9 @@
-﻿using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
+﻿using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
+using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
+using LibraryAPI.Domain.Entities.BookEntites;
+using LibraryAPI.Domain.Entities.UserEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.Rules
 {
@@ -25,6 +29,12 @@ namespace LibraryAPI.Application.Services.Rules
         {
             var result = await _userReadRepository.IsExist(x => x.Id == userId);
             if (result) throw new BusinessException("User not found.");
+        }
+        public async Task<User> IfUserExistsReturnPublisherOrThrowException(int id)
+        {
+            User isExists = await _userReadRepository.GetQuery(x => x.Id == id).SingleOrDefaultAsync();
+            if (isExists == null) { throw new BusinessException("User Not Found"); }
+            return isExists;
         }
     }
 }

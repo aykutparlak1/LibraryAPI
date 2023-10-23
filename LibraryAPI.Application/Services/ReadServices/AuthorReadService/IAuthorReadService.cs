@@ -5,10 +5,10 @@ namespace LibraryAPI.Application.Services.ReadServices.AuthorReadService
 {
     public interface IAuthorReadService
     {
-        Task<Author> GetAuthorByIdAsync(int id);
-        Task<Author> GetAuthorByNameAsync(string name);
+        Task<ResponseAuthorIdAndNameDto> GetAuthorByIdAsync(int id);
+        Task<ResponseAuthorIdAndNameDto> GetAuthorByNameAsync(string name);
         Task<List<ResponseAuthorDto>> GetAllView();
-        Task<List<Author>> GetAll();
+        Task<List<ResponseAuthorIdAndNameDto>> GetAll();
 
     }
 }

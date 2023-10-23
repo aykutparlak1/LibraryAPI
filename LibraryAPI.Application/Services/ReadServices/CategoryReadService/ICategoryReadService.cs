@@ -6,9 +6,9 @@ namespace LibraryAPI.Application.Services.ReadServices.CategoryReadService
     public interface ICategoryReadService
     {
         Task<List<ResponseCategoryDto>> GetAllCategoryView();
-        Task<List<Category>> GetAllCategory();
+        Task<List<ResponseCategoryIdAndNameDto>> GetAllCategory();
 
-        Task<Category> GetCategoryById(int id);
-        Task<Category> GetCategoryByName(string name);
+        Task<ResponseCategoryIdAndNameDto> GetCategoryById(int id);
+        Task<ResponseCategoryIdAndNameDto> GetCategoryByName(string name);
     }
 }

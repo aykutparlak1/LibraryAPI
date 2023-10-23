@@ -29,22 +29,24 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             return addedCategory;
         }
 
-        public async Task<bool> DeleteCategory(Category category)
+        public async Task<bool> DeleteCategory(int id)
         {
-            await _categoryBusinnesRules.IfCategoryNotExists(category.Id);
-            bool isRemoved =_categoryWriteRepository.Remove(category);
+            var result = await _categoryBusinnesRules.IfCategoryExistReturnCategoryOrThrowException(id);
+            bool isRemoved =_categoryWriteRepository.Remove(result);
             await _categoryWriteRepository.SaveAsync();
             return isRemoved;
         }
 
-        public async Task<Category> UpdateCategory(Category category)
+        public async Task<UpdateCategoryDto> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
-            category.CategoryName = category.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
-            await _categoryBusinnesRules.IfCategoryNotExists(category.Id);
-            await _categoryBusinnesRules.CategoryAlreadyExits(category.CategoryName);
-            var updatedCategory =_categoryWriteRepository.Update(category);
+            updateCategoryDto.CategoryName = updateCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
+            await _categoryBusinnesRules.IfCategoryNotExists(updateCategoryDto.Id);
+            await _categoryBusinnesRules.CategoryAlreadyExits(updateCategoryDto.CategoryName);
+            Category mappedCategory = _mapper.Map<Category>(updateCategoryDto);
+            var updatedCategory =_categoryWriteRepository.Update(mappedCategory);
             await _categoryWriteRepository.SaveAsync();
-            return updatedCategory;
+            UpdateCategoryDto mappedUpdatedCategory = _mapper.Map<UpdateCategoryDto>(updatedCategory);
+            return mappedUpdatedCategory;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace LibraryAPI.Dtos.Resources.AuthorResources
 {
-    public class CreateAuthorDto
+    public class AddAuthorDto
     {
         public string AuthorName { get; set; }
     }

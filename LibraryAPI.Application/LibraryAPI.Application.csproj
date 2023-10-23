@@ -28,8 +28,4 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\ReadServices\OperationClaimsReadService\" />
-  </ItemGroup>
-
 </Project>

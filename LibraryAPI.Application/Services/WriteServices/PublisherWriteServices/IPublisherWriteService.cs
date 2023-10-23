@@ -6,8 +6,8 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
     public interface IPublisherWriteService
     {
         Task<Publisher> AddPublisher(AddPublisherDto addPublisherDto);
-        Task<Publisher> UpdatePublisher(Publisher publisher);
-        Task<bool> DeletePublisher(Publisher publisher);
+        Task<UpdatePublisherDto> UpdatePublisher(UpdatePublisherDto updatePublisherDto);
+        Task<bool> DeletePublisher(int id);
 
     }
 }

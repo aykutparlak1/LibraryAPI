@@ -7,7 +7,7 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
     {
 
         Task<User> AddUser(CreateUserDto user);
-        Task<User> UpdateUser(User user);
-        Task<bool> RemoveUser(User user);
+        Task<UpdateUserDto> UpdateUser(UpdateUserDto updateUserDto);
+        Task<bool> DeleteUser(int id);
     }
 }

@@ -34,20 +34,23 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             return addedUser;
         }
 
-        public async Task<bool> RemoveUser(User user)
+        public async Task<bool> DeleteUser(int id)
         {
-            await _userBusinessRules.UserShouldExist(user.Id);
-            bool res =_userWriteRepository.Remove(user);
+           var result =  await _userBusinessRules.IfUserExistsReturnPublisherOrThrowException(id);
+            bool res =_userWriteRepository.Remove(result);
             await _userWriteRepository.SaveAsync();
             return res;
         }
 
-        public async Task<User> UpdateUser(User user)
+        public async Task<UpdateUserDto> UpdateUser(UpdateUserDto updateUserDto)
         {
-            await _userBusinessRules.UserShouldExist(user.Id);
-            var updatedUser = _userWriteRepository.Update(user);
+            await _userBusinessRules.UserShouldExist(updateUserDto.Id);
+            updateUserDto.Email = updateUserDto.Email.ToLower();
+            User mappedUser = _mapper.Map<User>(updateUserDto);
+            var updatedUser = _userWriteRepository.Update(mappedUser);
             await _userWriteRepository.SaveAsync();
-            return updatedUser;
+            UpdateUserDto mappedUpdatedUserDto = _mapper.Map<UpdateUserDto>(updatedUser);
+            return mappedUpdatedUserDto;
         }
     }
 }
