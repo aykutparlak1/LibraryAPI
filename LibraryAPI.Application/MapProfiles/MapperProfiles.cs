@@ -8,6 +8,10 @@ using LibraryAPI.Dtos.Resources.BookResources;
 using LibraryAPI.Dtos.Resources.CategoryResources;
 using LibraryAPI.Dtos.Resources.PublisherResources;
 using LibraryAPI.Dtos.Resources.UserResorces;
+using LibraryAPI.Dtos.Views.AuthorViews;
+using LibraryAPI.Dtos.Views.CategoryViews;
+using LibraryAPI.Dtos.Views.PublisherViews;
+using LibraryAPI.Dtos.Views.UserViews;
 
 namespace LibraryAPI.Application.MapProfiles
 {
@@ -33,6 +37,11 @@ namespace LibraryAPI.Application.MapProfiles
                 .ForMember(x=>x.Authors, opt=>opt.MapFrom(x=>x.Authors));
             CreateMap<Book,UpdateBookDto>().ReverseMap();
             CreateMap<BarrowedBook,BarrowBookDto>().ReverseMap();
+            CreateMap<Author, ResponseAuthorIdAndNameDto>().ReverseMap();
+            CreateMap<User, ResponseUserCommandDto>().ReverseMap();
+            CreateMap<Publisher, ResponsePublisherIdAndNameDto>().ReverseMap();
+            CreateMap<Category,ResponseCategoryIdAndNameDto> ().ReverseMap();
+
 
         }
     }

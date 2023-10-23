@@ -4,6 +4,7 @@ using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Utilities.Security.Hashing;
 using LibraryAPI.Domain.Entities.UserEntities;
 using LibraryAPI.Dtos.Resources.UserResorces;
+using LibraryAPI.Dtos.Views.UserViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
 {
@@ -21,7 +22,7 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
 
 
 
-        public async Task<User> AddUser(CreateUserDto model)
+        public async Task<ResponseUserCommandDto> AddUser(CreateUserDto model)
         {
             await _userBusinessRules.UserIdentityNumberAlreadyExist(model.IdentityNumber);
             await _userBusinessRules.UserEmailAlreadyExist(model.Email);
@@ -31,7 +32,8 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             user.PasswordSalt = passwordSalt;
             var addedUser = _userWriteRepository.Add(user);
             await _userWriteRepository.SaveAsync();
-            return addedUser;
+            ResponseUserCommandDto mappedAddedUserDto = _mapper.Map<ResponseUserCommandDto>(addedUser);
+            return mappedAddedUserDto;
         }
 
         public async Task<bool> DeleteUser(int id)
@@ -42,14 +44,14 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             return res;
         }
 
-        public async Task<UpdateUserDto> UpdateUser(UpdateUserDto updateUserDto)
+        public async Task<ResponseUserCommandDto> UpdateUser(UpdateUserDto updateUserDto)
         {
             await _userBusinessRules.UserShouldExist(updateUserDto.Id);
             updateUserDto.Email = updateUserDto.Email.ToLower();
             User mappedUser = _mapper.Map<User>(updateUserDto);
             var updatedUser = _userWriteRepository.Update(mappedUser);
             await _userWriteRepository.SaveAsync();
-            UpdateUserDto mappedUpdatedUserDto = _mapper.Map<UpdateUserDto>(updatedUser);
+            ResponseUserCommandDto mappedUpdatedUserDto = _mapper.Map<ResponseUserCommandDto>(updatedUser);
             return mappedUpdatedUserDto;
         }
     }

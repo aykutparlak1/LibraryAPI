@@ -36,8 +36,8 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
         {
             await _bookBusinessRules.AuthorPublisherCategoryShouldExists(addBookDto.Authors, addBookDto.CategoryId, addBookDto.PublisherId);
             Book mappBook = _mapper.Map<Book>(addBookDto);
-                var addedBook = _bookWriteRepository.Add(mappBook);
-                await _bookWriteRepository.SaveAsync();
+            var addedBook = _bookWriteRepository.Add(mappBook);
+            await _bookWriteRepository.SaveAsync();
             AddBookDto mappedAddedBookDto = _mapper.Map<AddBookDto>(addedBook);
             return mappedAddedBookDto;
         }

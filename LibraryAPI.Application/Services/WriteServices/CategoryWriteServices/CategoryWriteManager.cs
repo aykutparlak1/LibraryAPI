@@ -4,6 +4,7 @@ using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.CategoryResources;
+using LibraryAPI.Dtos.Views.CategoryViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
 {
@@ -18,7 +19,7 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             _categoryWriteRepository = categoryWriteRepository;
             _mapper = mapper;
         }
-        public async Task<Category> AddCategory(AddCategoryDto addCategoryDto)
+        public async Task<ResponseCategoryIdAndNameDto> AddCategory(AddCategoryDto addCategoryDto)
         {
             addCategoryDto.CategoryName =addCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _categoryBusinnesRules.CategoryAlreadyExits(addCategoryDto.CategoryName);
@@ -26,7 +27,8 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             Category mappedCategory = _mapper.Map<Category>(addCategoryDto);
             var addedCategory =  _categoryWriteRepository.Add(mappedCategory);
             await _categoryWriteRepository.SaveAsync();
-            return addedCategory;
+            ResponseCategoryIdAndNameDto mappAddedCategory = _mapper.Map<ResponseCategoryIdAndNameDto>(addedCategory);
+            return mappAddedCategory;
         }
 
         public async Task<bool> DeleteCategory(int id)
@@ -37,7 +39,7 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             return isRemoved;
         }
 
-        public async Task<UpdateCategoryDto> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        public async Task<ResponseCategoryIdAndNameDto> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             updateCategoryDto.CategoryName = updateCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
             await _categoryBusinnesRules.IfCategoryNotExists(updateCategoryDto.Id);
@@ -45,7 +47,7 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             Category mappedCategory = _mapper.Map<Category>(updateCategoryDto);
             var updatedCategory =_categoryWriteRepository.Update(mappedCategory);
             await _categoryWriteRepository.SaveAsync();
-            UpdateCategoryDto mappedUpdatedCategory = _mapper.Map<UpdateCategoryDto>(updatedCategory);
+            ResponseCategoryIdAndNameDto mappedUpdatedCategory = _mapper.Map<ResponseCategoryIdAndNameDto>(updatedCategory);
             return mappedUpdatedCategory;
         }
     }
