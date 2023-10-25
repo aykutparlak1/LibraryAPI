@@ -17,29 +17,11 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
         }
 
 
-
-        private static ResponseUserDto MapToResponseUserDto(User user)
-        {
-            return new ResponseUserDto
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                BirthDate = user.BirthDate,
-                Email = user.Email,
-                IdentityNumber = user.IdentityNumber,
-                PhoneNumber = user.PhoneNumber,
-                Status = user.Status,
-                UserName = user.UserName,
-                UserType = user.UserType,
-            };
-        }
-
-
-
         public async Task<List<ResponseUserDto>> GetAllUser()
         {
             var result = await _userReadRepository.GetQuery().Select(user=> new ResponseUserDto
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 BirthDate = user.BirthDate,
@@ -48,7 +30,6 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
                 PhoneNumber = user.PhoneNumber,
                 Status = user.Status,
                 UserName = user.UserName,
-                UserType = user.UserType,
             }).ToListAsync();
             if (result == null) throw new BusinessException("Users not found.");
             return result;
@@ -60,6 +41,7 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
             var result = await _userReadRepository.GetQuery(x => x.Email == email)
                 .Select(user => new ResponseUserDto
                 {
+                    Id=user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BirthDate = user.BirthDate,
@@ -68,7 +50,6 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
                     PhoneNumber = user.PhoneNumber,
                     Status = user.Status,
                     UserName = user.UserName,
-                    UserType = user.UserType,
                 })
                 .SingleOrDefaultAsync();
             if (result == null) throw new BusinessException($"User not found Email:{email}.");
@@ -80,6 +61,8 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
             var result = await _userReadRepository.GetQuery(x => x.Id == id)
                 .Select(user => new ResponseUserDto
                 {
+
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BirthDate = user.BirthDate,
@@ -88,7 +71,6 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
                     PhoneNumber = user.PhoneNumber,
                     Status = user.Status,
                     UserName = user.UserName,
-                    UserType = user.UserType,
                 })
                 .SingleOrDefaultAsync();
             if (result == null) throw new BusinessException($"User not found.UserId:{id}");
@@ -100,6 +82,8 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
             var result = await _userReadRepository.GetQuery(x => x.IdentityNumber == identityNumber)
                 .Select(user => new ResponseUserDto
                 {
+
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BirthDate = user.BirthDate,
@@ -108,7 +92,6 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
                     PhoneNumber = user.PhoneNumber,
                     Status = user.Status,
                     UserName = user.UserName,
-                    UserType = user.UserType,
                 }).SingleOrDefaultAsync();
             if (result == null) throw new BusinessException($"User not found. IdentityNumber:{identityNumber}");
             return result;
@@ -119,6 +102,8 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
             var result = await _userReadRepository.GetQuery(x => x.UserName == userName)
                 .Select(user => new ResponseUserDto
                 {
+                    
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BirthDate = user.BirthDate,
@@ -127,7 +112,6 @@ namespace LibraryAPI.Application.Services.ReadServices.UserReadService
                     PhoneNumber = user.PhoneNumber,
                     Status = user.Status,
                     UserName = user.UserName,
-                    UserType = user.UserType,
                 } ).SingleOrDefaultAsync();
             if (result == null) throw new BusinessException($"User not found. UserName:{userName}");
             return result;

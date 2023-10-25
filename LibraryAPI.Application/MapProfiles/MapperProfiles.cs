@@ -39,6 +39,7 @@ namespace LibraryAPI.Application.MapProfiles
             CreateMap<BarrowedBook,BarrowBookDto>().ReverseMap();
             CreateMap<Author, ResponseAuthorIdAndNameDto>().ReverseMap();
             CreateMap<User, ResponseUserCommandDto>().ReverseMap();
+            //CreateMap<User, UserClaimsDto>().ReverseMap();
             CreateMap<Publisher, ResponsePublisherIdAndNameDto>().ReverseMap();
             CreateMap<Category,ResponseCategoryIdAndNameDto> ().ReverseMap();
 

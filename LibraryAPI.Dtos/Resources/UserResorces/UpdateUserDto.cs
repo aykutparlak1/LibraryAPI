@@ -10,7 +10,6 @@
         public DateTime? BirthDate { get; set; }
         public int? PhoneNumber { get; set; }
         public string Email { get; set; }
-        public int UserType { get; set; } // default olarak customer olarak kayıt olcak // false is customer
         public bool? Status { get; set; }
     }
 }

@@ -6,8 +6,8 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
 {
     public interface IUserWriteService
     {
-
-        Task<ResponseUserCommandDto> AddUser(CreateUserDto user);
+        
+        Task<User> AddUser(CreateUserDto user);
         Task<ResponseUserCommandDto> UpdateUser(UpdateUserDto updateUserDto);
         Task<bool> DeleteUser(int id);
     }

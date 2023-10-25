@@ -15,6 +15,14 @@ namespace LibraryAPI.Persistence.EntityConfigurations.UserEntitiesConfigurations
         {
             builder.HasKey(x=>x.Id);
             builder.Property(x=>x.Name).IsRequired();
+
+
+            builder.HasData( 
+                new OperationClaim {Id = 1 , Name="Admin" },
+                new OperationClaim { Id = 2, Name = "Moderator" },
+                new OperationClaim { Id = 3, Name = "Member" }
+                );
+            
         }
     }
 }

@@ -22,18 +22,19 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
 
 
 
-        public async Task<ResponseUserCommandDto> AddUser(CreateUserDto model)
+        public async Task<User> AddUser(CreateUserDto model)
         {
             await _userBusinessRules.UserIdentityNumberAlreadyExist(model.IdentityNumber);
             await _userBusinessRules.UserEmailAlreadyExist(model.Email);
             HashingHelper.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            User user = _mapper.Map<User>(model);
+           User user = _mapper.Map<User>(model);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.Email = user.Email.ToLower();
+            user.UserName = user.IdentityNumber.ToString();
             var addedUser = _userWriteRepository.Add(user);
             await _userWriteRepository.SaveAsync();
-            ResponseUserCommandDto mappedAddedUserDto = _mapper.Map<ResponseUserCommandDto>(addedUser);
-            return mappedAddedUserDto;
+            return addedUser;
         }
 
         public async Task<bool> DeleteUser(int id)
@@ -48,7 +49,7 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
         {
             await _userBusinessRules.UserShouldExist(updateUserDto.Id);
             updateUserDto.Email = updateUserDto.Email.ToLower();
-            User mappedUser = _mapper.Map<User>(updateUserDto);
+           User mappedUser = _mapper.Map<User>(updateUserDto);
             var updatedUser = _userWriteRepository.Update(mappedUser);
             await _userWriteRepository.SaveAsync();
             ResponseUserCommandDto mappedUpdatedUserDto = _mapper.Map<ResponseUserCommandDto>(updatedUser);

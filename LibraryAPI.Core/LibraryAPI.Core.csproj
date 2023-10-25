@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LibraryAPI.Domain\LibraryAPI.Domain.csproj" />
+    <ProjectReference Include="..\LibraryAPI.Dtos\LibraryAPI.Dtos.csproj" />
   </ItemGroup>
 
   <ItemGroup>

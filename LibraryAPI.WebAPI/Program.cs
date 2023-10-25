@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using LibraryAPI.Application.DependencyResolvers;
+using LibraryAPI.Core.Aspects.WebApiFilters;
 using LibraryAPI.Core.Utilities.DependencyResolvers;
 using LibraryAPI.Core.Utilities.Extensions;
 using LibraryAPI.Core.Utilities.IoC;

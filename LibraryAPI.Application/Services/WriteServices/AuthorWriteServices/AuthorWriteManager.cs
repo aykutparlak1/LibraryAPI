@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Aspects.Autofac.Authorize;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.AuthorResources;
@@ -30,6 +31,7 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
             ResponseAuthorIdAndNameDto mappedAddedAuthor = _mapper.Map<ResponseAuthorIdAndNameDto>(addedAuthor);
             return mappedAddedAuthor;
         }
+        [SecuredOperation("Admin")]
         public async Task<bool> DeleteAuthor(int id)
         {
            var result =  await _authorBusinessRules.IfAuthorExistReturnAuthor(id);

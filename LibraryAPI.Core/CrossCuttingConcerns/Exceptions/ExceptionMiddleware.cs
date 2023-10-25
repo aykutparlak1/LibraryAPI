@@ -34,8 +34,23 @@ namespace LibraryAPI.Core.CrossCuttingConcerns.Exceptions
             if (exception.GetType() == typeof(ValidationException)) return CreateValidationException(context, exception);
             if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
             if (exception.GetType() == typeof(AuthorizationException)) return CreateAuthorizationException(context, exception);
+            if (exception.GetType() == typeof(AuthenticationException)) return CreateAuthenticationException(context, exception);
             if (exception.GetType() == typeof(InternalException)) return CreateInternalException(context, exception);
             return CreateInternalException(context, exception);     
+        }
+
+        private Task CreateAuthenticationException(HttpContext context, Exception exception)
+        {
+            context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
+
+            return context.Response.WriteAsync(new AuthenticationProblemDetails
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Type = "https://example.com/probs/AuthenticationException",
+                Title = "Authentication exception",
+                Detail = exception.Message,
+                Instance = ""
+            }.ToString());
         }
 
         private Task CreateAuthorizationException(HttpContext context, Exception exception)

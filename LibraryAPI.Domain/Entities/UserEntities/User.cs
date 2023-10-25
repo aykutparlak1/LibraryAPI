@@ -19,7 +19,6 @@ namespace LibraryAPI.Domain.Entities.UserEntities
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public int UserType { get; set; } // default olarak customer olarak kayıt olcak // false is customer
         public bool? Status { get; set; } // default 1
         public ICollection<BarrowedBook> BarrowedBooks { get; set; }
 

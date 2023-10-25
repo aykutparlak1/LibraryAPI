@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LibraryAPI.Application.Services.AuthService;
 using LibraryAPI.Application.Services.ReadServices.AuthorReadService;
 using LibraryAPI.Application.Services.ReadServices.BarrowedBookReadService;
 using LibraryAPI.Application.Services.ReadServices.BookReadService;
@@ -53,6 +54,9 @@ namespace LibraryAPI.Application.DependencyResolvers
 
             serviceCollection.AddScoped<IBookWriteService, BookWriteManager>();
             serviceCollection.AddScoped<IBookReadService, BookReadManager>();
+
+
+            serviceCollection.AddScoped<IAuthService, AuthManager>();
             
         }
     }

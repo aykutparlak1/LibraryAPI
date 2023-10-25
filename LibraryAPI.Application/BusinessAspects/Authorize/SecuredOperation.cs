@@ -1,13 +1,13 @@
 ﻿using Castle.DynamicProxy;
 using LibraryAPI.Application.Repositories.UserRepositories.UserOperationClaimRepository;
-using LibraryAPI.Application.Services.ReadServices.UserReadService;
-using LibraryAPI.Application.Services.WriteServices.UserWriteServices;
 using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Utilities.Extensions;
 using LibraryAPI.Core.Utilities.Interceptors;
-using LibraryAPI.Domain.Entities.UserEntities;
+using LibraryAPI.Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LibraryAPI.Core.Aspects.Autofac.Authorize
 {
@@ -15,28 +15,30 @@ namespace LibraryAPI.Core.Aspects.Autofac.Authorize
     {
 
         private readonly IHttpContextAccessor _httpContextAccessor;
-        //private readonly IUserOperationClaimReadService _userOperationClaimReadService;
-        private readonly string _role;
-        public SecuredOperation(string role, IHttpContextAccessor httpContextAccessor )
+        private readonly IUserOperationClaimReadRepository _userOperationClaimReadRepository;
+        private readonly string[] _roles;
+        public SecuredOperation(string roles)
         {
-            _role = role;
-            //_userOperationClaimReadService = userOperationClaimReadService;
-            _httpContextAccessor = httpContextAccessor;
+            _roles=roles.Split(",");
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+            _userOperationClaimReadRepository = ServiceTool.ServiceProvider.GetService<IUserOperationClaimReadRepository>();
         }
 
 
         protected override void OnBefore(IInvocation invocation)
         {
-            if (_httpContextAccessor.HttpContext.User==null)
-            {
-                throw new AuthorizationException("Yetkiniz yok.");
-            }
             int UId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.ClaimId());
-            //var usroprclms = _userOperationClaimReadService;
-            //if (!usroprclms.Result)
-            //{
-            //    throw new AuthorizationException("Yetkiniz yok.");
-            //}
+            if (UId!=0)
+            {
+                foreach (var item in _roles)
+                {
+                    if( _userOperationClaimReadRepository.GetQuery(x => x.UserId == UId).Any(x => x.OperationClaim.Name == item))
+                    {
+                        return;
+                    }
+                }
+            }
+            throw new AuthorizationException("Yetkiniz yok");
         }
     }
 }
