@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Aspects.Autofac.ValidationAspects;
 using LibraryAPI.Core.Utilities.Security.Hashing;
 using LibraryAPI.Domain.Entities.UserEntities;
 using LibraryAPI.Dtos.Resources.UserResorces;
+using LibraryAPI.Dtos.Resources.Validations.UserValidations;
 using LibraryAPI.Dtos.Views.UserViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
@@ -20,8 +22,7 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             _userBusinessRules = userBusinessRules;
         }
 
-
-
+        [ValidationAspect(typeof(CreateUserValidation))]
         public async Task<User> AddUser(CreateUserDto model)
         {
             await _userBusinessRules.UserIdentityNumberAlreadyExist(model.IdentityNumber);
@@ -45,6 +46,7 @@ namespace LibraryAPI.Application.Services.WriteServices.UserWriteServices
             return res;
         }
 
+        [ValidationAspect(typeof(UpdateUserValidation))]
         public async Task<ResponseUserCommandDto> UpdateUser(UpdateUserDto updateUserDto)
         {
             await _userBusinessRules.UserShouldExist(updateUserDto.Id);

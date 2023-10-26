@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BarrowRepositories.BarrowedBookRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Aspects.Autofac.ValidationAspects;
 using LibraryAPI.Domain.Entities.BarrowEntites;
 using LibraryAPI.Dtos.Resources.BarrowBookResources;
+using LibraryAPI.Dtos.Resources.Validations.AuthorValidations;
+using LibraryAPI.Dtos.Resources.Validations.BarrowBookValidations;
 
 namespace LibraryAPI.Application.Services.WriteServices.BarrowBookServices
 {
@@ -20,12 +23,13 @@ namespace LibraryAPI.Application.Services.WriteServices.BarrowBookServices
             _mapper = mapper;
         }
 
-
+        [ValidationAspect(typeof(BarrowBookValidation))]
         public async Task<BarrowBookDto> AddBarrowedBook(BarrowBookDto barrowBookDto)
         {
             await _barrowBookBusinessRules.BookIsExists(barrowBookDto.BookId);
             await _barrowBookBusinessRules.UserIsExists(barrowBookDto.UserId);
             await _barrowBookBusinessRules.BookAlreadyBarrowed(barrowBookDto.Id);
+            _barrowBookBusinessRules.BarrowEndTimeCantBeEqualsOrLessThanBarrowStartDate(barrowBookDto.BarrowStartDate,barrowBookDto.BarrowEndDate);
             BarrowedBook mappedBarrowBook = _mapper.Map<BarrowedBook>(barrowBookDto);
             var addedBb=_barrowedBookWriteRepository.Add(mappedBarrowBook);
             await _barrowedBookWriteRepository.SaveAsync();
@@ -42,7 +46,7 @@ namespace LibraryAPI.Application.Services.WriteServices.BarrowBookServices
             await _barrowedBookWriteRepository.SaveAsync();
             return isRemoved;
         }
-
+        [ValidationAspect(typeof(BarrowBookValidation))]
         public async Task<BarrowBookDto> UpdateABarrow(BarrowBookDto barrowedBook)
         { 
             await _barrowBookBusinessRules.BarrowIsExists(barrowedBook.Id);

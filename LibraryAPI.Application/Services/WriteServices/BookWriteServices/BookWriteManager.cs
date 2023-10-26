@@ -3,8 +3,11 @@ using LibraryAPI.Application.Enums.NavigationEnums;
 using LibraryAPI.Application.Repositories.BookRepositories.BookAuthorRepository;
 using LibraryAPI.Application.Repositories.BookRepositories.BookRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Aspects.Autofac.ValidationAspects;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.BookResources;
+using LibraryAPI.Dtos.Resources.Validations.BarrowBookValidations;
+using LibraryAPI.Dtos.Resources.Validations.BookValidations;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
@@ -31,7 +34,7 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
             _bookAuthorReadRepository = bookAuthorReadRepository;
             
         }
-        //[TransactionScopeAspect]
+        [ValidationAspect(typeof(AddBookValidation))]
         public async Task<AddBookDto> AddBook(AddBookDto addBookDto)
         {
             await _bookBusinessRules.AuthorPublisherCategoryShouldExists(addBookDto.Authors, addBookDto.CategoryId, addBookDto.PublisherId);
@@ -41,7 +44,7 @@ namespace LibraryAPI.Application.Services.WriteServices.BookWriteServices
             AddBookDto mappedAddedBookDto = _mapper.Map<AddBookDto>(addedBook);
             return mappedAddedBookDto;
         }
-
+        [ValidationAspect(typeof(UpdateBookValidation))]
         public async Task<UpdateBookDto> UpdateBook(UpdateBookDto updateBookDto)
         {
 

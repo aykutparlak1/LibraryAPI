@@ -2,9 +2,12 @@
 using LibraryAPI.Application.Repositories.BookRepositories.PublisherRepository;
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Aspects.Autofac.ValidationAspects;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.PublisherResources;
+using LibraryAPI.Dtos.Resources.Validations.BarrowBookValidations;
+using LibraryAPI.Dtos.Resources.Validations.PublisherValidations;
 using LibraryAPI.Dtos.Views.PublisherViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
@@ -22,6 +25,7 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
             _publisherBusinessRules = publisherBusinessRules;
             _mapper = mapper;
         }
+        [ValidationAspect(typeof(AddPublisherValidation))]
         public async Task<ResponsePublisherIdAndNameDto> AddPublisher(AddPublisherDto addPublisherDto)
         {
             addPublisherDto.PublisherName=addPublisherDto.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();
@@ -41,7 +45,7 @@ namespace LibraryAPI.Application.Services.WriteServices.PublisherWriteServices
             await _publisherWriteRepository.SaveAsync();
             return isRemoved;
         }
-
+        [ValidationAspect(typeof(UpdatePublisherValidation))]
         public async Task<ResponsePublisherIdAndNameDto> UpdatePublisher(UpdatePublisherDto updatePublisherDto)
         {
             updatePublisherDto.PublisherName = updatePublisherDto.PublisherName.UppercaseFirstLetterOfEachWordAndOtherLower();

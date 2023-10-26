@@ -2,6 +2,7 @@
 using LibraryAPI.Application.Repositories.UserRepositories.UserRepository;
 using LibraryAPI.Application.Services.WriteServices.UserWriteServices;
 using LibraryAPI.Core.Aspects.Autofac.Transaction;
+using LibraryAPI.Core.CrossCuttingConcerns.Exceptions;
 using LibraryAPI.Core.Utilities.Security.Hashing;
 using LibraryAPI.Core.Utilities.Security.JWT;
 using LibraryAPI.Dtos.Resources.UserResorces;
@@ -39,7 +40,7 @@ namespace LibraryAPI.Application.Services.AuthService
             AccessToken accessToken = _tokenHelper.CreateToken(user);
             return accessToken;
         }
-        [TransactionAspect]
+        [TransactionScopeAspect]
         public async Task<AccessToken> Register(CreateUserDto createUserDto)
         {
             var createUser = await _userWriteService.AddUser(createUserDto);

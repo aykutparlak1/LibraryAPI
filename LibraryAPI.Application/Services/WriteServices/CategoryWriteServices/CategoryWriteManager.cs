@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Repositories.BookRepositories.CategoryRepository;
 using LibraryAPI.Application.Services.Rules;
+using LibraryAPI.Core.Aspects.Autofac.ValidationAspects;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.CategoryResources;
+using LibraryAPI.Dtos.Resources.Validations.BarrowBookValidations;
+using LibraryAPI.Dtos.Resources.Validations.CategoryValidations;
 using LibraryAPI.Dtos.Views.CategoryViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
@@ -19,6 +22,8 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             _categoryWriteRepository = categoryWriteRepository;
             _mapper = mapper;
         }
+
+        [ValidationAspect(typeof(AddCategoryValidation))]
         public async Task<ResponseCategoryIdAndNameDto> AddCategory(AddCategoryDto addCategoryDto)
         {
             addCategoryDto.CategoryName =addCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();
@@ -38,7 +43,7 @@ namespace LibraryAPI.Application.Services.WriteServices.CategoryWriteServices
             await _categoryWriteRepository.SaveAsync();
             return isRemoved;
         }
-
+        [ValidationAspect(typeof(UpdateCategoryValidation))]
         public async Task<ResponseCategoryIdAndNameDto> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             updateCategoryDto.CategoryName = updateCategoryDto.CategoryName.UppercaseFirstLetterOfEachWordAndOtherLower();

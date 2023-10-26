@@ -2,9 +2,11 @@
 using LibraryAPI.Application.Repositories.BookRepositories.AuthorRepository;
 using LibraryAPI.Application.Services.Rules;
 using LibraryAPI.Core.Aspects.Autofac.Authorize;
+using LibraryAPI.Core.Aspects.Autofac.ValidationAspects;
 using LibraryAPI.Core.Utilities.Helpers;
 using LibraryAPI.Domain.Entities.BookEntites;
 using LibraryAPI.Dtos.Resources.AuthorResources;
+using LibraryAPI.Dtos.Resources.Validations.AuthorValidations;
 using LibraryAPI.Dtos.Views.AuthorViews;
 
 namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
@@ -20,6 +22,7 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
             _authorWriteRepository = authorWriteRepository;
             _authorBusinessRules = authorBusinessRules;
         }
+        [ValidationAspect(typeof(AddAuthorValidation))]
         public async Task<ResponseAuthorIdAndNameDto> AddAuthor(AddAuthorDto model)
         {
            model.AuthorName= model.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();
@@ -39,6 +42,7 @@ namespace LibraryAPI.Application.Services.WriteServices.AuthorWriteServices
             await _authorWriteRepository.SaveAsync();
             return isRemoved;
         }
+        [ValidationAspect(typeof(UpdateAuthorValidation))]
         public async Task<ResponseAuthorIdAndNameDto> UpdateAuthor(UpdateAuthorDto updateAuthorDto)
         {
             updateAuthorDto.AuthorName = updateAuthorDto.AuthorName.UppercaseFirstLetterOfEachWordAndOtherLower();

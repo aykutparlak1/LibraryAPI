@@ -5,9 +5,7 @@ using LibraryAPI.Core.Utilities.Extensions;
 using LibraryAPI.Core.Utilities.Interceptors;
 using LibraryAPI.Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace LibraryAPI.Core.Aspects.Autofac.Authorize
 {

@@ -52,12 +52,12 @@ namespace LibraryAPI.Application.Services.Rules
             return isExists;
         }
 
-        //Validation
-        //public void BarrowEndTimeCantBeEqualsOrLessThanBarrowStartDate(DateTime barrowStartDate, DateTime barrowEndDate)
-        //{
-        //    int value = DateTime.Compare(barrowStartDate, barrowEndDate);
-        //    if (value == 0) throw new BusinessException("End date cannot be Equals start date.");
-        //    if (value == 1) throw new BusinessException("Start date cannot be later than end date.");
-        //}
+
+        public void BarrowEndTimeCantBeEqualsOrLessThanBarrowStartDate(DateTime barrowStartDate, DateTime barrowEndDate)
+        {
+            int value = DateTime.Compare(barrowStartDate, barrowEndDate);
+            if (value == 0) throw new BusinessException("End date cannot be Equals start date.");
+            if (value == 1) throw new BusinessException("Start date cannot be later than end date.");
+        }
     }
 }

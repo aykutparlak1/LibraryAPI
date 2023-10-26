@@ -25,7 +25,6 @@ namespace LibraryAPI.Application.DependencyResolvers
         {
             var asm = Assembly.GetExecutingAssembly();
             serviceCollection.AddAutoMapper(asm);
-            serviceCollection.AddValidatorsFromAssembly(asm);
 
             
             serviceCollection.AddScoped<AuthorBusinessRules>();
